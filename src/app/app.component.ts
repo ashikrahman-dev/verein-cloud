@@ -35,7 +35,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
             <input
               type="search"
               placeholder="Search anything here"
-              class="header-search"
+              class="header-search font-rubik"
             />
           </div>
         </mat-toolbar>

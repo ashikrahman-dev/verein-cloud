@@ -6,12 +6,7 @@ import { Component } from '@angular/core';
   template: `
     <div class="contribution-interval-wrapper">
       <div class="main-dashboard">
-        <div class="container">
-          <h1 class="text-center fs-2 fw-medium pb-5 mb-3">
-            Proceeding to Contribution <br />
-            Interval and Due Date Settings
-          </h1>
-
+        <div class="">
           <div class="tab-menu mb-4">
             <ul>
               <li>
@@ -148,7 +143,6 @@ import { Component } from '@angular/core';
       padding: 48px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
       min-height: calc(90vh - 64px);
     }
@@ -162,8 +156,8 @@ import { Component } from '@angular/core';
 
     
 .main-dashboard {
-    padding: 100px;
-
+  max-width: 1032px;
+  margin: 0 auto;
     .tab-menu {
         .tab-a {
             height: 100%;
