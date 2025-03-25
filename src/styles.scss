@@ -1,3 +1,5 @@
+
+
 /* You can add global styles to this file, and also import other style files */
 
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"); /* You can add global styles to this file, and also import other style files */
@@ -7,11 +9,14 @@ body {
   height: 100%;
 }
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Rubik", sans-serif !important;
   margin: 0;
   padding: 0;
 }
 
+.font-rubik {
+  font-family: "Rubik", sans-serif !important;
+}
 /* Custom Style */
 
 .top-bar-area {
@@ -28,19 +33,20 @@ body {
 .nav-item {
   display: flex;
   align-items: center;
-  justify-content: cen ter;
+  justify-content: center;
+
+  &:hover {
+    span {
+      color: #ffffff !important;
+    }
+  }
   span {
     color: #fff;
-    &:hover {
-      color: #fff;
-    }
   }
   .mat-icon {
     color: #fff !important;
   }
-  &:hover {
-    span {
-      color: #fff;
-    }
-  }
 }
+
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
