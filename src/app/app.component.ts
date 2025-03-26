@@ -27,16 +27,23 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
 
       <mat-sidenav-content class="content font-rubik">
         <mat-toolbar class="top-bar-area">
-          <button mat-icon-button>
+          <!-- <button mat-icon-button>
             <mat-icon>menu</mat-icon>
-          </button>
-          <div class="top-bar-left">
-            <h3 class="font-rubik">Contributions</h3>
-            <input
-              type="search"
-              placeholder="Search anything here"
-              class="header-search font-rubik"
-            />
+          </button> -->
+          <div class="top-bar-wrapper-area w-100 d-flex justify-space-between">
+            <div class="top-bar-left w-100">
+              <h3 class="font-rubik">Contributions</h3>
+              <input
+                type="search"
+                placeholder="Search anything here"
+                class="header-search font-rubik"
+              />
+            </div>
+            <div class="w-100">
+              <div class="text-end">
+              <img [src]="userImage" alt="Image" class="img-fluid" />
+              </div>
+            </div>
           </div>
         </mat-toolbar>
         <div class="main-content">
@@ -50,6 +57,11 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
   `,
   styles: [
     `
+      .top-bar-wrapper-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
       .top-bar-left {
         display: flex;
         align-items: center;
@@ -92,4 +104,6 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
 })
 export class AppComponent {
   title = 'verein cloud';
+
+  userImage = 'assets/images/user-image.png';
 }

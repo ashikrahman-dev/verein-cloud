@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -13,7 +12,7 @@ export type MenuItem = {
 @Component({
   selector: 'app-custom-sidenav',
   standalone: true,
-  imports: [MatListModule, MatIconModule, NgFor],
+  imports: [MatListModule, MatIconModule],
   template: `
     <div class="custom-sidenav-header font-rubik">
       <div class="logo-area">
