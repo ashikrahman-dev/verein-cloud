@@ -191,13 +191,20 @@ import { StepperComponent } from '../stepper/stepper.component';
                 aria-labelledby="pills-profile-tab"
                 tabindex="0"
               >
+                lorem
                 <app-stepper [linearModeSelected]="false" #appStepper>
                   <cdk-step [label]="'Information'"> Step 1 </cdk-step>
                   <cdk-step [label]="'Contact'"> Step 2 </cdk-step>
                   <cdk-step [label]="'Security'"> Step 3 </cdk-step>
                   <cdk-step [label]="'Finish'"> Step 4 </cdk-step>
                 </app-stepper>
-            </div>
+
+                <!-- <div *ngIf="selected">
+                  <ng-container
+                    [ngTemplateOutlet]="selected.content"
+                  ></ng-container>
+                </div> -->
+              </div>
               <div
                 class="tab-pane fade"
                 id="pills-contact"
