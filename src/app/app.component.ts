@@ -1,3 +1,4 @@
+import { CdkStepperModule } from '@angular/cdk/stepper';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { ContributionIntervalComponent } from './components/contribution-interval/contribution-interval.component';
 import { CustomSidenavComponent } from './components/custom-sidenav/custom-sidenav.component';
+import { StepperComponent } from './components/stepper/stepper.component';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,8 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
     MatSidenavModule,
     CustomSidenavComponent,
     ContributionIntervalComponent,
+    CdkStepperModule,
+    StepperComponent,
   ],
   template: `
     <!-- Sidebar -->
@@ -41,7 +45,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
             </div>
             <div class="w-100">
               <div class="text-end">
-              <img [src]="userImage" alt="Image" class="img-fluid" />
+                <img [src]="userImage" alt="Image" class="img-fluid" />
               </div>
             </div>
           </div>

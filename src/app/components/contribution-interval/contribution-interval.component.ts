@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { StepperComponent } from '../stepper/stepper.component';
 
 @Component({
   selector: 'app-contribution-interval',
-  imports: [],
+  imports: [StepperComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this,
   template: `
     <div class="contribution-interval-wrapper">
       <div class="main-dashboard">
@@ -189,31 +191,13 @@ import { Component } from '@angular/core';
                 aria-labelledby="pills-profile-tab"
                 tabindex="0"
               >
-                <div class="step">
-                  <ul class="step-menu-wrap">
-                    <li class="testStatus step-item">Step 1</li>
-                    <li class="testStatusGood step-item">Step 2</li>
-                    <li class="testStatusNoGood step-item">Step 3</li>
-                    <li class="testStatus step-item">Step 4</li>
-                  </ul>
-                  <div class="tab-contents text-center">
-                    <h3 class="fs-4">
-                      Proceeding to Contribution Interval and Due Date Settings
-                    </h3>
-                    <p class="fs-14">
-                      Define the interval, billing period, and due date for a
-                      structured and automated billing cycle.
-                    </p>
-
-                    <div class="button-wrap">
-                      <button type="button" class="step-button fill">
-                        Procced
-                      </button>
-                      <button type="button" class="step-button">Cancel</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <app-stepper [linearModeSelected]="false" #appStepper>
+                  <cdk-step [label]="'Information'"> Step 1 </cdk-step>
+                  <cdk-step [label]="'Contact'"> Step 2 </cdk-step>
+                  <cdk-step [label]="'Security'"> Step 3 </cdk-step>
+                  <cdk-step [label]="'Finish'"> Step 4 </cdk-step>
+                </app-stepper>
+            </div>
               <div
                 class="tab-pane fade"
                 id="pills-contact"
