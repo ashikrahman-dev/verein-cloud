@@ -4,13 +4,12 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-stepper',
-  standalone: true,
   imports: [CommonModule], // Import necessary modules
-  providers: [{ provide: CdkStepper, useExisting: StepperComponent }],
   template: `
     <div class="step">
       <ul class="step-menu-wrap">
         <li
+          [class.active]="selectedIndex === i"
           class="testStatus step-item"
           *ngFor="let step of steps; let i = index"
           (click)="onClick(i)"
@@ -34,20 +33,36 @@ import { Component, Input } from '@angular/core';
         padding: 0;
         display: flex;
       }
+      .step-menu-wrap li {
+        border: none;
+      }
       .step-item {
         cursor: pointer;
         padding: 10px;
         margin-right: 5px;
-        border: 1px solid #ccc;
+        border: 0px solid transparent;
+        font-size: 14px;
+        font-weight: 700;
       }
       .testStatus {
         background-color: #f8f8f8;
       }
+
+      .step .step-menu-wrap .step-item.active {
+        background-color: #ffce42;
+      }
+      .step .step-menu-wrap .step-item.active::after {
+        background-color: #ffce42;
+      }
+      .step .step-menu-wrap .step-item.active::before {
+        background-color: #ffce42;
+      }
     `,
   ],
+  providers: [{ provide: CdkStepper, useExisting: StepperComponent }],
 })
 export class StepperComponent extends CdkStepper {
-  @Input() linearModeSelected: boolean = false;
+  @Input() linearModeSelected = true;
 
   onClick(index: number) {
     this.selectedIndex = index;

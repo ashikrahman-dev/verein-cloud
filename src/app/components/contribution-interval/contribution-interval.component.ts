@@ -1,10 +1,15 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { Component } from '@angular/core';
+import { IntervalDueDataStepOneComponent } from '../interval-due-data-step-one/interval-due-data-step-one.component';
 import { StepperComponent } from '../stepper/stepper.component';
 
 @Component({
   selector: 'app-contribution-interval',
-  imports: [StepperComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this,
+  imports: [
+    StepperComponent,
+    CdkStepperModule,
+    IntervalDueDataStepOneComponent,
+  ],
   template: `
     <div class="contribution-interval-wrapper">
       <div class="main-dashboard">
@@ -191,19 +196,42 @@ import { StepperComponent } from '../stepper/stepper.component';
                 aria-labelledby="pills-profile-tab"
                 tabindex="0"
               >
-                lorem
                 <app-stepper [linearModeSelected]="false" #appStepper>
-                  <cdk-step [label]="'Information'"> Step 1 </cdk-step>
-                  <cdk-step [label]="'Contact'"> Step 2 </cdk-step>
-                  <cdk-step [label]="'Security'"> Step 3 </cdk-step>
-                  <cdk-step [label]="'Finish'"> Step 4 </cdk-step>
-                </app-stepper>
+                  <cdk-step [label]="'Step 1'">
+                    <div class="step">
+                      <div class="tab-contents text-center">
+                        <h3 class="fs-4">
+                          Proceeding to Contribution Interval and Due Date
+                          Settings
+                        </h3>
+                        <p class="fs-14">
+                          Define the interval, billing period, and due date for
+                          a structured and automated billing cycle.
+                        </p>
 
-                <!-- <div *ngIf="selected">
-                  <ng-container
-                    [ngTemplateOutlet]="selected.content"
-                  ></ng-container>
-                </div> -->
+                        <div class="button-wrap">
+                          <button
+                            type="button"
+                            class="step-button fill"
+                            cdkStepperNext
+                          >
+                            Procced
+                          </button>
+                          <button
+                            type="button"
+                            class="step-button"
+                            cdkStepperPrevious
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </cdk-step>
+                  <cdk-step [label]="'Step 2'"> Step 2 </cdk-step>
+                  <cdk-step [label]="'Step 3'"> Step 3 </cdk-step>
+                  <cdk-step [label]="'Step 4'"> Step 4 </cdk-step>
+                </app-stepper>
               </div>
               <div
                 class="tab-pane fade"
