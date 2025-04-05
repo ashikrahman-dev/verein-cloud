@@ -7,7 +7,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { ContributionIntervalComponent } from './components/contribution-interval/contribution-interval.component';
 import { CustomSidenavComponent } from './components/custom-sidenav/custom-sidenav.component';
-import { NewTestStepperComponent } from './components/new-test-stepper/new-test-stepper.component';
 import { StepperComponent } from './components/stepper/stepper.component';
 
 @Component({
@@ -22,7 +21,6 @@ import { StepperComponent } from './components/stepper/stepper.component';
     ContributionIntervalComponent,
     CdkStepperModule,
     StepperComponent,
-    NewTestStepperComponent,
   ],
   template: `
     <!-- Sidebar -->
