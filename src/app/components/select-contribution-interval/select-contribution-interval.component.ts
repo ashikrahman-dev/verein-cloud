@@ -18,10 +18,10 @@ interface Car {
   selector: 'app-select-contribution-interval',
   imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   template: `
-    <form>
+    <form class="font-rubik">
       <!-- <h4>native html select</h4> -->
-      <mat-form-field class="w-100 bg-white">
-        <mat-label>
+      <mat-form-field class="w-100 bg-white font-rubik">
+        <mat-label class="font-rubik d-flex gap-2 align-items-center">
           <svg
             width="16"
             height="17"
@@ -101,17 +101,30 @@ interface Car {
           </svg>
           Monthly</mat-label
         >
-        <select matNativeControl [(ngModel)]="selectedCar" name="car">
-          <option value="" selected></option>
+        <select
+          matNativeControl
+          [(ngModel)]="selectedCar"
+          name="car"
+          class="font-rubik"
+        >
+          <option value="" selected class="font-rubik"></option>
           @for (car of cars; track car) {
-          <option [value]="car.value">{{ car.viewValue }}</option>
+          <option [value]="car.value" class="font-rubik">
+            {{ car.viewValue }}
+          </option>
           }
         </select>
       </mat-form-field>
       <!-- <p>Selected car: {{ selectedCar }}</p> -->
     </form>
   `,
-  styles: ``,
+  styles: `
+
+
+
+
+          
+  `,
 })
 export class SelectContributionIntervalComponent {
   selectedValue: any;
