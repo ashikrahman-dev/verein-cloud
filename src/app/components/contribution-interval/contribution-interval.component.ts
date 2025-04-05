@@ -157,6 +157,7 @@ import { StepperComponent } from '../stepper/stepper.component';
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
+              <!-- Step Content -->
               <div
                 class="tab-pane fade show active"
                 id="pills-home"
@@ -189,6 +190,7 @@ import { StepperComponent } from '../stepper/stepper.component';
                   </div>
                 </div>
               </div>
+              <!-- Step Content -->
               <div
                 class="tab-pane fade"
                 id="pills-profile"
@@ -196,7 +198,10 @@ import { StepperComponent } from '../stepper/stepper.component';
                 aria-labelledby="pills-profile-tab"
                 tabindex="0"
               >
-                <app-stepper [linearModeSelected]="false" #appStepper>
+                <app-stepper
+                  [linearModeSelected]="false"
+                  #appStepper
+                >
                   <cdk-step [label]="'Step 1'">
                     <div class="step">
                       <div class="tab-contents text-center">
@@ -407,10 +412,6 @@ import { StepperComponent } from '../stepper/stepper.component';
     </div>
   `,
   styles: `
-
-
-
-
     
   `,
 })

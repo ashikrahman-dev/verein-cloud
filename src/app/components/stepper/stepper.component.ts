@@ -62,7 +62,7 @@ import { Component, Input } from '@angular/core';
   providers: [{ provide: CdkStepper, useExisting: StepperComponent }],
 })
 export class StepperComponent extends CdkStepper {
-  @Input() linearModeSelected = true;
+  @Input({}) linearModeSelected = true;
 
   onClick(index: number) {
     this.selectedIndex = index;

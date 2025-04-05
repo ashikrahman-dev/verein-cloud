@@ -21,8 +21,8 @@ interface Car {
     <form>
       <!-- <h4>native html select</h4> -->
       <mat-form-field class="w-100 bg-white">
-        <mat-label
-          ><svg
+        <mat-label>
+          <svg
             width="16"
             height="17"
             viewBox="0 0 16 17"

@@ -153,6 +153,9 @@ ul li {
 }
 /* banner - END*/
 /* arrow-shape - start*/
+.step {
+  padding: 0px !important;
+}
 .step .step-menu-wrap {
   list-style: none;
   padding: 0;
@@ -173,6 +176,10 @@ ul li {
   border: 0px solid transparent;
   font-size: 14px;
   font-weight: 700;
+
+  &:last-child {
+    margin-right: 0px !important;
+  }
 }
 .step .step-menu-wrap .step-item::after {
   content: "";
@@ -217,7 +224,6 @@ ul li {
   border: 1px solid #eaeaea;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
   border-radius: 0px 0px 16px 16px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
   padding: 24px;
 }
 .step .tab-contents .fs-14 {
