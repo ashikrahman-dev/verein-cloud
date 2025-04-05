@@ -1,6 +1,6 @@
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { Component } from '@angular/core';
-import { IntervalDueDataStepOneComponent } from '../interval-due-data-step-one/interval-due-data-step-one.component';
+import { SelectContributionIntervalComponent } from '../select-contribution-interval/select-contribution-interval.component';
 import { StepperComponent } from '../stepper/stepper.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { StepperComponent } from '../stepper/stepper.component';
   imports: [
     StepperComponent,
     CdkStepperModule,
-    IntervalDueDataStepOneComponent,
+    SelectContributionIntervalComponent,
   ],
   template: `
     <div class="contribution-interval-wrapper">
@@ -228,7 +228,45 @@ import { StepperComponent } from '../stepper/stepper.component';
                       </div>
                     </div>
                   </cdk-step>
-                  <cdk-step [label]="'Step 2'"> Step 2 </cdk-step>
+                  <cdk-step [label]="'Step 2'">
+                    <div class="step">
+                      <div class="tab-contents">
+                        <h3 class="fs-6 pb-3 mb-1">
+                          Proceeding to Contribution Interval and Due Date
+                          Settings
+                        </h3>
+                        <h6 class="fs-14">Contribution Interval & Due Date</h6>
+                        <p class="fs-14 text-dark-2 pb-3 mb-1">
+                          Define the interval, billing period, and due date for
+                          a structured and automated billing cycle.
+                        </p>
+                        <p class="fs-14">Selecting the Contribution Interval</p>
+                        <div>
+                          <app-select-contribution-interval></app-select-contribution-interval>
+                        </div>
+                        <div
+                          class="d-flex justify-content-end align-items-end w-100"
+                        >
+                          <div class="button-wrap">
+                            <button
+                              type="button"
+                              class="step-button fill"
+                              cdkStepperNext
+                            >
+                              Next
+                            </button>
+                            <button
+                              type="button"
+                              class="step-button"
+                              cdkStepperPrevious
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </cdk-step>
                   <cdk-step [label]="'Step 3'"> Step 3 </cdk-step>
                   <cdk-step [label]="'Step 4'"> Step 4 </cdk-step>
                 </app-stepper>
@@ -344,7 +382,7 @@ import { StepperComponent } from '../stepper/stepper.component';
                     <li class="testStatus step-item">Step 4</li>
                   </ul>
                   <div class="tab-contents text-center">
-                    <h3 class="fs-4">
+                    <h3 class="fs-6">
                       Proceeding to Contribution Interval and Due Date Settings
                     </h3>
                     <p class="fs-14">
