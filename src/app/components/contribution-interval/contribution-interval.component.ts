@@ -228,6 +228,38 @@ import { MatIconModule } from '@angular/material/icon';
                 aria-labelledby="pills-profile-tab"
                 tabindex="0"
               >
+                <div class="step">
+                  <ul class="step-menu-wrap">
+                    <li class="testStatus step-item">Step 1</li>
+                    <li class="testStatusGood step-item">Step 2</li>
+                    <li class="testStatusNoGood step-item">Step 3</li>
+                    <li class="testStatus step-item">Step 4</li>
+                  </ul>
+                  <div class="tab-contents text-center">
+                    <h3 class="fs-4">
+                      Proceeding to Contribution Interval and Due Date Settings
+                    </h3>
+                    <p class="fs-14">
+                      Define the interval, billing period, and due date for a
+                      structured and automated billing cycle.
+                    </p>
+
+                    <div class="button-wrap">
+                      <button type="button" class="step-button fill">
+                        Procced
+                      </button>
+                      <button type="button" class="step-button">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="pills-contact"
+                role="tabpanel"
+                aria-labelledby="pills-contact-tab"
+                tabindex="0"
+              >
                 <app-stepper [linearModeSelected]="false" #appStepper>
                   <cdk-step [label]="'Step 1'">
                     <div class="step">
@@ -358,8 +390,7 @@ import { MatIconModule } from '@angular/material/icon';
                             >
                               <mat-icon matDatepickerToggleIcon
                                 ><img [src]="calendarDateIcon" alt="Icon" />
-                                </mat-icon
-                              >
+                              </mat-icon>
                             </mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                           </mat-form-field>
@@ -391,38 +422,6 @@ import { MatIconModule } from '@angular/material/icon';
                   </cdk-step>
                   <cdk-step [label]="'Step 4'"> Step 4 </cdk-step>
                 </app-stepper>
-              </div>
-              <div
-                class="tab-pane fade"
-                id="pills-contact"
-                role="tabpanel"
-                aria-labelledby="pills-contact-tab"
-                tabindex="0"
-              >
-                <div class="step">
-                  <ul class="step-menu-wrap">
-                    <li class="testStatus step-item">Step 1</li>
-                    <li class="testStatusGood step-item">Step 2</li>
-                    <li class="testStatusNoGood step-item">Step 3</li>
-                    <li class="testStatus step-item">Step 4</li>
-                  </ul>
-                  <div class="tab-contents text-center">
-                    <h3 class="fs-4">
-                      Proceeding to Contribution Interval and Due Date Settings
-                    </h3>
-                    <p class="fs-14">
-                      Define the interval, billing period, and due date for a
-                      structured and automated billing cycle.
-                    </p>
-
-                    <div class="button-wrap">
-                      <button type="button" class="step-button fill">
-                        Procced
-                      </button>
-                      <button type="button" class="step-button">Cancel</button>
-                    </div>
-                  </div>
-                </div>
               </div>
               <div
                 class="tab-pane fade"
