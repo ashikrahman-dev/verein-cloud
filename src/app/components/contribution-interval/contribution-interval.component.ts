@@ -420,7 +420,37 @@ import { MatIconModule } from '@angular/material/icon';
                       </div>
                     </div>
                   </cdk-step>
-                  <cdk-step [label]="'Step 4'"> Step 4 </cdk-step>
+                  <cdk-step [label]="'Step 4'">
+                    <div class="step">
+                      <div class="tab-contents">
+                        <h3 class="fs-6 pb-3 mb-1">
+                          Setting the Due Date for Payments
+                          <span class="basic-setting"> ( Basic setting )</span>
+                        </h3>
+
+                        <div
+                          class="d-flex justify-content-end align-items-end w-100"
+                        >
+                          <div class="button-wrap">
+                            <button
+                              type="button"
+                              class="step-button fill"
+                              cdkStepperNext
+                            >
+                              Next
+                            </button>
+                            <button
+                              type="button"
+                              class="step-button"
+                              cdkStepperPrevious
+                            >
+                              Back
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </cdk-step>
                 </app-stepper>
               </div>
               <div

@@ -441,6 +441,61 @@ div.mat-mdc-select-panel {
   background: #fff !important;
   box-shadow: 0px 16px 36px 0px rgba(0, 0, 0, 0.26) !important;
 }
+
+.mat-calendar-body-cell-content,
+.mat-calendar-body,
+.mat-calendar-table-header {
+  font-family: "Rubik", sans-serif !important;
+}
+.mat-calendar-table-header th {
+  font-weight: 400 !important;
+
+  &:last-child {
+    color: #ff0032 !important;
+  }
+}
+.mat-calendar-table-header tr th.col span {
+  font-weight: 400 !important;
+}
+
+.mat-calendar-content {
+  margin-top: 26px !important;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+    .mat-calendar-body-comparison-identical
+  ) {
+  background: #ffdfe5 !important;
+}
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+    .mat-calendar-body-comparison-identical
+  ) {
+  background: #ffdfe5 !important;
+}
+.mat-calendar-body-today:not(.mat-calendar-body-selected):not(
+    .mat-calendar-body-comparison-identical
+  ) {
+  border: none !important;
+}
+.mat-calendar-body-cell-content.mat-focus-indicator.mat-calendar-body-today {
+  background: transparent !important;
+  color: #ff0032 !important;
+}
+.mat-calendar-body-selected {
+  background: #ffdfe5 !important;
+  color: #ff0032 !important;
+}
+
+.basic-setting {
+  color: #5a5a5a;
+  font-family: Rubik;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.71;
+  text-transform: uppercase;
+}
 /* Calendar style */
 
 #pills-tab button {
