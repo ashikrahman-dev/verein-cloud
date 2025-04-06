@@ -1,26 +1,43 @@
 import { CdkStepperModule } from '@angular/cdk/stepper';
-import { Component, model } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectContributionIntervalComponent } from '../select-contribution-interval/select-contribution-interval.component';
 import { StepperComponent } from '../stepper/stepper.component';
 
 import { ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+
+// Datepicker imports
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-contribution-interval',
+  standalone: true,
+  providers: [provideNativeDateAdapter()],
   imports: [
+    CommonModule,
     StepperComponent,
     CdkStepperModule,
     SelectContributionIntervalComponent,
-
     FormsModule,
     ReactiveFormsModule,
-
     MatCardModule,
     MatRadioModule,
+    MatCheckboxModule,
+
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatIconModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -282,13 +299,11 @@ import { MatRadioModule } from '@angular/material/radio';
                           Selecting the Contribution Interval
                         </h3>
                         <h6 class="fs-14 pb-3">Select Contribution Interval</h6>
-                        <div
-                          class="tab-checkbox-wrap d-flex"
-                          [formGroup]="toppings"
-                        >
+                        <div class="tab-checkbox-wrap d-flex">
                           <mat-radio-group
-                            [(ngModel)]="labelPosition"
                             class="tab-checkbox-wrap d-flex"
+                            [formControl]="selectedIntervalControl"
+                            (change)="onIntervalChange()"
                           >
                             <mat-radio-button
                               class="w-100 check-box-item font-rubik"
@@ -316,7 +331,7 @@ import { MatRadioModule } from '@angular/material/radio';
                               class="w-100 check-box-item font-rubik"
                               value="predefined"
                             >
-                              <h6>Predefined Date -</h6>
+                              <h6>Predefined Date</h6>
                               <p>
                                 The period begins as soon as the member's
                                 contribution is activated and is then extended
@@ -327,7 +342,32 @@ import { MatRadioModule } from '@angular/material/radio';
                         </div>
 
                         <div
-                          class="d-flex justify-content-end align-items-end w-100"
+                          *ngIf="selectedIntervalControl.value === 'predefined'"
+                          class="selected-date-wrap"
+                        >
+                          <h6 class="fs-14 selected-date">Select Date</h6>
+                          <mat-form-field
+                            class="example-full-width w-100 font-rubik"
+                          >
+                            <mat-label class="font-rubik f-14">DD/MM</mat-label>
+                            <input matInput [matDatepicker]="picker" />
+                            <mat-datepicker-toggle
+                              matIconPrefix
+                              [for]="picker"
+                              class="calendar-datepicker-icon"
+                            >
+                              <mat-icon matDatepickerToggleIcon
+                                ><img [src]="calendarDateIcon" alt="Icon" />
+                                </mat-icon
+                              >
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                          <!-- Additional predefined date configuration options would go here -->
+                        </div>
+
+                        <div
+                          class="d-flex justify-content-end align-items-end w-100 mt-4"
                         >
                           <div class="button-wrap">
                             <button
@@ -488,20 +528,29 @@ import { MatRadioModule } from '@angular/material/radio';
     </div>
   `,
   styles: `
-      
-    `,
+    .result {
+      background-color: #f9f9f9;
+    }
+  `,
 })
 export class ContributionIntervalComponent {
+  calendarDateIcon = 'assets/images/calendar-edit.svg';
+
   private readonly _formBuilder = inject(FormBuilder);
 
+  // Initialize form controls
   readonly toppings = this._formBuilder.group({
     pepperoni: false,
     extracheese: false,
     mushroom: false,
   });
 
-  readonly checked = model(false);
-  readonly indeterminate = model(false);
-  readonly labelPosition = model<'before' | 'after'>('after');
-  // readonly disabled = model(false);
+  // Create a FormControl for radio button group
+  selectedIntervalControl = this._formBuilder.control('start');
+
+  // Method called when radio selection changes
+  onIntervalChange() {
+    // No additional code needed here as we're using the direct value in the template
+    // You could add additional logic here if needed
+  }
 }
