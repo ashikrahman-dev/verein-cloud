@@ -284,22 +284,139 @@ ul li {
   opacity: 0 !important;
 }
 
-.mat-mdc-form-field-type-mat-native-select .mat-mdc-form-field-infix::after {
-  display: none;
+// .mat-mdc-form-field-type-mat-native-select .mat-mdc-form-field-infix::after {
+//   display: none;
+// }
+
+// .mat-mdc-form-field-type-mat-native-select .mat-mdc-form-field-infix::before {
+//   content: "";
+//   position: absolute;
+//   top: 50%;
+//   right: 00px;
+//   transform: translateY(-50%);
+//   width: 16px;
+//   height: 16px;
+//   background: url('data:image/svg+xml,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="%23B3B3B3" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>') !important;
+//   z-index: 5;
+// }
+.mat-mdc-select-arrow svg {
+  display: none !important;
+}
+.mat-mdc-select-arrow {
+  position: relative;
+  &::after {
+    position: absolute;
+    content: "";
+    left: -5px;
+    top: -5px;
+    width: 16px;
+    height: 16px;
+    background: url('data:image/svg+xml,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="%23B3B3B3" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    z-index: 9;
+  }
 }
 
-.mat-mdc-form-field-type-mat-native-select .mat-mdc-form-field-infix::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 00px;
-  transform: translateY(-50%);
-
-  width: 16px;
-  height: 16px;
-  background: url('data:image/svg+xml,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="%23B3B3B3" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>') !important;
-  z-index: 5;
+.mdc-text-field--filled:not(.mdc-text-field--disabled):not(
+    .mdc-text-field--focused
+  )
+  .mdc-floating-label {
+  color: #999 !important;
 }
+
+.mdc-list-item__primary-text {
+  font-family: "Rubik", sans-serif !important;
+}
+
+div.mat-mdc-select-panel {
+  background: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0px 16px 26px 0px rgba(0, 0, 0, 0.19) !important;
+}
+.mat-mdc-option.mdc-list-item {
+  background: transparent !important;
+  border-bottom: 1px solid #f2f2f2 !important;
+
+  &:last-child {
+    border-bottom: none !important;
+  }
+}
+.mat-mdc-option.mdc-list-item .mdc-list-item__primary-text {
+  font-size: 14px !important;
+  color: #999 !important;
+}
+.mat-mdc-option.mdc-list-item:hover .mdc-list-item__primary-text {
+  color: #000 !important;
+}
+/* Input Select Style */
+
+.tab-checkbox-wrap {
+  gap: 12px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.check-box-item {
+  padding: 24px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #ffffff;
+  cursor: pointer;
+  font-family: "Rubik", sans-serif !important;
+  height: 100%;
+  cursor: pointer !important;
+  position: relative;
+  min-height: 168px;
+
+  &::after {
+    position: absolute;
+    content: "";
+    right: 20px;
+    top: 28px;
+    width: 20px;
+    height: 20px;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9.58333" stroke="black" stroke-width="0.833333"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &.mat-mdc-radio-checked {
+    border: 1px solid #fbc52c;
+    background: #fff9e7;
+    cursor: pointer !important;
+
+    &::after {
+      background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="9.5" stroke="black"/><circle cx="10.0003" cy="9.99935" r="5.83333" fill="%23BBEF5C"/></svg>');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  h6 {
+    font-size: 14px;
+    color: #000;
+    font-weight: 800;
+    line-height: 1.71; /* 171.429% */
+    font-family: "Rubik", sans-serif !important;
+    padding-bottom: 24px;
+    margin-bottom: 0;
+    cursor: pointer !important;
+    padding-top: 3px;
+  }
+  p {
+    font-size: 14px;
+    color: #000;
+    font-weight: 400;
+    font-family: "Rubik", sans-serif !important;
+    cursor: pointer !important;
+    margin-bottom: 0;
+    line-height: 1.71;
+  }
+  .mdc-radio {
+    display: none !important;
+  }
+}
+
+/* Checkbox Style */
 
 #pills-tab button {
   padding: 0px;
