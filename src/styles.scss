@@ -262,21 +262,6 @@ ul li {
   opacity: 0 !important;
 }
 
-// .mat-mdc-form-field-type-mat-native-select .mat-mdc-form-field-infix::after {
-//   display: none;
-// }
-
-// .mat-mdc-form-field-type-mat-native-select .mat-mdc-form-field-infix::before {
-//   content: "";
-//   position: absolute;
-//   top: 50%;
-//   right: 00px;
-//   transform: translateY(-50%);
-//   width: 16px;
-//   height: 16px;
-//   background: url('data:image/svg+xml,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="%23B3B3B3" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>') !important;
-//   z-index: 5;
-// }
 .mat-mdc-select-arrow svg {
   display: none !important;
 }
@@ -485,6 +470,22 @@ div.mat-mdc-select-panel {
 
 .mat-mdc-form-field-has-icon-prefix .mat-mdc-text-field-wrapper {
   padding-left: 10px !important;
+}
+
+.due-date {
+  color: #323232 !important;
+  font-family: Rubik;
+  font-size: 14px;
+  font-weight: 400 !important;
+}
+
+.mat-mdc-select-value-text,
+.mat-mdc-select-min-line {
+  font-family: Rubik;
+  font-size: 14px !important;
+}
+.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
+  display: none !important;
 }
 /* Calendar style */
 
