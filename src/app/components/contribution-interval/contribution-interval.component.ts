@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { MatIconModule } from '@angular/material/icon';
+import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
 
 @Component({
   selector: 'app-contribution-interval',
@@ -33,11 +34,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatRadioModule,
     MatCheckboxModule,
-
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
     MatIconModule,
+    StepFourDueDateComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -427,7 +428,7 @@ import { MatIconModule } from '@angular/material/icon';
                           Setting the Due Date for Payments
                           <span class="basic-setting"> ( Basic setting )</span>
                         </h3>
-
+                        <app-step-four-due-date></app-step-four-due-date>
                         <div
                           class="d-flex justify-content-end align-items-end w-100"
                         >
