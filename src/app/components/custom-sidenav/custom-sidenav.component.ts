@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+// RouterModule.forRoot(appRoutes)
 
 export type MenuItem = {
   icon: string;
@@ -12,11 +14,11 @@ export type MenuItem = {
 @Component({
   selector: 'app-custom-sidenav',
   standalone: true,
-  imports: [MatListModule, MatIconModule],
+  imports: [MatListModule, MatIconModule, RouterModule],
   template: `
     <div class="custom-sidenav-header font-rubik">
       <div class="logo-area">
-        <a href="#/home">
+        <a routerLink="/">
           <img
             src="/assets/images/logo.svg"
             width="28"
@@ -26,20 +28,9 @@ export type MenuItem = {
         </a>
       </div>
     </div>
-    <!-- <mat-nav-list>
-      <a
-        mat-list-item
-        *ngFor="let item of menuItems()"
-        class="nav-item font-rubik"
-      >
-        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-        <span matListItemTitle>{{ item.label }}</span>
-      </a>
-    </mat-nav-list> -->
-
     <ul class="navigation-menu-wrap">
       <li>
-        <a routerLink="/home" class="custom-nav-item">
+        <a routerLink="/" class="custom-nav-item">
           <span>
             <img [src]="menuIcon1" class="img-fluid" alt="" />
           </span>
@@ -47,7 +38,7 @@ export type MenuItem = {
         </a>
       </li>
       <li>
-        <a routerLink="/home" class="custom-nav-item">
+        <a routerLink="/create-new-posts" class="custom-nav-item">
           <span>
             <img [src]="menuIcon2" class="img-fluid" alt="" />
           </span>

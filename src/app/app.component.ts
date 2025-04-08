@@ -5,9 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
-import { ContributionIntervalComponent } from './components/contribution-interval/contribution-interval.component';
 import { CustomSidenavComponent } from './components/custom-sidenav/custom-sidenav.component';
-import { StepperComponent } from './components/stepper/stepper.component';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +16,7 @@ import { StepperComponent } from './components/stepper/stepper.component';
     MatIconModule,
     MatSidenavModule,
     CustomSidenavComponent,
-    ContributionIntervalComponent,
     CdkStepperModule,
-    StepperComponent,
   ],
   template: `
     <!-- Sidebar -->
@@ -52,8 +48,6 @@ import { StepperComponent } from './components/stepper/stepper.component';
         </mat-toolbar>
         <div class="main-content">
           <router-outlet>
-            <app-stepper></app-stepper>
-            <app-contribution-interval></app-contribution-interval>
             <!-- <h1>Main Content {{ title }}!</h1> -->
           </router-outlet>
         </div>

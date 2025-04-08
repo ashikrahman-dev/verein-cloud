@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { MatIconModule } from '@angular/material/icon';
+import { CreateNewPostsComponent } from '../create-new-posts/create-new-posts.component';
 import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
 
 @Component({
@@ -39,6 +40,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
     MatDatepickerModule,
     MatIconModule,
     StepFourDueDateComponent,
+    CreateNewPostsComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -65,7 +67,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                         <span class="tab-title-pra">Contributions</span>
                         <div class="check"></div>
                       </div>
-                      <h6 class="tab-pra ">Overview</h6>
+                      <h6 class="tab-pra pt-3">Overview</h6>
                     </div>
                   </div>
                 </button>
@@ -196,29 +198,8 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                 aria-labelledby="pills-home-tab"
                 tabindex="0"
               >
-                <div class="step">
-                  <ul class="step-menu-wrap">
-                    <li class="testStatus step-item">Step 1</li>
-                    <li class="testStatusGood step-item">Step 2</li>
-                    <li class="testStatusNoGood step-item">Step 3</li>
-                    <li class="testStatus step-item">Step 4</li>
-                  </ul>
-                  <div class="tab-contents text-center">
-                    <h3 class="fs-4">
-                      Proceeding to Contribution Interval and Due Date Settings
-                    </h3>
-                    <p class="fs-14">
-                      Define the interval, billing period, and due date for a
-                      structured and automated billing cycle.
-                    </p>
-
-                    <div class="button-wrap">
-                      <button type="button" class="step-button fill">
-                        Procced
-                      </button>
-                      <button type="button" class="step-button">Cancel</button>
-                    </div>
-                  </div>
+                <div class="overview-datatable">
+                  <app-create-new-posts></app-create-new-posts>
                 </div>
               </div>
               <!-- Step Content -->

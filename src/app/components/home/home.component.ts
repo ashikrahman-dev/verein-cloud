@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
+import { ContributionIntervalComponent } from '../contribution-interval/contribution-interval.component';
+import { StepperComponent } from '../stepper/stepper.component';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [StepperComponent, ContributionIntervalComponent],
   template: `
-    <p>
-      home works!
-    </p>
+    <div>
+      <app-stepper></app-stepper>
+      <app-contribution-interval></app-contribution-interval>
+    </div>
   `,
-  styles: ``
+  styles: ``,
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}
