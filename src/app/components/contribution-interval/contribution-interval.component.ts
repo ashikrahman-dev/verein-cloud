@@ -18,7 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { MatIconModule } from '@angular/material/icon';
-import { CreateNewPostsComponent } from '../create-new-posts/create-new-posts.component';
+import { OverviewDataTableComponent } from '../overview-data-table/overview-data-table.component';
 import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
 
 @Component({
@@ -40,7 +40,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
     MatDatepickerModule,
     MatIconModule,
     StepFourDueDateComponent,
-    CreateNewPostsComponent,
+    OverviewDataTableComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -198,8 +198,9 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                 aria-labelledby="pills-home-tab"
                 tabindex="0"
               >
-                <div class="overview-datatable">
-                  <app-create-new-posts></app-create-new-posts>
+                <div class="overview-datatable-wrap">
+                  <app-overview-data-table></app-overview-data-table>
+                  <!-- <app-create-new-posts></app-create-new-posts> -->
                 </div>
               </div>
               <!-- Step Content -->

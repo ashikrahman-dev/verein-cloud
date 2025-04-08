@@ -381,7 +381,7 @@ div.mat-mdc-select-panel {
 
 .selected-date-wrap {
   color: #323232;
-  font-family: Rubik;
+  font-family: "Rubik", sans-serif;
   font-size: 14px;
   font-weight: 400;
   margin-top: 24px;
@@ -461,7 +461,7 @@ div.mat-mdc-select-panel {
 
 .basic-setting {
   color: #5a5a5a;
-  font-family: Rubik;
+  font-family: "Rubik", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.71;
@@ -474,14 +474,14 @@ div.mat-mdc-select-panel {
 
 .due-date {
   color: #323232 !important;
-  font-family: Rubik;
+  font-family: "Rubik", sans-serif;
   font-size: 14px;
   font-weight: 400 !important;
 }
 
 .mat-mdc-select-value-text,
 .mat-mdc-select-min-line {
-  font-family: Rubik;
+  font-family: "Rubik", sans-serif;
   font-size: 14px !important;
 }
 .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
@@ -490,12 +490,102 @@ div.mat-mdc-select-panel {
 /* Calendar style */
 
 /*  Overview Datatable start */
-.overview-datatable {
-  border-radius: 0px 0px 16px 16px;
+.overview-datatable-wrap {
+  border-radius: 16px;
   border: 1px solid #eaeaea;
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
   padding: 28px 24px 24px 24px;
+}
+.overview-data-table {
+  border-radius: 8px 8px 0px 0px !important;
+  overflow: hidden;
+}
+.overview-data-table thead tr {
+  font-family: "Rubik", sans-serif !important;
+  border-radius: 8px 8px 0px 0px !important;
+  background: #e0d9da;
+
+  color: #000;
+  font-family: "Rubik", sans-serif !important;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.33;
+  text-transform: uppercase;
+  height: 27px !important;
+}
+
+.overview-data-table tbody tr {
+  font-family: "Rubik", sans-serif !important;
+  color: #5a5a5a;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.71; /* 171.429% */
+  // border-bottom: 0px !important;
+}
+.cdk-column-select.mat-column-select {
+  width: 72px !important;
+  padding-right: 0px;
+}
+.overview-data-table .mdc-checkbox {
+  // padding-top: 0 !important;
+  // padding-left: 0 !important;
+}
+.mdc-checkbox__background {
+  border: 1px solid #cccccc !important;
+  border-radius: 4px !important;
+}
+
+.overview-data-table thead tr th {
+  height: 40px !important;
+  border-bottom: 0px !important;
+}
+.overview-data-table tbody tr td {
+  border-bottom: 0px !important;
+}
+.overview-data-table tbody tr {
+  height: 62px !important;
+}
+.overview-data-table tbody tr {
+  &:nth-child(even) {
+    background: #f6f6f6 !important;
+  }
+  &:nth-child(odd) {
+    background: #fbfbfb !important;
+  }
+}
+
+.overview-data-table-header {
+  button {
+    padding: 8px 16px;
+    color: #000;
+    font-family: "Rubik", sans-serif !important;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 130%; /* 18.2px */
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-radius: 150px;
+    border: 1px solid #5a5a5a;
+    background: transparent;
+    transition: 0.2s all linear;
+
+    svg * {
+      transition: 0.2s all linear;
+    }
+    &:hover {
+      background: #000000 !important;
+      color: #fff !important;
+      svg *  {
+        stroke: #fff !important;
+      }
+    }
+    &.active {
+      background: #000 !important;
+      color: #fff !important;
+    }
+  }
 }
 /*  Overview Datatable end */
 
