@@ -214,7 +214,7 @@ ul li {
   justify-content: center;
   margin-top: 24px;
 }
-.step .tab-contents .button-wrap .step-button {
+.step-button {
   height: 42px;
   padding: 12px 20px;
   display: flex;
@@ -227,16 +227,16 @@ ul li {
   font-weight: bold;
   transition: 0.2s all linear;
 }
-.step .tab-contents .button-wrap .step-button:hover {
+.step-button:hover {
   background-color: #5a5a5a !important;
   color: #fff;
 }
-.step .tab-contents .button-wrap .step-button.fill {
+.step-button.fill {
   background-color: #000 !important;
   color: #fff;
   transition: 0.2s all linear;
 }
-.step .tab-contents .button-wrap .step-button.fill:hover {
+.step-button.fill:hover {
   background-color: #5a5a5a !important;
 }
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
@@ -577,7 +577,7 @@ div.mat-mdc-select-panel {
     &:hover {
       background: #000000 !important;
       color: #fff !important;
-      svg *  {
+      svg * {
         stroke: #fff !important;
       }
     }
@@ -588,6 +588,109 @@ div.mat-mdc-select-panel {
   }
 }
 /*  Overview Datatable end */
+
+/* Basic data contribution -start */
+
+.pb-28 {
+  padding-bottom: 28px;
+}
+
+.basic-data-contribution-step {
+}
+.basic-data-contribution {
+  border-radius: 16px;
+  border: 1px solid #eaeaea;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+
+  .heading {
+    color: #000;
+    font-family: "Rubik", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.55; /* 155.556% */
+  }
+
+  .form-input-field {
+    border-radius: 150px;
+    background: #f2f2f2;
+    color: #000000;
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    height: 40px;
+    border: 0px !important;
+    background: url('data:image/svg+xml,<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00033 8.50065C9.84127 8.50065 11.3337 7.00827 11.3337 5.16732C11.3337 3.32637 9.84127 1.83398 8.00033 1.83398C6.15938 1.83398 4.66699 3.32637 4.66699 5.16732C4.66699 7.00827 6.15938 8.50065 8.00033 8.50065Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7268 15.1667C13.7268 12.5867 11.1601 10.5 8.0001 10.5C4.8401 10.5 2.27344 12.5867 2.27344 15.1667" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'),
+      #f2f2f2;
+    background-repeat: no-repeat;
+    background-position: 16px center;
+
+    &::placeholder {
+      color: #999;
+      font-family: "Rubik", sans-serif;
+      font-size: 14px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.post-id {
+      background: url('data:image/svg+xml,<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 6.01398V3.32065C14.6667 2.26065 14.24 1.83398 13.18 1.83398H10.4867C9.42667 1.83398 9 2.26065 9 3.32065V6.01398C9 7.07398 9.42667 7.50065 10.4867 7.50065H13.18C14.24 7.50065 14.6667 7.07398 14.6667 6.01398Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.99967 6.18065V3.15398C6.99967 2.21398 6.57301 1.83398 5.51301 1.83398H2.81967C1.75967 1.83398 1.33301 2.21398 1.33301 3.15398V6.17398C1.33301 7.12065 1.75967 7.49398 2.81967 7.49398H5.51301C6.57301 7.50065 6.99967 7.12065 6.99967 6.18065Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.99967 13.68V10.9867C6.99967 9.92667 6.57301 9.5 5.51301 9.5H2.81967C1.75967 9.5 1.33301 9.92667 1.33301 10.9867V13.68C1.33301 14.74 1.75967 15.1667 2.81967 15.1667H5.51301C6.57301 15.1667 6.99967 14.74 6.99967 13.68Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10.834H14" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round"/><path d="M10 13.5H14" stroke="%23292D32" stroke-width="1.5" stroke-linecap="round"/></svg>'),
+        #f2f2f2;
+      background-repeat: no-repeat;
+      background-position: 16px center;
+    }
+  }
+
+  .mat-mdc-text-field-wrapper {
+    height: 40px;
+
+    .mdc-floating-label {
+      top: 26px !important;
+      &.mdc-floating-label--float-above {
+        display: none;
+      }
+    }
+    .mat-mdc-form-field-infix {
+      top: -8px;
+    }
+    .mat-mdc-select-trigger {
+      top: -5px;
+    }
+    .mat-mdc-select-arrow-wrapper {
+      margin-top: 5px;
+    }
+  }
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::after {
+  display: none;
+}
+.basic-data-contribution-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.form-label {
+  color: #323232;
+  font-size: 14px;
+  font-weight: 400;
+  padding-bottom: 10px;
+  margin-bottom: 0 !important;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* Basic data contribution -end */
 
 #pills-tab button {
   padding: 0px;
