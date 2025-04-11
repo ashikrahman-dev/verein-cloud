@@ -202,13 +202,6 @@ import { MatStepperModule } from '@angular/material/stepper';
               </button>
             </div>
           </div>
-
-          <!-- <div
-            class="conditional-content"
-            *ngIf="selectedValue === 'limited-in-time'"
-          >
-            lorem Ipsum Dolor
-          </div> -->
         </div>
       </mat-step>
 
