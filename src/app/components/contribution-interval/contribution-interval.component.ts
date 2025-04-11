@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
 import { OverviewDataTableComponent } from '../overview-data-table/overview-data-table.component';
+import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/payment-terms-calculation.component';
 import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
 
 @Component({
@@ -43,6 +44,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
     StepFourDueDateComponent,
     OverviewDataTableComponent,
     BasicDataContributionComponent,
+    PaymentTermsCalculationComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -192,7 +194,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
-              <!-- Step Content -->
+              <!-- 1st Tab Content -->
               <div
                 class="tab-pane fade show active"
                 id="pills-home"
@@ -205,7 +207,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                   <!-- <app-create-new-posts></app-create-new-posts> -->
                 </div>
               </div>
-              <!-- Step Content -->
+              <!-- 2nd Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-profile"
@@ -215,9 +217,9 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
               >
                 <div class="basic-data-contribution-step">
                   <app-basic-data-contribution></app-basic-data-contribution>
-                  
                 </div>
               </div>
+              <!-- 3rd Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-contact"
@@ -418,6 +420,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                   </cdk-step>
                 </app-stepper>
               </div>
+              <!-- 4th Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-disabled"
@@ -425,31 +428,11 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                 aria-labelledby="pills-disabled-tab"
                 tabindex="0"
               >
-                <div class="step">
-                  <ul class="step-menu-wrap">
-                    <li class="testStatus step-item">Step 1</li>
-                    <li class="testStatusGood step-item">Step 2</li>
-                    <li class="testStatusNoGood step-item">Step 3</li>
-                    <li class="testStatus step-item">Step 4</li>
-                  </ul>
-                  <div class="tab-contents text-center">
-                    <h3 class="fs-4">
-                      Proceeding to Contribution Interval and Due Date Settings
-                    </h3>
-                    <p class="fs-14">
-                      Define the interval, billing period, and due date for a
-                      structured and automated billing cycle.
-                    </p>
-
-                    <div class="button-wrap">
-                      <button type="button" class="step-button fill">
-                        Procced
-                      </button>
-                      <button type="button" class="step-button">Cancel</button>
-                    </div>
-                  </div>
-                </div>
+                <div class="basic-data-contribution-step">
+                  <app-payment-terms-calculation></app-payment-terms-calculation>
+                </div>  
               </div>
+              <!-- Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-contribution5"
@@ -482,6 +465,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                   </div>
                 </div>
               </div>
+              <!-- Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-contribution6"
