@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { MatIconModule } from '@angular/material/icon';
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
+import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';
 import { OverviewDataTableComponent } from '../overview-data-table/overview-data-table.component';
 import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/payment-terms-calculation.component';
 import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
@@ -45,6 +46,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
     OverviewDataTableComponent,
     BasicDataContributionComponent,
     PaymentTermsCalculationComponent,
+    CalculationConfigurationComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -430,7 +432,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
               >
                 <div class="basic-data-contribution-step">
                   <app-payment-terms-calculation></app-payment-terms-calculation>
-                </div>  
+                </div>
               </div>
               <!-- Tab Content -->
               <div
@@ -440,30 +442,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                 aria-labelledby="pills-contribution5-tab"
                 tabindex="0"
               >
-                <div class="step">
-                  <ul class="step-menu-wrap">
-                    <li class="testStatus step-item">Step 1</li>
-                    <li class="testStatusGood step-item">Step 2</li>
-                    <li class="testStatusNoGood step-item">Step 3</li>
-                    <li class="testStatus step-item">Step 4</li>
-                  </ul>
-                  <div class="tab-contents text-center">
-                    <h3 class="fs-4">
-                      Proceeding to Contribution Interval and Due Date Settings
-                    </h3>
-                    <p class="fs-14">
-                      Define the interval, billing period, and due date for a
-                      structured and automated billing cycle.
-                    </p>
-
-                    <div class="button-wrap">
-                      <button type="button" class="step-button fill">
-                        Procced
-                      </button>
-                      <button type="button" class="step-button">Cancel</button>
-                    </div>
-                  </div>
-                </div>
+                <app-calculation-configuration></app-calculation-configuration>
               </div>
               <!-- Tab Content -->
               <div

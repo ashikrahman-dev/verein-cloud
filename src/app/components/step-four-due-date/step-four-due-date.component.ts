@@ -1,35 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-
-import { ChangeDetectionStrategy, inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-
-import { MatCardModule } from '@angular/material/card';
-
-// Datepicker imports
-import { MatDatepickerModule } from '@angular/material/datepicker';
-
-import { MatIconModule } from '@angular/material/icon';
 import { BeginningIntervalComponent } from '../beginning-interval/beginning-interval.component';
 
 @Component({
   selector: 'app-step-four-due-date',
   standalone: true,
-  // providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatCheckboxModule,
-    ReactiveFormsModule,
-    MatCardModule,
     MatDatepickerModule,
     MatIconModule,
     BeginningIntervalComponent,
@@ -86,7 +73,6 @@ import { BeginningIntervalComponent } from '../beginning-interval/beginning-inte
             </mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          <!-- Additional predefined date configuration options would go here -->
         </div>
       </div>
     </div>
@@ -109,23 +95,5 @@ export class StepFourDueDateComponent {
 
   onSelectionChange() {
     console.log('Selected option:', this.selectedValue);
-  }
-
-  private readonly _formBuilder = inject(FormBuilder);
-
-  // Initialize form controls
-  readonly toppings = this._formBuilder.group({
-    pepperoni: false,
-    extracheese: false,
-    mushroom: false,
-  });
-
-  // Create a FormControl for radio button group
-  selectedIntervalControl = this._formBuilder.control('start');
-
-  // Method called when radio selection changes
-  onIntervalChange() {
-    // No additional code needed here as we're using the direct value in the template
-    // You could add additional logic here if needed
   }
 }

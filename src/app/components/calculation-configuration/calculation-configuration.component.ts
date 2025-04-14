@@ -1,23 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule } from '@angular/forms'; // ✅ Import FormsModule
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 
-import { ViewChild } from '@angular/core';
-import { MatStepper } from '@angular/material/stepper';
-
-import { MatRadioModule } from '@angular/material/radio';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'app-payment-terms-calculation',
+  selector: 'app-calculation-configuration',
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -25,25 +21,23 @@ import { MatRadioModule } from '@angular/material/radio';
     },
   ],
   imports: [
-    FormsModule,
     CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-
-    MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatStepperModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    // MatRadioModule,
 
-    MatRadioModule,
+    MatDatepickerModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-stepper
-      class="contribution-basic-data-step-wrap payment-terms-calculation-wrap"
+      class="contribution-basic-data-step-wrap payment-terms-calculation-wrap calculation-configuration-wrapper"
     >
       <!-- Step 1 -->
       <mat-step label="Step 1">
@@ -53,7 +47,7 @@ import { MatRadioModule } from '@angular/material/radio';
               <h3
                 class="fs-24 pb-2 d-flex gap-2 align-items-center justify-content-center"
               >
-                Proceeding to Contribution Interval and Due Date Settings
+                Proceeding to the Calculation Configuration
                 <svg
                   width="18"
                   height="18"
@@ -67,9 +61,10 @@ import { MatRadioModule } from '@angular/material/radio';
                   />
                 </svg>
               </h3>
-              <p class="fs-14 font-normal">
-                Define the interval, billing period, and due date for a
-                structured and automated billing cycle.
+              <p class="fs-14 font-normal cc-first-step-content">
+                Configures how contributions are calculated, allowing
+                flexibility based on dynamic rules and parameters. This ensures
+                accurate and customized billing for members.
               </p>
 
               <div class="button-wrap d-flex justify-content-center pt-3 mt-2">
@@ -86,8 +81,7 @@ import { MatRadioModule } from '@angular/material/radio';
       <mat-step label="Step 2">
         <div class="basic-data-contribution">
           <h4 class="heading">
-            Defining the Payment Deadline
-            <span class="basic-setting"> ( Basic setting )</span>
+            Selecting the Calculation Method
             <svg
               width="18"
               height="18"
@@ -101,47 +95,30 @@ import { MatRadioModule } from '@angular/material/radio';
               />
             </svg>
           </h4>
-          <p class="form-label pt-2 mt-3">Payment Deadline</p>
-          <div class="basic-data-contribution-form">
-            <!-- Contribution type  -->
-            <div>
-              <mat-form-field class="w-100 bg-white font-rubik">
-                <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                  <img
-                    [src]="intervalCalendarIcon"
-                    alt="Calendar Icon"
-                    class=""
-                  />
-                  {{ '7' }}
-                </mat-label>
-                <mat-select class="font-rubik">
-                  <mat-option value="personal-contribution"> 7 </mat-option>
-                  <mat-option value="family-contribution"> 8 </mat-option>
-                  <mat-option value="family-contribution"> 9 </mat-option>
-                  <mat-option value="family-contribution"> 10 </mat-option>
-                  <mat-option value="family-contribution"> 11 </mat-option>
-                  <mat-option value="family-contribution"> 12 </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-
-            <!-- Interval & Due Date  -->
-            <div>
-              <mat-form-field class="w-100 bg-white font-rubik">
-                <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                  <img [src]="textalignIcon" alt="Calendar Icon" class="" />
-                  {{ 'Day’s ' }}
-                </mat-label>
-                <mat-select class="font-rubik">
-                  <mat-option value="interval-due-date-1"> 1 Day </mat-option>
-                  <mat-option value="interval-due-date-2"> 2 Day’s </mat-option>
-                  <mat-option value="interval-due-date-3"> 3 Day’s </mat-option>
-                  <mat-option value="interval-due-date-4"> 4 Day’s </mat-option>
-                  <mat-option value="interval-due-date-5"> 5 Day’s </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
+          <p class="form-label pt-2 mt-3">Select Calculation Method</p>
+          <mat-form-field class="w-100 bg-white font-rubik">
+            <mat-label class="font-rubik d-flex gap-2 align-items-center">
+              <img [src]="numberIcon" alt="Calendar Icon" class="" />
+              {{ selectedValue || 'None' }}
+            </mat-label>
+            <mat-select
+              class="font-rubik"
+              [(ngModel)]="selectedValue"
+              (selectionChange)="onSelectionChange()"
+            >
+              <mat-option value="option1">
+                Fixed Value – A static contribution amount
+              </mat-option>
+              <mat-option value="option2">
+                Free Field Value - Contribution is determined based on free
+                field variables (e.g. work hours, usage, member status)
+              </mat-option>
+              <mat-option value="option3">
+                Variable Value - Use formulas to calculate contributions
+                dynamically
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
           <div class="w-100 mt-4">
             <div
@@ -161,6 +138,105 @@ import { MatRadioModule } from '@angular/material/radio';
       <!-- Step 3 -->
       <mat-step label="Step 3">
         <div class="basic-data-contribution">
+          <h4 class="heading">
+            Selecting the Applying Conditional Logic
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9C16.5 13.1421 13.1421 16.5 9 16.5ZM9 15C12.3137 15 15 12.3137 15 9C15 5.68629 12.3137 3 9 3C5.68629 3 3 5.68629 3 9C3 12.3137 5.68629 15 9 15ZM8.25 11.25H9.75V12.75H8.25V11.25ZM9.75 10.0163V10.5H8.25V9.375C8.25 8.96077 8.58577 8.625 9 8.625C9.6213 8.625 10.125 8.1213 10.125 7.5C10.125 6.87868 9.6213 6.375 9 6.375C8.45423 6.375 7.9992 6.76367 7.8966 7.27933L6.42548 6.9851C6.66478 5.78189 7.7265 4.875 9 4.875C10.4497 4.875 11.625 6.05025 11.625 7.5C11.625 8.68913 10.8343 9.6936 9.75 10.0163Z"
+                fill="#5A5A5A"
+              />
+            </svg>
+          </h4>
+          <h5 class="form-label pt-2 mt-3 fw-medium">
+            Select Calculation Method
+          </h5>
+
+          <div class="d-flex gap-3">
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                If <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ selectedValue || 'Select Number' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="if_option_100"> 100 </mat-option>
+                  <mat-option value="if_option_200"> 200 </mat-option>
+                  <mat-option value="if_option_300"> 300 </mat-option>
+                  <mat-option value="if_option_400"> 400 </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                Formula <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ selectedValue || 'Select Formula' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="formula_1_5">
+                    [FF space size] 1.5
+                  </mat-option>
+                  <mat-option value="formula_2"> [FF space size] 2</mat-option>
+                  <mat-option value="formula_3_5">
+                    [FF space size] 3.5
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                Other Formula <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ selectedValue || 'Select Formula' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="other_formula_1_5">
+                    [FF space size] 1.2
+                  </mat-option>
+                  <mat-option value="other_formula_2">
+                    [FF space size] 1.2</mat-option
+                  >
+                  <mat-option value="other_formula_3_5">
+                    [FF space size] 1.2
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Button group -->
+          <div class="w-100 mt-4">
+            <div
+              class="button-wrap d-flex justify-content-end align-items-end gap-3"
+            >
+              <button type="button" class="step-button fill" matStepperNext>
+                Next
+              </button>
+              <button type="button" class="step-button" matStepperPrevious>
+                Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- Step 4 -->
+      <mat-step label="Step 4">
+        <div class="basic-data-contribution">
           <h4 class="heading pb-4 d-flex gap-2 align-items-center">
             Selecting the Prorated Calculation Method
             <svg
@@ -177,75 +253,6 @@ import { MatRadioModule } from '@angular/material/radio';
             </svg>
           </h4>
 
-          <div class="tab-contents">
-            <h6 class="fs-14 pb-3 font-rubik font-normal">
-              Select Prorated Calculation Method
-            </h6>
-            <div class="tab-checkbox-wrap d-flex">
-              <mat-radio-group
-                class="tab-checkbox-wrap d-flex"
-                [formControl]="selectedIntervalControl"
-                (change)="onIntervalChange()"
-              >
-                <mat-radio-button
-                  class="w-100 check-box-item font-rubik"
-                  value="no-prorated-calculation"
-                >
-                  <h6 class="">No Prorated Calculation</h6>
-                  <p>
-                    The full contribution is charged for the entire billing
-                    period, regardless of when the member joins. This ensures a
-                    fixed and predictable payment structure.
-                  </p>
-                </mat-radio-button>
-                <mat-radio-button
-                  class="w-100 check-box-item font-rubik"
-                  value="monthly-prorated-calculation"
-                >
-                  <h6>Monthly Prorated Calculation</h6>
-                  <p>
-                    The contribution is adjusted based on the remaining months
-                    in the billing cycle. Members pay a proportional amount
-                    depending on when they join within the cycle.
-                  </p>
-                </mat-radio-button>
-                <mat-radio-button
-                  class="w-100 check-box-item font-rubik"
-                  value="daily-prorated-calculation"
-                >
-                  <h6>Daily Prorated Calculation</h6>
-                  <p>
-                    The contribution is calculated precisely based on the number
-                    of days remaining in the billing period. This provides the
-                    most accurate and fair payment adjustment.
-                  </p>
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-
-            <div
-              *ngIf="
-                selectedIntervalControl.value === 'monthly-prorated-calculation'
-              "
-              class="selected-date-wrap d-flex gap-4 align-items-center"
-            >
-              <mat-radio-button
-                class="mpc-check-box-item font-rubik"
-                value="at-the-beginning"
-              >
-                <p>At the beginning</p>
-              </mat-radio-button>
-              <mat-radio-button
-                class=" mpc-check-box-item font-rubik"
-                value="at-the-end"
-              >
-                <p>At the end</p>
-              </mat-radio-button>
-
-              <!-- Additional predefined date configuration options would go here -->
-            </div>
-          </div>
-
           <div class="w-100 mt-4">
             <div
               class="button-wrap d-flex justify-content-end align-items-end gap-3"
@@ -258,62 +265,26 @@ import { MatRadioModule } from '@angular/material/radio';
           </div>
         </div>
       </mat-step>
-
     </mat-stepper>
   `,
-  styles: `
-
-  `,
+  styles: ``,
 })
-export class PaymentTermsCalculationComponent {
-  contribution_id: number | null = null;
-  post_id: number | null = null;
-
-  numberIcon = 'assets/images/contribution-id-icon.svg';
-  calendarDateIcon = 'assets/images/due-date-icon.svg';
-  clockIcon = 'assets/images/clock-icon.svg';
-  profileUser = 'assets/images/profile-2user.svg';
+export class CalculationConfigurationComponent {
+  // Required asset paths
   intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
   textalignIcon = 'assets/images/textalign-justifycenter.svg';
-  selectedValue: string | null = null;
-
-  onSelectionChange() {
-    console.log('Selected option:', this.selectedValue);
-  }
 
   private _formBuilder = inject(FormBuilder);
 
-  // Initialize form controls
-  readonly toppings = this._formBuilder.group({
-    pepperoni: false,
-    extracheese: false,
-    mushroom: false,
-  });
-
-  // Create a FormControl for radio button group
-  selectedIntervalControl = this._formBuilder.control('start');
+  // Only keep the form controls we're actually using
+  selectedIntervalControl = this._formBuilder.control('');
 
   // Method called when radio selection changes
   onIntervalChange() {
-    // No additional code needed here as we're using the direct value in the template
-    // You could add additional logic here if needed
+    // Empty method but still used in template
   }
 
-  // Stepper
-  // private _formBuilder = inject(FormBuilder);
-
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-
-  // Previous Step tracking
-
   @ViewChild(MatStepper) stepper!: MatStepper;
-
-  // Add your existing properties and methods
 
   ngAfterViewInit() {
     // Set up an observer to watch for step changes
@@ -332,5 +303,14 @@ export class PaymentTermsCalculationComponent {
         }
       }
     });
+  }
+
+  // Select
+  numberIcon = 'assets/images/due-date-icon.svg';
+  calendarDateIcon = 'assets/images/calendar-edit.svg';
+  selectedValue: string | null = null;
+
+  onSelectionChange() {
+    console.log('Selected option:', this.selectedValue);
   }
 }
