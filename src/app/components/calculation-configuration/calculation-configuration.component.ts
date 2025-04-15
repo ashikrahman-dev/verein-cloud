@@ -201,7 +201,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </p>
               <mat-form-field class="w-100 bg-white font-rubik">
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                  {{ selectedValue || 'Select Formula' }}
+                  {{ 'Select Formula' }}
                 </mat-label>
                 <mat-select class="font-rubik">
                   <mat-option value="other_formula_1_5">

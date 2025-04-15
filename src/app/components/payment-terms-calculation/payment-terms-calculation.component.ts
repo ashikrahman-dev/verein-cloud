@@ -258,7 +258,6 @@ import { MatRadioModule } from '@angular/material/radio';
           </div>
         </div>
       </mat-step>
-
     </mat-stepper>
   `,
   styles: `
