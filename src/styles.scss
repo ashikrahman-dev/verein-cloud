@@ -865,6 +865,13 @@ div.mat-mdc-select-panel {
   max-width: 700px;
   margin-inline: auto;
 }
+
+.calculation-configuration-step {
+  .form-input-field {
+    background: #f2f2f2 !important;
+    padding-left: 16px;
+  }
+}
 /** calculation configuration ~end */
 
 /* Chrome, Safari, Edge, Opera */

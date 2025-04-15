@@ -157,7 +157,31 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
             Select Calculation Method
           </h5>
 
-          <div class="d-flex gap-3">
+          <div class="calculation-configuration-step">
+            <!-- Item -->
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                Function <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ 'Select' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="if_condition_wenn">
+                    "IF" Condition (WENN)
+                  </mat-option>
+                  <mat-option value="and_condition_wenn_und">
+                    "AND" Condition (WENN UND)
+                  </mat-option>
+                  <mat-option value="or_condition_wenn_oder">
+                    "OR" Condition (WENN ODER)
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 If <span class="text-red">*</span>
@@ -175,13 +199,47 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </mat-form-field>
             </div>
 
+            <!-- Item -->
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                Operator <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ '>=' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="operator_option_1"> >= </mat-option>
+                  <mat-option value="operator_option_2"> > </mat-option>
+                  <mat-option value="operator_option_3"> < </mat-option>
+                  <mat-option value="operator_option_4"> <= </mat-option>
+                  <mat-option value="operator_option_5"> = </mat-option>
+                  <mat-option value="operator_option_6"> <> </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Item -->
+            <div>
+              <p class="form-label fw-normal">
+                Value <span class="text-red">*</span>
+              </p>
+              <input
+                [(ngModel)]="value_id"
+                type="number"
+                placeholder="0"
+                class="form-input-field"
+              />
+            </div>
+
+            <!-- Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 Formula <span class="text-red">*</span>
               </p>
               <mat-form-field class="w-100 bg-white font-rubik">
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                  {{ selectedValue || 'Select Formula' }}
+                  {{ 'Select Formula' }}
                 </mat-label>
                 <mat-select class="font-rubik">
                   <mat-option value="formula_1_5">
@@ -195,6 +253,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </mat-form-field>
             </div>
 
+            <!-- Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 Other Formula <span class="text-red">*</span>
@@ -213,6 +272,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                   <mat-option value="other_formula_3_5">
                     [FF space size] 1.2
                   </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Item -->
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                Tax <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ 'Select Tax' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="tax_number_no"> No </mat-option>
+                  <mat-option value="tax_number_yos"> yes</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -267,7 +342,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
       </mat-step>
     </mat-stepper>
   `,
-  styles: ``,
+  styles: `
+    .calculation-configuration-step {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+  `,
 })
 export class CalculationConfigurationComponent {
   // Required asset paths
@@ -313,4 +394,7 @@ export class CalculationConfigurationComponent {
   onSelectionChange() {
     console.log('Selected option:', this.selectedValue);
   }
+
+  // Input
+  value_id: number | null = null;
 }
