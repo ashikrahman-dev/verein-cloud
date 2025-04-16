@@ -165,7 +165,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </p>
               <mat-form-field class="w-100 bg-white font-rubik">
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                  {{ 'Select' }}
+                  {{ '"IF" Condition (WENN)' }}
                 </mat-label>
                 <mat-select
                   [(ngModel)]="selectedConditionValue"
@@ -223,7 +223,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
             </div>
 
             <!-- 4 Item -->
-            <div *ngIf="selectedConditionValue === 'and_condition_wenn_und'">
+            <div
+              *ngIf="
+                selectedConditionValue === 'and_condition_wenn_und' ||
+                selectedConditionValue === 'or_condition_wenn_oder'
+              "
+            >
               <p class="form-label fw-normal">
                 Value <span class="text-red">*</span>
               </p>
@@ -255,9 +260,38 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </mat-form-field>
             </div>
 
+            <!-- 5 OR Item -->
+            <div
+              *ngIf="selectedConditionValue === 'or_condition_wenn_oder'"
+              class="w-100"
+            >
+              <p class="form-label fw-normal">
+                Or <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ 'Club Status' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="or_club_status_1 ">
+                    Club Status
+                  </mat-option>
+                  <mat-option value="or_club_status_2">
+                    Club Status 1</mat-option
+                  >
+                  <mat-option value="or_club_status_3">
+                    Club Status 2
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
             <!-- 6 Item -->
             <div
-              *ngIf="selectedConditionValue === 'and_condition_wenn_und'"
+              *ngIf="
+                selectedConditionValue === 'and_condition_wenn_und' ||
+                selectedConditionValue === 'or_condition_wenn_oder'
+              "
               class="w-100"
             >
               <p class="form-label fw-normal">
@@ -269,7 +303,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                 </mat-label>
                 <mat-select class="font-rubik">
                   <mat-option value="operator_active"> Active </mat-option>
-                  <mat-option value="operator_inactive"> Inactive</mat-option>
+                  <mat-option value="operator_passive"> Passive</mat-option>
+                  <mat-option value="operator_none_zero">
+                    None zero
+                  </mat-option>
+                  <mat-option value="operator_zero"> Zero </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -367,8 +405,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
       <!-- Step 4 -->
       <mat-step label="Step 4">
         <div class="basic-data-contribution">
-          <h4 class="heading pb-4 d-flex gap-2 align-items-center">
-            Selecting the Prorated Calculation Method
+          <h4 class="heading">
+            Assigning Financial Accounts
             <svg
               width="18"
               height="18"
@@ -382,7 +420,72 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               />
             </svg>
           </h4>
+          <h5 class="form-label pt-2 mt-3 fw-medium pb-4">
+            Select Financial Accounts
+          </h5>
 
+          <div class="calculation-configuration-step">
+            <!--  1 Item -->
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                Revenue Account <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ selectedValue || 'Select Revenue' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="revenue_account_100"> 100 </mat-option>
+                  <mat-option value="revenue_account_200"> 200 </mat-option>
+                  <mat-option value="revenue_account_300"> 300 </mat-option>
+                  <mat-option value="revenue_account_500"> 500 </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- 2 Item -->
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                Activity Account <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ '1800' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="activity_account_18000">
+                    18000
+                  </mat-option>
+                  <mat-option value="activity_account_19000">
+                    19000
+                  </mat-option>
+                  <mat-option value="activity_account_22000">
+                    22000
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- 3 Item -->
+            <div class="w-100">
+              <p class="form-label fw-normal">
+                Cost Centers <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ '1000' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="operator_option_1"> 1000 </mat-option>
+                  <mat-option value="operator_option_12"> 12000 </mat-option>
+                  <mat-option value="operator_option_15"> 15000 </mat-option>
+                  <mat-option value="operator_option_16"> 1000 </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Button group -->
           <div class="w-100 mt-4">
             <div
               class="button-wrap d-flex justify-content-end align-items-end gap-3"
