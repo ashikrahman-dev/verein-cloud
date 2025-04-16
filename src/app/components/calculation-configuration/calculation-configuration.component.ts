@@ -158,7 +158,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
           </h5>
 
           <div class="calculation-configuration-step">
-            <!-- Item -->
+            <!-- 1 Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 Function <span class="text-red">*</span>
@@ -167,7 +167,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   {{ 'Select' }}
                 </mat-label>
-                <mat-select class="font-rubik">
+                <mat-select
+                  [(ngModel)]="selectedConditionValue"
+                  class="font-rubik"
+                >
                   <mat-option value="if_condition_wenn">
                     "IF" Condition (WENN)
                   </mat-option>
@@ -181,7 +184,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </mat-form-field>
             </div>
 
-            <!-- Item -->
+            <!--  2 Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 If <span class="text-red">*</span>
@@ -199,7 +202,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </mat-form-field>
             </div>
 
-            <!-- Item -->
+            <!-- 3 Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 Operator <span class="text-red">*</span>
@@ -219,7 +222,59 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </mat-form-field>
             </div>
 
-            <!-- Item -->
+            <!-- 4 Item -->
+            <div *ngIf="selectedConditionValue === 'and_condition_wenn_und'">
+              <p class="form-label fw-normal">
+                Value <span class="text-red">*</span>
+              </p>
+              <input
+                [(ngModel)]="and_condition_value_id"
+                type="number"
+                placeholder="0"
+                class="form-input-field"
+              />
+            </div>
+
+            <!-- 5 Item -->
+            <div
+              *ngIf="selectedConditionValue === 'and_condition_wenn_und'"
+              class="w-100"
+            >
+              <p class="form-label fw-normal">
+                And <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ 'Club Status' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="club_status_1 "> Club Status </mat-option>
+                  <mat-option value="club_status_2"> Club Status 1</mat-option>
+                  <mat-option value="club_status_3"> Club Status 2 </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- 6 Item -->
+            <div
+              *ngIf="selectedConditionValue === 'and_condition_wenn_und'"
+              class="w-100"
+            >
+              <p class="form-label fw-normal">
+                Operator <span class="text-red">*</span>
+              </p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  {{ 'Active' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="operator_active"> Active </mat-option>
+                  <mat-option value="operator_inactive"> Inactive</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- 7 Item -->
             <div>
               <p class="form-label fw-normal">
                 Value <span class="text-red">*</span>
@@ -232,7 +287,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               />
             </div>
 
-            <!-- Item -->
+            <!-- 8 Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 Formula <span class="text-red">*</span>
@@ -253,7 +308,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </mat-form-field>
             </div>
 
-            <!-- Item -->
+            <!-- 9 Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 Other Formula <span class="text-red">*</span>
@@ -276,7 +331,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               </mat-form-field>
             </div>
 
-            <!-- Item -->
+            <!-- 10 Item -->
             <div class="w-100">
               <p class="form-label fw-normal">
                 Tax <span class="text-red">*</span>
@@ -351,6 +406,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   `,
 })
 export class CalculationConfigurationComponent {
+  selectedConditionValue: string | null = null;
+
+  onSelectionConditionChange() {
+    console.log('Selected option:', this.selectedValue);
+  }
+
   // Required asset paths
   intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
   textalignIcon = 'assets/images/textalign-justifycenter.svg';
@@ -397,4 +458,5 @@ export class CalculationConfigurationComponent {
 
   // Input
   value_id: number | null = null;
+  and_condition_value_id: number | null = null;
 }
