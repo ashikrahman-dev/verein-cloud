@@ -809,6 +809,10 @@ div.mat-mdc-select-panel {
   .mat-horizontal-stepper-header-container {
   display: flex !important;
 }
+.contribution-basic-data-step-wrap.finalization-step-wrap
+  .mat-horizontal-stepper-header-container {
+  display: flex !important;
+}
 .fs-24 {
   font-size: 24px;
 }

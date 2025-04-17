@@ -6,14 +6,15 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 export interface PeriodicElement {
-  contribution_type: string;
   id: number;
+  contribution_type: string;
   department: string;
   payment_method: string;
   basic_amount: number;
   booking_text: string;
   designation: string;
   income_account: string;
+  members: number;
 }
 const ELEMENT_DATA: PeriodicElement[] = [
   {
@@ -25,6 +26,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     booking_text: 'Club contrib...',
     designation: 'John wick',
     income_account: '63,369',
+    members: 2,
   },
   {
     id: 3670,
@@ -35,6 +37,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     booking_text: 'Club contrib...',
     designation: 'John wick',
     income_account: '63,369',
+    members: 8,
   },
   {
     id: 3671,
@@ -45,6 +48,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     booking_text: 'Club contrib...',
     designation: 'John wick',
     income_account: '63,369',
+    members: 42,
   },
   {
     id: 3672,
@@ -55,6 +59,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     booking_text: 'Club contrib...',
     designation: 'John wick',
     income_account: '63,369',
+    members: 7,
   },
   {
     id: 3673,
@@ -65,6 +70,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     booking_text: 'Club contrib...',
     designation: 'John wick',
     income_account: '63,369',
+    members: 11,
   },
   {
     id: 3674,
@@ -75,6 +81,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     booking_text: 'Club contrib...',
     designation: 'John wick',
     income_account: '63,369',
+    members: 2,
   },
   {
     id: 3675,
@@ -85,6 +92,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     booking_text: 'Club contrib...',
     designation: 'John wick',
     income_account: '63,369',
+    members: 2,
   },
   {
     id: 3676,
@@ -95,26 +103,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     booking_text: 'Club contrib...',
     designation: 'John wick',
     income_account: '63,369',
-  },
-  {
-    id: 3677,
-    contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Monthly',
-    basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
-    designation: 'John wick',
-    income_account: '63,369',
-  },
-  {
-    id: 3678,
-    contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Monthly',
-    basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
-    designation: 'John wick',
-    income_account: '63,369',
+    members: 2,
   },
 ];
 /**
@@ -192,7 +181,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by number"
         >
-          No.
+          ID
         </th>
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
@@ -205,7 +194,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by contribution_type"
         >
-          Contribution type
+          Designation
         </th>
         <td mat-cell *matCellDef="let element">
           {{ element.contribution_type }}
@@ -220,7 +209,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by department"
         >
-          Department
+          Contribution type
         </th>
         <td mat-cell *matCellDef="let element">{{ element.department }}</td>
       </ng-container>
@@ -233,7 +222,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by payment_method"
         >
-          Payment method
+          Basic Amount
         </th>
         <td mat-cell *matCellDef="let element">{{ element.payment_method }}</td>
       </ng-container>
@@ -246,7 +235,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by basic_amount"
         >
-          Basic amount
+          VAT
         </th>
         <td mat-cell *matCellDef="let element">$ {{ element.basic_amount }}</td>
       </ng-container>
@@ -259,7 +248,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by booking_text"
         >
-          Booking text
+          Interval
         </th>
         <td mat-cell *matCellDef="let element">{{ element.booking_text }}</td>
       </ng-container>
@@ -272,7 +261,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by designation"
         >
-          Designation
+          Booking Account
         </th>
         <td mat-cell *matCellDef="let element">{{ element.designation }}</td>
       </ng-container>
@@ -285,11 +274,24 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by income_account"
         >
-          Income account
+          Cost Center
         </th>
         <td mat-cell *matCellDef="let element">
           $ {{ element.income_account }}
         </td>
+      </ng-container>
+
+      <!-- Members Column -->
+      <ng-container matColumnDef="members">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by members"
+        >
+          Members
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.members }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -304,13 +306,14 @@ export class OverviewDataTableComponent {
   displayedColumns: string[] = [
     'select',
     'id',
-    'contribution_type',
-    'department',
-    'payment_method',
-    'basic_amount',
-    'booking_text',
     'designation',
+    'contribution_type',
+    'basic_amount',
+    'payment_method',
     'income_account',
+    'booking_text',
+    'department',
+    'members',
   ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
