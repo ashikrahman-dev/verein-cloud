@@ -8,6 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
@@ -19,17 +20,20 @@ import { MatStepperModule } from '@angular/material/stepper';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
   ],
   template: `
     <mat-stepper [linear]="isLinear" #stepper>
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Fill out your name</ng-template>
+          <!-- <ng-template matStepLabel>Fill out your name</ng-template> -->
+          <!-- <h4 matStepLabel>Fiil out your name</h4> -->
           <mat-form-field>
-            <mat-label>Name</mat-label>
+            <!-- <mat-label>Name</mat-label>
+            <span>Your Name:</span> -->
             <input
               matInput
-              placeholder="Last name, First name"
+              placeholder="First name"
               formControlName="firstCtrl"
               required
             />
@@ -49,6 +53,22 @@ import { MatStepperModule } from '@angular/material/stepper';
               placeholder="Ex. 1 Main St, New York, NY"
               required
             />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select formControlName="stateCtrl" required>
+              <mat-option value="AL">Alabama</mat-option>
+              <mat-option value="AK">Alaska</mat-option>
+              <mat-option value="AZ">Arizona</mat-option>
+              <mat-option value="AR">Arkansas</mat-option>
+              <mat-option value="CA">California</mat-option>
+              <mat-option value="CO">Colorado</mat-option>
+              <mat-option value="CT">Connecticut</mat-option>
+              <mat-option value="DE">Delaware</mat-option>
+              <mat-option value="FL">Florida</mat-option>
+              <mat-option value="GA">Georgia</mat-option>
+              <!-- You can add more states here -->
+            </mat-select>
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
@@ -74,6 +94,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 
   .mat-mdc-form-field {
     margin-top: 16px;
+    display: block;
+    width: 100%;
   }
 
   `,
@@ -86,6 +108,7 @@ export class StepTestComponent {
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
+    stateCtrl: ['', Validators.required],
   });
   // Setting isLinear to false to disable linear mode by default
   isLinear = true;

@@ -864,6 +864,17 @@ div.mat-mdc-select-panel {
   }
 }
 
+.mdc-floating-label--float-above mat-label {
+  display: none !important;
+}
+
+.mdc-floating-label.mat-mdc-floating-label {
+  display: flex !important;
+  gap: 8px !important;
+}
+.mdc-floating-label--required {
+  color: #ff0032;
+}
 /** calculation configuration  ~start */
 .cc-first-step-content {
   max-width: 700px;
