@@ -7,102 +7,111 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 export interface PeriodicElement {
   id: number;
-  contribution_type: string;
-  department: string;
-  payment_method: string;
-  basic_amount: number;
-  booking_text: string;
   designation: string;
-  income_account: string;
+  contribution_type: string;
+  basic_amount: number;
+  income_tax: string;
+  interval: string;
+  booking_account: string;
+  cost_center: string;
+  department: string;
   members: number;
 }
 const ELEMENT_DATA: PeriodicElement[] = [
   {
     id: 3669,
+    booking_account: 'Tennis Soccer 3',
     contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Monthly',
     basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
+    income_tax: '63,369',
+    interval: 'Yearly',
+    cost_center: 'Club contrib...',
+    department: 'Tennis',
     designation: 'John wick',
-    income_account: '63,369',
     members: 2,
   },
   {
     id: 3670,
     contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Monthly',
+    booking_account: 'Tennis Soccer 3',
     basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
+    interval: 'Yearly',
+    cost_center: 'Club contrib...',
     designation: 'John wick',
-    income_account: '63,369',
+    department: 'Tennis',
+    income_tax: '63,369',
     members: 8,
   },
   {
     id: 3671,
     contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Monthly',
+    booking_account: 'Tennis Soccer 3',
     basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
+    interval: 'Yearly',
+    cost_center: 'Club contrib...',
     designation: 'John wick',
-    income_account: '63,369',
+    department: 'Tennis',
+    income_tax: '63,369',
     members: 42,
   },
   {
     id: 3672,
     contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Monthly',
+    booking_account: 'Tennis Soccer 3',
     basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
+    interval: 'Yearly',
+    cost_center: 'Club contrib...',
     designation: 'John wick',
-    income_account: '63,369',
+    department: 'Tennis',
+    income_tax: '63,369',
     members: 7,
   },
   {
     id: 3673,
     contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Yearly',
+    booking_account: 'Tennis Soccer 3',
     basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
+    interval: 'Yearly',
+    cost_center: 'Club contrib...',
     designation: 'John wick',
-    income_account: '63,369',
+    department: 'Tennis',
+    income_tax: '63,369',
     members: 11,
   },
   {
     id: 3674,
     contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Monthly',
+    booking_account: 'Tennis Soccer 3',
     basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
+    interval: 'Yearly',
+    cost_center: 'Club contrib...',
     designation: 'John wick',
-    income_account: '63,369',
+    department: 'Tennis',
+    income_tax: '63,369',
     members: 2,
   },
   {
     id: 3675,
     contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Yearly',
+    booking_account: 'Tennis Soccer 3',
     basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
+    interval: 'Yearly',
+    cost_center: 'Club contrib...',
     designation: 'John wick',
-    income_account: '63,369',
+    department: 'Tennis',
+    income_tax: '63,369',
     members: 2,
   },
   {
     id: 3676,
     contribution_type: 'Family contribution',
-    department: 'Tennis Soccer 3',
-    payment_method: 'Yearly',
+    booking_account: 'Tennis Soccer 3',
     basic_amount: 6936.36,
-    booking_text: 'Club contrib...',
+    income_tax: '63,369',
+    interval: 'Yearly',
+    cost_center: 'Club contrib...',
     designation: 'John wick',
-    income_account: '63,369',
+    department: 'Tennis',
     members: 2,
   },
 ];
@@ -112,6 +121,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 @Component({
   selector: 'app-overview-data-table',
+  standalone: true,
   imports: [MatTableModule, MatSortModule, MatCheckboxModule],
   template: `
     <div
@@ -186,7 +196,20 @@ const ELEMENT_DATA: PeriodicElement[] = [
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
 
-      <!-- contribution_type Column -->
+      <!-- Designation Column -->
+      <ng-container matColumnDef="designation">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by designation"
+        >
+          Designation
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.designation }}</td>
+      </ng-container>
+
+      <!-- Contribution Type Column -->
       <ng-container matColumnDef="contribution_type">
         <th
           mat-header-cell
@@ -194,37 +217,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by contribution_type"
         >
-          Designation
+          Contribution Type
         </th>
         <td mat-cell *matCellDef="let element">
           {{ element.contribution_type }}
         </td>
-      </ng-container>
-
-      <!-- Department Column -->
-      <ng-container matColumnDef="department">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by department"
-        >
-          Contribution type
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element.department }}</td>
-      </ng-container>
-
-      <!-- Payment method Column -->
-      <ng-container matColumnDef="payment_method">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by payment_method"
-        >
-          Basic Amount
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element.payment_method }}</td>
       </ng-container>
 
       <!-- Basic Amount Column -->
@@ -235,49 +232,79 @@ const ELEMENT_DATA: PeriodicElement[] = [
           mat-sort-header
           sortActionDescription="Sort by basic_amount"
         >
-          VAT
+          Basic Amount
         </th>
         <td mat-cell *matCellDef="let element">$ {{ element.basic_amount }}</td>
       </ng-container>
 
-      <!-- Booking text Column -->
-      <ng-container matColumnDef="booking_text">
+      <!-- Income Account Column -->
+      <ng-container matColumnDef="income_tax">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by booking_text"
+          sortActionDescription="Sort by income_tax"
+        >
+          VAT
+        </th>
+        <td mat-cell *matCellDef="let element">$ {{ element.income_tax }}</td>
+      </ng-container>
+
+      <!-- Interval Column -->
+      <ng-container matColumnDef="interval">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by interval"
         >
           Interval
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.booking_text }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.interval }}</td>
       </ng-container>
 
-      <!-- Designation Column -->
-      <ng-container matColumnDef="designation">
+      <!-- Booking Account Column -->
+      <ng-container matColumnDef="booking_account">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by designation"
+          sortActionDescription="Sort by booking_account"
         >
           Booking Account
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.designation }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.booking_account }}
+        </td>
       </ng-container>
 
-      <!-- Income account Column -->
-      <ng-container matColumnDef="income_account">
+      <!-- Cost Center Column -->
+      <ng-container matColumnDef="cost_center">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by income_account"
+          sortActionDescription="Sort by cost_center"
         >
           Cost Center
         </th>
         <td mat-cell *matCellDef="let element">
-          $ {{ element.income_account }}
+          {{ element.cost_center }}
+        </td>
+      </ng-container>
+
+      <!-- Department(s) Column -->
+      <ng-container matColumnDef="department">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by department"
+        >
+          Department(s)
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          {{ element.department }}
         </td>
       </ng-container>
 
@@ -291,14 +318,20 @@ const ELEMENT_DATA: PeriodicElement[] = [
         >
           Members
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.members }}</td>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          {{ element.members }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   `,
-  styles: ``,
+  styles: `
+    .mdc-data-table__cell, .mdc-data-table__header-cell {
+      padding: 0 8px;
+    }
+  `,
 })
 export class OverviewDataTableComponent {
   private _liveAnnouncer = inject(LiveAnnouncer);
@@ -309,13 +342,15 @@ export class OverviewDataTableComponent {
     'designation',
     'contribution_type',
     'basic_amount',
-    'payment_method',
-    'income_account',
-    'booking_text',
+    'income_tax',
+    'interval',
+    'booking_account',
+    'cost_center',
     'department',
     'members',
   ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+  selection = new SelectionModel<PeriodicElement>(true, []);
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -325,21 +360,12 @@ export class OverviewDataTableComponent {
 
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-
-  // Check
-
-  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {

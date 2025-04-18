@@ -33,7 +33,7 @@ import { StepTestComponent } from '../step-test/step-test.component';
     StepTestComponent,
   ],
   template: `
-    <app-step-test></app-step-test>
+    <!-- <app-step-test></app-step-test> -->
     <mat-stepper
       class="contribution-basic-data-step-wrap payment-terms-calculation-wrap"
       [linear]="isLinear"
