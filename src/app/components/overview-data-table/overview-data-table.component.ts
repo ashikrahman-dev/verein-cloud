@@ -4,6 +4,7 @@ import { Component, ViewChild, inject } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
 
 export interface PeriodicElement {
   id: number;
@@ -122,13 +123,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-overview-data-table',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, MatCheckboxModule],
+  imports: [MatTableModule, MatSortModule, MatCheckboxModule, RouterModule],
   template: `
     <div
       class="d-flex justify-content-between align-items-center mb-3 overview-data-table-header"
     >
       <h5>Overview</h5>
-      <button>
+      <a routerLink="/contribution">
         <svg
           width="14"
           height="14"
@@ -152,7 +153,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
           />
         </svg>
         Add New
-      </button>
+      </a>
     </div>
     <table
       mat-table

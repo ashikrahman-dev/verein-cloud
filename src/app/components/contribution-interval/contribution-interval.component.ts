@@ -58,31 +58,10 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
           <div class="tab-menu mb-4">
             <!-- Bootstrap Tab -start -->
             <ul class="step-tab-wrap ps-0 pb-3" id="pills-tab" role="tablist">
+
               <li class="" role="presentation">
                 <button
                   class="active border-0 bg-transparent w-100 h-100"
-                  id="pills-home-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#pills-home"
-                  type="button"
-                  role="tab"
-                  aria-controls="pills-home"
-                  aria-selected="true"
-                >
-                  <div class="tab-a">
-                    <div class="tab-link fs-6">
-                      <div class="tab-title">
-                        <span class="tab-title-pra">Contributions</span>
-                        <div class="check"></div>
-                      </div>
-                      <h6 class="tab-pra pt-3">Overview</h6>
-                    </div>
-                  </div>
-                </button>
-              </li>
-              <li class="" role="presentation">
-                <button
-                  class="border-0 bg-transparent w-100 h-100"
                   id="pills-profile-tab"
                   data-bs-toggle="pill"
                   data-bs-target="#pills-profile"
@@ -199,21 +178,9 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
 
             <div class="tab-content" id="pills-tabContent">
               <!-- 1st Tab Content -->
-              <div
-                class="tab-pane fade show active"
-                id="pills-home"
-                role="tabpanel"
-                aria-labelledby="pills-home-tab"
-                tabindex="0"
-              >
-                <div class="overview-datatable-wrap">
-                  <app-overview-data-table></app-overview-data-table>
-                  <!-- <app-create-new-posts></app-create-new-posts> -->
-                </div>
-              </div>
               <!-- 2nd Tab Content -->
               <div
-                class="tab-pane fade"
+                class="tab-pane fade show active"
                 id="pills-profile"
                 role="tabpanel"
                 aria-labelledby="pills-profile-tab"

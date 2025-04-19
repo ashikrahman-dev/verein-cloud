@@ -671,7 +671,7 @@ div.mat-mdc-select-panel {
 }
 
 .overview-data-table-header {
-  button {
+  a {
     padding: 8px 16px;
     color: #000;
     font-family: "Rubik", sans-serif !important;
@@ -685,6 +685,8 @@ div.mat-mdc-select-panel {
     border: 1px solid #5a5a5a;
     background: transparent;
     transition: 0.2s all linear;
+    cursor: pointer;
+    text-decoration: none;
 
     svg * {
       transition: 0.2s all linear;

@@ -30,7 +30,7 @@ export type MenuItem = {
     </div>
     <ul class="navigation-menu-wrap">
       <li>
-        <a routerLink="/" class="custom-nav-item">
+        <a routerLink="/overview" class="custom-nav-item">
           <span>
             <img [src]="menuIcon1" class="img-fluid" alt="" />
           </span>
