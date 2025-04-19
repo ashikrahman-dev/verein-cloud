@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ContributionIntervalComponent } from '../contribution-interval/contribution-interval.component';
+import { OverviewComponent } from '../overview/overview.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ContributionIntervalComponent],
+  imports: [ContributionIntervalComponent, OverviewComponent],
   template: `
     <div>
-      <app-contribution-interval></app-contribution-interval>
+      <app-overview></app-overview>
     </div>
   `,
   styles: ``,
