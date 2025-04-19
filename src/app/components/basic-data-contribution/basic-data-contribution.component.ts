@@ -73,7 +73,7 @@ import { MatStepperModule } from '@angular/material/stepper';
                 *ngIf="
                   contributionIdControl.invalid && contributionIdControl.touched
                 "
-                class="error-message"
+                class="error-message font-rubik"
               >
                 Only alphanumeric characters, spaces, underscores, hyphens, and
                 forward slashes are allowed
@@ -93,7 +93,7 @@ import { MatStepperModule } from '@angular/material/stepper';
                 *ngIf="
                   designationIdControl.invalid && designationIdControl.touched
                 "
-                class="error-message"
+                class="error-message font-rubik"
               >
                 Contains invalid characters
               </div>
