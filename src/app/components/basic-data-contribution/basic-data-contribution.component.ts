@@ -213,8 +213,85 @@ import { MatStepperModule } from '@angular/material/stepper';
       </mat-step>
 
       <mat-step label="Step 2">
-        <!-- Rest of your component remains the same -->
+        <div class="basic-data-contribution">
+          <h4 class="heading pb-28 d-flex gap-2 align-items-center">
+            Create new posts
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9C16.5 13.1421 13.1421 16.5 9 16.5ZM9 15C12.3137 15 15 12.3137 15 9C15 5.68629 12.3137 3 9 3C5.68629 3 3 5.68629 3 9C3 12.3137 5.68629 15 9 15ZM8.25 11.25H9.75V12.75H8.25V11.25ZM9.75 10.0163V10.5H8.25V9.375C8.25 8.96077 8.58577 8.625 9 8.625C9.6213 8.625 10.125 8.1213 10.125 7.5C10.125 6.87868 9.6213 6.375 9 6.375C8.45423 6.375 7.9992 6.76367 7.8966 7.27933L6.42548 6.9851C6.66478 5.78189 7.7265 4.875 9 4.875C10.4497 4.875 11.625 6.05025 11.625 7.5C11.625 8.68913 10.8343 9.6936 9.75 10.0163Z"
+                fill="#5A5A5A"
+              />
+            </svg>
+          </h4>
+          <div class="basic-data-contribution-form">
+            <!-- Contribution type  -->
+            <div>
+              <p class="form-label">Contribution type</p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  <img [src]="profileUser" alt="Calendar Icon" class="" />
+                  {{ 'Family contributions' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="personal-contribution">
+                    Personal contributions
+                  </mat-option>
+                  <mat-option value="family-contribution">
+                    Family contributions
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Interval & Due Date  -->
+            <div>
+              <p class="form-label">Interval & Due Date</p>
+              <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                  <img
+                    [src]="intervalCalendarIcon"
+                    alt="Calendar Icon"
+                    class=""
+                  />
+                  {{ 'Day’s ' }}
+                </mat-label>
+                <mat-select class="font-rubik">
+                  <mat-option value="interval-due-date-1"> 1 Day </mat-option>
+                  <mat-option value="interval-due-date-2"> 2 Day’s </mat-option>
+                  <mat-option value="interval-due-date-3"> 3 Day’s </mat-option>
+                  <mat-option value="interval-due-date-4"> 4 Day’s </mat-option>
+                  <mat-option value="interval-due-date-5"> 5 Day’s </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="w-100 mt-4">
+            <div
+              class="button-wrap d-flex justify-content-end align-items-end gap-3"
+            >
+              <button type="button" class="step-button fill">Save</button>
+              <button type="button" class="step-button" matStepperPrevious>
+                Back
+              </button>
+            </div>
+          </div>
+        </div>
       </mat-step>
+
+      <!-- Icon overrides. -->
+      <!-- <ng-template matStepperIcon="phone">
+        <mat-icon>call_end</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="chat">
+        <mat-icon>forum</mat-icon>
+      </ng-template> -->
     </mat-stepper>
   `,
   styles: `
