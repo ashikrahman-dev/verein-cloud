@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
+import { FreeFieldComponent } from '../free-field/free-field.component';
 
 @Component({
   selector: 'app-basic-data-contribution',
@@ -33,6 +34,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    FreeFieldComponent,
   ],
   template: `
     <mat-stepper
@@ -138,45 +140,40 @@ import { MatStepperModule } from '@angular/material/stepper';
               </mat-form-field>
             </div>
 
-            <!-- Post description  -->
-            <div>
-              <p class="form-label">Post description</p>
+            <!-- Anzahl -->
+            <div *ngIf="selectedValue === 'limited-in-time'">
+              <p class="form-label">Anzahl</p>
+              <input
+                [(ngModel)]="anzahl"
+                placeholder="123"
+                [formControl]="anzahlControl"
+                class="form-input-field font-rubik remove-icon-cls"
+                (input)="validateAnzahl($event)"
+              />
+              <div
+                *ngIf="anzahlControl.invalid && anzahlControl.touched"
+                class="error-message font-rubik"
+              >
+                Please enter a number with maximum 3 digits
+              </div>
+            </div>
+
+            <!-- Duration type  -->
+            <div *ngIf="selectedValue === 'limited-in-time'">
+              <p class="form-label">Duration Time</p>
               <mat-form-field class="w-100 bg-white font-rubik">
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                  <img [src]="calendarDateIcon" alt="Calendar Icon" class="" />
-                  {{ 'One time ' }}
+                  <img [src]="clockIcon" alt="Calendar Icon" class="" />
+                  {{ 'Days' }}
                 </mat-label>
                 <mat-select class="font-rubik">
-                  <mat-option value="description-one-time">
-                    One time
-                  </mat-option>
-                  <mat-option value="description-weekly"> Weekly </mat-option>
-                  <mat-option value="description-monthly"> Monthly </mat-option>
-                  <mat-option value="description-quarters">
-                    Quarters
-                  </mat-option>
-                  <mat-option value="description-years"> Years </mat-option>
+                  <mat-option value="duration-month-1"> Days </mat-option>
+                  <mat-option value="duration-month-2"> Weeks </mat-option>
+                  <mat-option value="duration-month-3"> Months </mat-option>
+                  <mat-option value="duration-month-4"> Years </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
-
-          <!-- Duration type  -->
-          <div class="pt-3" *ngIf="selectedValue === 'limited-in-time'">
-            <p class="form-label">Duration type</p>
-            <mat-form-field class="w-100 bg-white font-rubik">
-              <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                <img [src]="clockIcon" alt="Calendar Icon" class="" />
-                {{ '1 Months ' }}
-              </mat-label>
-              <mat-select class="font-rubik">
-                <mat-option value="duration-month-1"> 1 Months </mat-option>
-                <mat-option value="duration-month-2"> 2 Months </mat-option>
-                <mat-option value="duration-month-3"> 3 Months </mat-option>
-                <mat-option value="duration-month-4"> 4 Months </mat-option>
-                <mat-option value="duration-month-5"> 5 Months </mat-option>
-              </mat-select>
-            </mat-form-field>
           </div>
 
           <div class="w-100 mt-4">
@@ -189,7 +186,9 @@ import { MatStepperModule } from '@angular/material/stepper';
                 matStepperNext
                 *ngIf="selectedValue === 'limited-in-time'"
                 [disabled]="
-                  contributionIdControl.invalid || designationIdControl.invalid
+                  contributionIdControl.invalid ||
+                  designationIdControl.invalid ||
+                  (selectedValue === 'limited-in-time' && anzahlControl.invalid)
                 "
               >
                 Next
@@ -259,14 +258,14 @@ import { MatStepperModule } from '@angular/material/stepper';
                     alt="Calendar Icon"
                     class=""
                   />
-                  {{ 'Day’s ' }}
+                  {{ 'Days ' }}
                 </mat-label>
                 <mat-select class="font-rubik">
                   <mat-option value="interval-due-date-1"> 1 Day </mat-option>
-                  <mat-option value="interval-due-date-2"> 2 Day’s </mat-option>
-                  <mat-option value="interval-due-date-3"> 3 Day’s </mat-option>
-                  <mat-option value="interval-due-date-4"> 4 Day’s </mat-option>
-                  <mat-option value="interval-due-date-5"> 5 Day’s </mat-option>
+                  <mat-option value="interval-due-date-2"> 2 Day's </mat-option>
+                  <mat-option value="interval-due-date-3"> 3 Day's </mat-option>
+                  <mat-option value="interval-due-date-4"> 4 Day's </mat-option>
+                  <mat-option value="interval-due-date-5"> 5 Day's </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -306,6 +305,7 @@ export class BasicDataContributionComponent {
   contribution_id: number | null = null;
   designation_id: number | null = null;
   post_id: number | null = null;
+  anzahl: string = ''; // Added for Anzahl field
 
   numberIcon = 'assets/images/contribution-id-icon.svg';
   calendarDateIcon = 'assets/images/due-date-icon.svg';
@@ -324,6 +324,12 @@ export class BasicDataContributionComponent {
   designationIdControl = new FormControl('', [
     Validators.required,
     Validators.pattern(/^[a-zA-Z0-9 _\-,.!?;":+()\\/']+$/),
+  ]);
+
+  // Anzahl validation - only digits with max length of 3
+  anzahlControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^[0-9]{1,3}$/),
   ]);
 
   // Method to validate Contribution ID input in real-time
@@ -364,6 +370,33 @@ export class BasicDataContributionComponent {
 
       // Update the form control value
       this.designationIdControl.setValue(sanitizedValue);
+    }
+  }
+
+  // Method to validate Anzahl input in real-time
+  validateAnzahl(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+
+    // Only allow digits (0-9)
+    const regex = /^[0-9]*$/;
+
+    if (!regex.test(value)) {
+      // If invalid characters are entered, remove them
+      const sanitizedValue = value.replace(/[^0-9]/g, '');
+      input.value = sanitizedValue;
+
+      // Update the form control value
+      this.anzahlControl.setValue(sanitizedValue);
+    }
+
+    // Limit to 3 digits
+    if (value.length > 3) {
+      const truncatedValue = value.substring(0, 3);
+      input.value = truncatedValue;
+
+      // Update the form control value
+      this.anzahlControl.setValue(truncatedValue);
     }
   }
 
