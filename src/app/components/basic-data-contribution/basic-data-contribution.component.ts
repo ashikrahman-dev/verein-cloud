@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -9,8 +9,9 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatStepperModule, MatStepper } from '@angular/material/stepper';
 import { FreeFieldComponent } from '../free-field/free-field.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-basic-data-contribution',
@@ -20,6 +21,10 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },
     },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { hideRequiredMarker: true }
+    }
   ],
   imports: [
     FormsModule,
@@ -38,12 +43,14 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
   ],
   template: `
     <mat-stepper
+      [linear]="isLinear"
+      #stepper
       [ngClass]="{
         'contribution-basic-data-step-wrap': true,
         'limited-time-class': selectedValue === 'limited-in-time'
       }"
     >
-      <mat-step label="Step 1">
+      <mat-step [stepControl]="firstFormGroup" label="Step 1">
         <div class="basic-data-contribution">
           <h4 class="heading pb-28 d-flex gap-2 align-items-center">
             Create new posts
@@ -103,13 +110,14 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
             <!-- Type of contribution  -->
             <div>
               <p class="form-label">Type of contribution</p>
-              <mat-form-field class="w-100 bg-white font-rubik">
+              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   {{ 'Normal contribution' }}
                 </mat-label>
                 <mat-select
                   class="font-rubik"
                   [(ngModel)]="selectedValue"
+                  [formControl]="contributionTypeControl"
                   (selectionChange)="onSelectionChange()"
                 >
                   <mat-option value="normal-contribution">
@@ -130,11 +138,11 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
             <!-- Departments  -->
             <div>
               <p class="form-label">Departments</p>
-              <mat-form-field class="w-100 bg-white font-rubik">
+              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   {{ 'None' }}
                 </mat-label>
-                <mat-select class="font-rubik">
+                <mat-select [formControl]="departmentControl" class="font-rubik">
                   <mat-option value="department-none"> None </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -161,12 +169,12 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
             <!-- Duration type  -->
             <div *ngIf="selectedValue === 'limited-in-time'">
               <p class="form-label">Duration Time</p>
-              <mat-form-field class="w-100 bg-white font-rubik">
+              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   <img [src]="clockIcon" alt="Calendar Icon" class="" />
                   {{ 'Days' }}
                 </mat-label>
-                <mat-select class="font-rubik">
+                <mat-select [formControl]="durationTypeControl" class="font-rubik">
                   <mat-option value="duration-month-1"> Days </mat-option>
                   <mat-option value="duration-month-2"> Weeks </mat-option>
                   <mat-option value="duration-month-3"> Months </mat-option>
@@ -200,6 +208,7 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
                 [disabled]="
                   contributionIdControl.invalid || designationIdControl.invalid
                 "
+                (click)="saveForm()"
               >
                 Save
               </button>
@@ -211,7 +220,7 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
         </div>
       </mat-step>
 
-      <mat-step label="Step 2">
+      <mat-step [stepControl]="secondFormGroup" label="Step 2">
         <div class="basic-data-contribution">
           <h4 class="heading pb-28 d-flex gap-2 align-items-center">
             Create new posts
@@ -232,12 +241,12 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
             <!-- Contribution type  -->
             <div>
               <p class="form-label">Contribution type</p>
-              <mat-form-field class="w-100 bg-white font-rubik">
+              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   <img [src]="profileUser" alt="Calendar Icon" class="" />
                   {{ 'Family contributions' }}
                 </mat-label>
-                <mat-select class="font-rubik">
+                <mat-select [formControl]="secondStepContributionTypeControl" class="font-rubik">
                   <mat-option value="personal-contribution">
                     Personal contributions
                   </mat-option>
@@ -251,7 +260,7 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
             <!-- Interval & Due Date  -->
             <div>
               <p class="form-label">Interval & Due Date</p>
-              <mat-form-field class="w-100 bg-white font-rubik">
+              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   <img
                     [src]="intervalCalendarIcon"
@@ -260,7 +269,7 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
                   />
                   {{ 'Days ' }}
                 </mat-label>
-                <mat-select class="font-rubik">
+                <mat-select [formControl]="intervalDueDateControl" class="font-rubik">
                   <mat-option value="interval-due-date-1"> 1 Day </mat-option>
                   <mat-option value="interval-due-date-2"> 2 Day's </mat-option>
                   <mat-option value="interval-due-date-3"> 3 Day's </mat-option>
@@ -275,7 +284,14 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
             <div
               class="button-wrap d-flex justify-content-end align-items-end gap-3"
             >
-              <button type="button" class="step-button fill">Save</button>
+              <button 
+                type="button" 
+                class="step-button fill"
+                [disabled]="secondStepContributionTypeControl.invalid || intervalDueDateControl.invalid"
+                (click)="saveForm()"
+              >
+                Save
+              </button>
               <button type="button" class="step-button" matStepperPrevious>
                 Back
               </button>
@@ -283,14 +299,6 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
           </div>
         </div>
       </mat-step>
-
-      <!-- Icon overrides. -->
-      <!-- <ng-template matStepperIcon="phone">
-        <mat-icon>call_end</mat-icon>
-      </ng-template>
-      <ng-template matStepperIcon="chat">
-        <mat-icon>forum</mat-icon>
-      </ng-template> -->
     </mat-stepper>
   `,
   styles: `
@@ -299,38 +307,79 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
       font-size: 12px;
       margin-top: 4px;
     }
+    
+    /* Hide required indicator asterisk globally */
+    ::ng-deep .mat-mdc-form-field-required-marker {
+      display: none !important;
+    }
   `,
 })
 export class BasicDataContributionComponent {
-  contribution_id: number | null = null;
-  designation_id: number | null = null;
+  @ViewChild('stepper') stepper!: MatStepper;
+
+  contribution_id: string = '';
+  designation_id: string = '';
   post_id: number | null = null;
-  anzahl: string = ''; // Added for Anzahl field
+  anzahl: string = '';
 
   numberIcon = 'assets/images/contribution-id-icon.svg';
   calendarDateIcon = 'assets/images/due-date-icon.svg';
   clockIcon = 'assets/images/clock-icon.svg';
   profileUser = 'assets/images/profile-2user.svg';
   intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
-  selectedValue: string | null = null;
+  selectedValue: string = 'normal-contribution';
+  
+  // Set linear mode (enforces form validation before proceeding to next step)
+  isLinear = true;
 
-  // Contribution ID validation (kept same as before)
+  // First step form controls
   contributionIdControl = new FormControl('', [
     Validators.required,
     Validators.pattern(/^[a-zA-Z0-9 _\-\/]+$/),
   ]);
 
-  // Designation ID validation with more allowed characters
   designationIdControl = new FormControl('', [
     Validators.required,
     Validators.pattern(/^[a-zA-Z0-9 _\-,.!?;":+()\\/']+$/),
   ]);
 
-  // Anzahl validation - only digits with max length of 3
+  contributionTypeControl = new FormControl('normal-contribution', [
+    Validators.required
+  ]);
+
+  departmentControl = new FormControl('department-none');
+
   anzahlControl = new FormControl('', [
-    Validators.required,
     Validators.pattern(/^[0-9]{1,3}$/),
   ]);
+
+  durationTypeControl = new FormControl('duration-month-1');
+
+  // Second step form controls
+  secondStepContributionTypeControl = new FormControl('family-contribution', [
+    Validators.required
+  ]);
+
+  intervalDueDateControl = new FormControl('interval-due-date-1', [
+    Validators.required
+  ]);
+
+  private _formBuilder = inject(FormBuilder);
+
+  // Create form groups for the stepper
+  firstFormGroup = this._formBuilder.group({
+    contributionId: this.contributionIdControl,
+    designationId: this.designationIdControl,
+    contributionType: this.contributionTypeControl,
+    department: this.departmentControl,
+    anzahl: this.anzahlControl,
+    durationType: this.durationTypeControl
+  });
+
+  secondFormGroup = this._formBuilder.group({
+    contributionType: this.secondStepContributionTypeControl,
+    intervalDueDate: this.intervalDueDateControl
+  });
 
   // Method to validate Contribution ID input in real-time
   validateContributionId(event: Event) {
@@ -347,6 +396,7 @@ export class BasicDataContributionComponent {
 
       // Update the form control value
       this.contributionIdControl.setValue(sanitizedValue);
+      this.contribution_id = sanitizedValue;
     }
   }
 
@@ -370,6 +420,7 @@ export class BasicDataContributionComponent {
 
       // Update the form control value
       this.designationIdControl.setValue(sanitizedValue);
+      this.designation_id = sanitizedValue;
     }
   }
 
@@ -388,6 +439,7 @@ export class BasicDataContributionComponent {
 
       // Update the form control value
       this.anzahlControl.setValue(sanitizedValue);
+      this.anzahl = sanitizedValue;
     }
 
     // Limit to 3 digits
@@ -397,36 +449,51 @@ export class BasicDataContributionComponent {
 
       // Update the form control value
       this.anzahlControl.setValue(truncatedValue);
+      this.anzahl = truncatedValue;
     }
   }
 
   onSelectionChange() {
     console.log('Selected option:', this.selectedValue);
+    
+    if (this.selectedValue === 'limited-in-time') {
+      // Make anzahl required for limited-in-time type
+      this.anzahlControl.setValidators([
+        Validators.required, 
+        Validators.pattern(/^[0-9]{1,3}$/)
+      ]);
+    } else {
+      // Remove validators if not limited-in-time
+      this.anzahlControl.clearValidators();
+      this.anzahlControl.setValidators([
+        Validators.pattern(/^[0-9]{1,3}$/)
+      ]);
+      this.anzahl = '';
+      this.anzahlControl.setValue('');
+    }
+    
+    // Update validation status
+    this.anzahlControl.updateValueAndValidity();
   }
 
-  private _formBuilder = inject(FormBuilder);
-
-  // Initialize form controls
-  readonly toppings = this._formBuilder.group({
-    pepperoni: false,
-    extracheese: false,
-    mushroom: false,
-  });
-
-  // Create a FormControl for radio button group
-  selectedIntervalControl = this._formBuilder.control('start');
-
-  // Method called when radio selection changes
-  onIntervalChange() {
-    // No additional code needed here as we're using the direct value in the template
+  saveForm() {
+    // Gather all form data
+    const formData = {
+      contributionId: this.contributionIdControl.value,
+      designationId: this.designationIdControl.value,
+      contributionType: this.selectedValue === 'limited-in-time' ? 
+                       this.contributionTypeControl.value : 
+                       this.secondStepContributionTypeControl.value,
+      department: this.departmentControl.value,
+      anzahl: this.anzahlControl.value,
+      durationType: this.durationTypeControl.value,
+      intervalDueDate: this.intervalDueDateControl.value
+    };
+    
+    console.log('Form data saved:', formData);
+    // Here you would typically send the data to a service
+    
+    // Optionally reset the form after saving
+    // this.stepper.reset();
   }
-
-  // Stepper form groups
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
 }

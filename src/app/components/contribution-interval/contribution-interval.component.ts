@@ -21,7 +21,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
 import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';
 import { FinalizationStepComponent } from '../finalization-step/finalization-step.component';
-import { OverviewDataTableComponent } from '../overview-data-table/overview-data-table.component';
 import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/payment-terms-calculation.component';
 import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
 
@@ -44,7 +43,6 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
     MatDatepickerModule,
     MatIconModule,
     StepFourDueDateComponent,
-    OverviewDataTableComponent,
     BasicDataContributionComponent,
     PaymentTermsCalculationComponent,
     CalculationConfigurationComponent,
@@ -58,7 +56,6 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
           <div class="tab-menu mb-4">
             <!-- Bootstrap Tab -start -->
             <ul class="step-tab-wrap ps-0 pb-3" id="pills-tab" role="tablist">
-
               <li class="" role="presentation">
                 <button
                   class="active border-0 bg-transparent w-100 h-100"
