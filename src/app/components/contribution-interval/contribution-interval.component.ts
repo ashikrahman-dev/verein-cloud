@@ -1,7 +1,5 @@
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { Component } from '@angular/core';
-import { SelectContributionIntervalComponent } from '../select-contribution-interval/select-contribution-interval.component';
-import { StepperComponent } from '../stepper/stepper.component';
 
 import { ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,8 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
 import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';
 import { FinalizationStepComponent } from '../finalization-step/finalization-step.component';
+import { IntervalDueDataStepOneComponent } from '../interval-due-data-step-one/interval-due-data-step-one.component';
 import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/payment-terms-calculation.component';
-import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
 
 @Component({
   selector: 'app-contribution-interval',
@@ -30,9 +28,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
   providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
-    StepperComponent,
     CdkStepperModule,
-    SelectContributionIntervalComponent,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
@@ -42,11 +38,11 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
     MatInputModule,
     MatDatepickerModule,
     MatIconModule,
-    StepFourDueDateComponent,
     BasicDataContributionComponent,
     PaymentTermsCalculationComponent,
     CalculationConfigurationComponent,
     FinalizationStepComponent,
+    IntervalDueDataStepOneComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -175,7 +171,6 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
 
             <div class="tab-content" id="pills-tabContent">
               <!-- 1st Tab Content -->
-              <!-- 2nd Tab Content -->
               <div
                 class="tab-pane fade show active"
                 id="pills-profile"
@@ -187,7 +182,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                   <app-basic-data-contribution></app-basic-data-contribution>
                 </div>
               </div>
-              <!-- 3rd Tab Content -->
+              <!-- 2nd Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-contact"
@@ -195,200 +190,11 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                 aria-labelledby="pills-contact-tab"
                 tabindex="0"
               >
-                <app-stepper [linearModeSelected]="false" #appStepper>
-                  <cdk-step [label]="'Step 1'">
-                    <div class="step">
-                      <div class="tab-contents text-center">
-                        <h3 class="fs-4">
-                          Proceeding to Contribution Interval and Due Date
-                          Settings
-                        </h3>
-                        <p class="fs-14">
-                          Define the interval, billing period, and due date for
-                          a structured and automated billing cycle.
-                        </p>
-
-                        <div class="button-wrap">
-                          <button
-                            type="button"
-                            class="step-button fill"
-                            cdkStepperNext
-                          >
-                            Procced
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </cdk-step>
-                  <cdk-step [label]="'Step 2'">
-                    <div class="step">
-                      <div class="tab-contents">
-                        <h3 class="fs-6 pb-3 mb-1">
-                          Proceeding to Contribution Interval and Due Date
-                          Settings
-                        </h3>
-                        <h6 class="fs-14">Contribution Interval & Due Date</h6>
-                        <p class="fs-14 text-dark-2 pb-3 mb-1">
-                          Define the interval, billing period, and due date for
-                          a structured and automated billing cycle.
-                        </p>
-                        <p class="fs-14">Selecting the Contribution Interval</p>
-                        <div>
-                          <app-select-contribution-interval></app-select-contribution-interval>
-                        </div>
-                        <div
-                          class="d-flex justify-content-end align-items-end w-100"
-                        >
-                          <div class="button-wrap">
-                            <button
-                              type="button"
-                              class="step-button fill"
-                              cdkStepperNext
-                            >
-                              Next
-                            </button>
-                            <button
-                              type="button"
-                              class="step-button"
-                              cdkStepperPrevious
-                            >
-                              Back
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </cdk-step>
-                  <cdk-step [label]="'Step 3'">
-                    <div class="step">
-                      <div class="tab-contents">
-                        <h3 class="fs-6 pb-3 mb-3">
-                          Selecting the Contribution Interval
-                        </h3>
-                        <h6 class="fs-14 pb-3">Select Contribution Interval</h6>
-                        <div class="tab-checkbox-wrap d-flex">
-                          <mat-radio-group
-                            class="tab-checkbox-wrap d-flex"
-                            [formControl]="selectedIntervalControl"
-                            (change)="onIntervalChange()"
-                          >
-                            <mat-radio-button
-                              class="w-100 check-box-item font-rubik"
-                              value="start"
-                            >
-                              <h6>Start</h6>
-                              <p>
-                                The period begins as soon as the member's
-                                contribution is activated and is then extended
-                                by one year.
-                              </p>
-                            </mat-radio-button>
-                            <mat-radio-button
-                              class="w-100 check-box-item font-rubik"
-                              value="interval"
-                            >
-                              <h6>Interval</h6>
-                              <p>
-                                The period begins as soon as the member's
-                                contribution is activated and is then extended
-                                by one year.
-                              </p>
-                            </mat-radio-button>
-                            <mat-radio-button
-                              class="w-100 check-box-item font-rubik"
-                              value="predefined"
-                            >
-                              <h6>Predefined Date</h6>
-                              <p>
-                                The period begins as soon as the member's
-                                contribution is activated and is then extended
-                                by one year.
-                              </p>
-                            </mat-radio-button>
-                          </mat-radio-group>
-                        </div>
-
-                        <div
-                          *ngIf="selectedIntervalControl.value === 'predefined'"
-                          class="selected-date-wrap"
-                        >
-                          <h6 class="fs-14 selected-date">Select Date</h6>
-                          <mat-form-field
-                            class="example-full-width w-100 font-rubik"
-                          >
-                            <mat-label class="font-rubik f-14">DD/MM</mat-label>
-                            <input matInput [matDatepicker]="picker" />
-                            <mat-datepicker-toggle
-                              matIconPrefix
-                              [for]="picker"
-                              class="calendar-datepicker-icon"
-                            >
-                              <mat-icon matDatepickerToggleIcon
-                                ><img [src]="calendarDateIcon" alt="Icon" />
-                              </mat-icon>
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                          </mat-form-field>
-                          <!-- Additional predefined date configuration options would go here -->
-                        </div>
-
-                        <div
-                          class="d-flex justify-content-end align-items-end w-100 mt-4"
-                        >
-                          <div class="button-wrap">
-                            <button
-                              type="button"
-                              class="step-button fill"
-                              cdkStepperNext
-                            >
-                              Next
-                            </button>
-                            <button
-                              type="button"
-                              class="step-button"
-                              cdkStepperPrevious
-                            >
-                              Back
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </cdk-step>
-                  <cdk-step [label]="'Step 4'">
-                    <div class="step">
-                      <div class="tab-contents">
-                        <h3 class="fs-6 pb-3 mb-1">
-                          Setting the Due Date for Payments
-                          <span class="basic-setting"> ( Basic setting )</span>
-                        </h3>
-                        <app-step-four-due-date></app-step-four-due-date>
-                        <div
-                          class="d-flex justify-content-end align-items-end w-100"
-                        >
-                          <div class="button-wrap">
-                            <button
-                              type="button"
-                              class="step-button fill"
-                              cdkStepperNext
-                            >
-                              Next
-                            </button>
-                            <button
-                              type="button"
-                              class="step-button"
-                              cdkStepperPrevious
-                            >
-                              Back
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </cdk-step>
-                </app-stepper>
+                <div class="basic-data-contribution-step">
+                  <app-interval-due-data-step-one></app-interval-due-data-step-one>
+                </div>
               </div>
-              <!-- 4th Tab Content -->
+              <!-- 3rd Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-disabled"
@@ -400,7 +206,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                   <app-payment-terms-calculation></app-payment-terms-calculation>
                 </div>
               </div>
-              <!-- Tab Content -->
+              <!-- 4th Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-contribution5"
@@ -410,7 +216,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
               >
                 <app-calculation-configuration></app-calculation-configuration>
               </div>
-              <!-- Tab Content -->
+              <!-- 5th Tab Content -->
               <div
                 class="tab-pane fade"
                 id="pills-contribution6"

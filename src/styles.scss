@@ -212,12 +212,14 @@ ul li {
   background-color: red !important;
 }
 
-.calculation-configuration-wrapper #cdk-stepper-3-label-1 {
+.calculation-configuration-wrapper #cdk-stepper-3-label-1,
+.calculation-configuration-wrapper #cdk-stepper-1-label-1 {
   clip-path: polygon(96% 0, 100% 50%, 96% 100%, 0% 100%, 4% 50%, 0% 0%);
   border-radius: 0 !important;
 }
 
-.calculation-configuration-wrapper #cdk-stepper-3-label-2 {
+.calculation-configuration-wrapper #cdk-stepper-3-label-2,
+.calculation-configuration-wrapper #cdk-stepper-1-label-2 {
   clip-path: polygon(96% 0, 100% 50%, 96% 100%, 0% 100%, 4% 50%, 0% 0%);
   border-radius: 0 !important;
   margin-left: -8px;
