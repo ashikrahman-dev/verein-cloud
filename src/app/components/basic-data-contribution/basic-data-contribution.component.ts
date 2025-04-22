@@ -7,11 +7,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule, MatStepper } from '@angular/material/stepper';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { FreeFieldComponent } from '../free-field/free-field.component';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-basic-data-contribution',
@@ -23,8 +23,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { hideRequiredMarker: true }
-    }
+      useValue: { hideRequiredMarker: true },
+    },
   ],
   imports: [
     FormsModule,
@@ -110,7 +110,10 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
             <!-- Type of contribution  -->
             <div>
               <p class="form-label">Type of contribution</p>
-              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
+              <mat-form-field
+                class="w-100 bg-white font-rubik"
+                hideRequiredMarker
+              >
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   {{ 'Normal contribution' }}
                 </mat-label>
@@ -138,11 +141,17 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
             <!-- Departments  -->
             <div>
               <p class="form-label">Departments</p>
-              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
+              <mat-form-field
+                class="w-100 bg-white font-rubik"
+                hideRequiredMarker
+              >
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   {{ 'None' }}
                 </mat-label>
-                <mat-select [formControl]="departmentControl" class="font-rubik">
+                <mat-select
+                  [formControl]="departmentControl"
+                  class="font-rubik"
+                >
                   <mat-option value="department-none"> None </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -169,12 +178,18 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
             <!-- Duration type  -->
             <div *ngIf="selectedValue === 'limited-in-time'">
               <p class="form-label">Duration Time</p>
-              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
+              <mat-form-field
+                class="w-100 bg-white font-rubik"
+                hideRequiredMarker
+              >
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   <img [src]="clockIcon" alt="Calendar Icon" class="" />
                   {{ 'Days' }}
                 </mat-label>
-                <mat-select [formControl]="durationTypeControl" class="font-rubik">
+                <mat-select
+                  [formControl]="durationTypeControl"
+                  class="font-rubik"
+                >
                   <mat-option value="duration-month-1"> Days </mat-option>
                   <mat-option value="duration-month-2"> Weeks </mat-option>
                   <mat-option value="duration-month-3"> Months </mat-option>
@@ -238,29 +253,13 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
             </svg>
           </h4>
           <div class="basic-data-contribution-form">
-            <!-- Contribution type  -->
-            <div>
-              <p class="form-label">Contribution type</p>
-              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
-                <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                  <img [src]="profileUser" alt="Calendar Icon" class="" />
-                  {{ 'Family contributions' }}
-                </mat-label>
-                <mat-select [formControl]="secondStepContributionTypeControl" class="font-rubik">
-                  <mat-option value="personal-contribution">
-                    Personal contributions
-                  </mat-option>
-                  <mat-option value="family-contribution">
-                    Family contributions
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-
             <!-- Interval & Due Date  -->
-            <div>
+            <div class="w-100">
               <p class="form-label">Interval & Due Date</p>
-              <mat-form-field class="w-100 bg-white font-rubik" hideRequiredMarker>
+              <mat-form-field
+                class="w-100 bg-white font-rubik"
+                hideRequiredMarker
+              >
                 <mat-label class="font-rubik d-flex gap-2 align-items-center">
                   <img
                     [src]="intervalCalendarIcon"
@@ -269,7 +268,10 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
                   />
                   {{ 'Days ' }}
                 </mat-label>
-                <mat-select [formControl]="intervalDueDateControl" class="font-rubik">
+                <mat-select
+                  [formControl]="intervalDueDateControl"
+                  class="font-rubik"
+                >
                   <mat-option value="interval-due-date-1"> 1 Day </mat-option>
                   <mat-option value="interval-due-date-2"> 2 Day's </mat-option>
                   <mat-option value="interval-due-date-3"> 3 Day's </mat-option>
@@ -284,10 +286,13 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
             <div
               class="button-wrap d-flex justify-content-end align-items-end gap-3"
             >
-              <button 
-                type="button" 
+              <button
+                type="button"
                 class="step-button fill"
-                [disabled]="secondStepContributionTypeControl.invalid || intervalDueDateControl.invalid"
+                [disabled]="
+                  secondStepContributionTypeControl.invalid ||
+                  intervalDueDateControl.invalid
+                "
                 (click)="saveForm()"
               >
                 Save
@@ -328,7 +333,7 @@ export class BasicDataContributionComponent {
   profileUser = 'assets/images/profile-2user.svg';
   intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
   selectedValue: string = 'normal-contribution';
-  
+
   // Set linear mode (enforces form validation before proceeding to next step)
   isLinear = true;
 
@@ -344,24 +349,22 @@ export class BasicDataContributionComponent {
   ]);
 
   contributionTypeControl = new FormControl('normal-contribution', [
-    Validators.required
+    Validators.required,
   ]);
 
   departmentControl = new FormControl('department-none');
 
-  anzahlControl = new FormControl('', [
-    Validators.pattern(/^[0-9]{1,3}$/),
-  ]);
+  anzahlControl = new FormControl('', [Validators.pattern(/^[0-9]{1,3}$/)]);
 
   durationTypeControl = new FormControl('duration-month-1');
 
   // Second step form controls
   secondStepContributionTypeControl = new FormControl('family-contribution', [
-    Validators.required
+    Validators.required,
   ]);
 
   intervalDueDateControl = new FormControl('interval-due-date-1', [
-    Validators.required
+    Validators.required,
   ]);
 
   private _formBuilder = inject(FormBuilder);
@@ -373,12 +376,12 @@ export class BasicDataContributionComponent {
     contributionType: this.contributionTypeControl,
     department: this.departmentControl,
     anzahl: this.anzahlControl,
-    durationType: this.durationTypeControl
+    durationType: this.durationTypeControl,
   });
 
   secondFormGroup = this._formBuilder.group({
     contributionType: this.secondStepContributionTypeControl,
-    intervalDueDate: this.intervalDueDateControl
+    intervalDueDate: this.intervalDueDateControl,
   });
 
   // Method to validate Contribution ID input in real-time
@@ -455,23 +458,21 @@ export class BasicDataContributionComponent {
 
   onSelectionChange() {
     console.log('Selected option:', this.selectedValue);
-    
+
     if (this.selectedValue === 'limited-in-time') {
       // Make anzahl required for limited-in-time type
       this.anzahlControl.setValidators([
-        Validators.required, 
-        Validators.pattern(/^[0-9]{1,3}$/)
+        Validators.required,
+        Validators.pattern(/^[0-9]{1,3}$/),
       ]);
     } else {
       // Remove validators if not limited-in-time
       this.anzahlControl.clearValidators();
-      this.anzahlControl.setValidators([
-        Validators.pattern(/^[0-9]{1,3}$/)
-      ]);
+      this.anzahlControl.setValidators([Validators.pattern(/^[0-9]{1,3}$/)]);
       this.anzahl = '';
       this.anzahlControl.setValue('');
     }
-    
+
     // Update validation status
     this.anzahlControl.updateValueAndValidity();
   }
@@ -481,18 +482,19 @@ export class BasicDataContributionComponent {
     const formData = {
       contributionId: this.contributionIdControl.value,
       designationId: this.designationIdControl.value,
-      contributionType: this.selectedValue === 'limited-in-time' ? 
-                       this.contributionTypeControl.value : 
-                       this.secondStepContributionTypeControl.value,
+      contributionType:
+        this.selectedValue === 'limited-in-time'
+          ? this.contributionTypeControl.value
+          : this.secondStepContributionTypeControl.value,
       department: this.departmentControl.value,
       anzahl: this.anzahlControl.value,
       durationType: this.durationTypeControl.value,
-      intervalDueDate: this.intervalDueDateControl.value
+      intervalDueDate: this.intervalDueDateControl.value,
     };
-    
+
     console.log('Form data saved:', formData);
     // Here you would typically send the data to a service
-    
+
     // Optionally reset the form after saving
     // this.stepper.reset();
   }
