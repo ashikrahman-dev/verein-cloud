@@ -23,7 +23,7 @@ import { IntervalWeeksDropdownComponent } from '../interval-weeks-dropdown/inter
     IntervalWeeksDropdownComponent,
   ],
   template: `
-    <div>
+    <div class="w-100">
       <h6 class="due-date pt-3">Relative to the beginning of the interval</h6>
       <div class="d-flex gap-3 align-items-center">
         <mat-form-field class="w-100 bg-white font-rubik">

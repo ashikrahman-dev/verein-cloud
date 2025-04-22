@@ -1,22 +1,31 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
-
-import { ChangeDetectionStrategy } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { SelectContributionIntervalComponent } from '../select-contribution-interval/select-contribution-interval.component';
 import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
 
 @Component({
   selector: 'app-interval-due-data-step-one',
+  standalone: true,
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -33,195 +42,308 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-
     MatRadioModule,
     MatDatepickerModule,
-    SelectContributionIntervalComponent,
     StepFourDueDateComponent,
+    MatCheckboxModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-stepper
+      [linear]="isLinear"
       class="contribution-basic-data-step-wrap payment-terms-calculation-wrap calculation-configuration-wrapper"
+      #stepper
     >
       <!-- Step 1 -->
-      <mat-step label="Step 1">
-        <div class="step">
-          <div class="tab-contents text-center font-rubik">
-            <h3 class="fs-4">
-              Proceeding to Contribution Interval and Due Date Settings
-            </h3>
-            <p class="fs-14">
-              Define the interval, billing period, and due date for a structured
-              and automated billing cycle.
-            </p>
+      <mat-step [stepControl]="stepOneForm" label="Step 1">
+        <form [formGroup]="stepOneForm">
+          <div class="step">
+            <div class="tab-contents text-center font-rubik">
+              <h3 class="fs-4">
+                Proceeding to Contribution Interval and Due Date Settings
+              </h3>
+              <p class="fs-14">
+                Define the interval, billing period, and due date for a
+                structured and automated billing cycle.
+              </p>
 
-            <div class="button-wrap">
-              <button type="button" class="step-button fill" matStepperNext>
-                Procced
-              </button>
+              <div class="button-wrap">
+                <button type="button" class="step-button fill" matStepperNext>
+                  Procced
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </mat-step>
 
       <!-- Step 2 -->
-      <mat-step label="Step 2">
-        <div class="step">
-          <div class="tab-contents font-rubik">
-            <h3 class="fs-6 pb-3 mb-1">
-              Proceeding to Contribution Interval and Due Date Settings
-            </h3>
-            <h6 class="fs-14">Contribution Interval & Due Date</h6>
-            <p class="fs-14 text-dark-2 pb-3 mb-1">
-              Define the interval, billing period, and due date for a structured
-              and automated billing cycle.
-            </p>
-            <p class="fs-14">Selecting the Contribution Interval</p>
-            <div>
-              <app-select-contribution-interval></app-select-contribution-interval>
-            </div>
-            <div class="d-flex justify-content-end align-items-end w-100">
-              <div class="button-wrap">
-                <button type="button" class="step-button fill" matStepperNext>
-                  Next
-                </button>
-                <button type="button" class="step-button" matStepperPrevious>
-                  Back
-                </button>
+      <mat-step [stepControl]="stepTwoForm" label="Step 2">
+        <form [formGroup]="stepTwoForm">
+          <div class="step">
+            <div class="tab-contents font-rubik">
+              <h3 class="fs-6 pb-3 mb-1">
+                Proceeding to Contribution Interval and Due Date Settings
+              </h3>
+              <h6 class="fs-14">Contribution Interval & Due Date</h6>
+              <p class="fs-14 text-dark-2 pb-3 mb-1">
+                Define the interval, billing period, and due date for a
+                structured and automated billing cycle.
+              </p>
+              <p class="fs-14">Selecting the Contribution Interval</p>
+              <div>
+                <mat-form-field class="w-100 bg-white font-rubik">
+                  <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                    <img [src]="calendarIcon" alt="Calendar Icon" class="" />
+                    Choose an option</mat-label
+                  >
+                  <mat-select
+                    formControlName="selectedContributionType"
+                    class="font-rubik"
+                  >
+                    <mat-option value="one-time">One-time</mat-option>
+                    <mat-option value="monthly">Monthly</mat-option>
+                    <mat-option value="quarterly">Quarterly</mat-option>
+                    <mat-option value="semi-annually">Semi-Annually</mat-option>
+                    <mat-option value="annually">Annually</mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="
+                      stepTwoForm
+                        .get('selectedContributionType')
+                        ?.hasError('required')
+                    "
+                  >
+                    Please select a contribution type
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="d-flex justify-content-end align-items-end w-100">
+                <div class="button-wrap">
+                  <button type="button" class="step-button fill" matStepperNext>
+                    Next
+                  </button>
+                  <button type="button" class="step-button" matStepperPrevious>
+                    Back
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </mat-step>
 
       <!-- Step 3 -->
-      <mat-step label="Step 3">
-        <div class="step">
-          <div class="tab-contents font-rubik">
-            <h3 class="fs-6 pb-3 mb-3">Selecting the Contribution Interval</h3>
-            <h6 class="fs-14 pb-3">Select Contribution Interval</h6>
-            <div class="tab-checkbox-wrap d-flex">
-              <mat-radio-group
-                class="tab-checkbox-wrap d-flex"
-                [formControl]="selectedIntervalControl"
-                (change)="onIntervalChange()"
+      <mat-step [stepControl]="stepThreeForm" label="Step 3">
+        <form [formGroup]="stepThreeForm">
+          <div class="step">
+            <div class="tab-contents font-rubik">
+              <h3 class="fs-6 pb-3 mb-3">
+                Selecting the Contribution Interval
+              </h3>
+              <h6 class="fs-14 pb-3">Select Contribution Interval</h6>
+              <div class="tab-checkbox-wrap d-flex">
+                <mat-radio-group
+                  class="tab-checkbox-wrap d-flex"
+                  formControlName="selectedInterval"
+                  (change)="onIntervalChange()"
+                >
+                  <mat-radio-button
+                    class="w-100 check-box-item font-rubik"
+                    value="start"
+                  >
+                    <h6>Start</h6>
+                    <p>
+                      The period begins as soon as the member's contribution is
+                      activated and is then extended by one year.
+                    </p>
+                  </mat-radio-button>
+                  <mat-radio-button
+                    class="w-100 check-box-item font-rubik"
+                    value="interval"
+                  >
+                    <h6>Interval</h6>
+                    <p>
+                      The period begins as soon as the member's contribution is
+                      activated and is then extended by one year.
+                    </p>
+                  </mat-radio-button>
+                  <mat-radio-button
+                    class="w-100 check-box-item font-rubik"
+                    value="predefined"
+                  >
+                    <h6>Predefined Date</h6>
+                    <p>
+                      The period begins as soon as the member's contribution is
+                      activated and is then extended by one year.
+                    </p>
+                  </mat-radio-button>
+                </mat-radio-group>
+                <div
+                  *ngIf="
+                    stepThreeForm
+                      .get('selectedInterval')
+                      ?.hasError('required') &&
+                    stepThreeForm.get('selectedInterval')?.touched
+                  "
+                  class="error-message"
+                >
+                  Please select an interval option
+                </div>
+              </div>
+
+              <div
+                *ngIf="
+                  stepThreeForm.get('selectedInterval')?.value === 'predefined'
+                "
+                class="selected-date-wrap interval-date-dropdown"
               >
-                <mat-radio-button
-                  class="w-100 check-box-item font-rubik"
-                  value="start"
-                >
-                  <h6>Start</h6>
-                  <p>
-                    The period begins as soon as the member's contribution is
-                    activated and is then extended by one year.
-                  </p>
-                </mat-radio-button>
-                <mat-radio-button
-                  class="w-100 check-box-item font-rubik"
-                  value="interval"
-                >
-                  <h6>Interval</h6>
-                  <p>
-                    The period begins as soon as the member's contribution is
-                    activated and is then extended by one year.
-                  </p>
-                </mat-radio-button>
-                <mat-radio-button
-                  class="w-100 check-box-item font-rubik"
-                  value="predefined"
-                >
-                  <h6>Predefined Date</h6>
-                  <p>
-                    The period begins as soon as the member's contribution is
-                    activated and is then extended by one year.
-                  </p>
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
+                <h6 class="fs-14 selected-date">Select Date</h6>
+                <mat-form-field class="example-full-width w-100 font-rubik">
+                  <mat-label class="font-rubik f-14">DD/MM</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="predefinedDate"
+                  />
+                  <mat-datepicker-toggle
+                    matIconPrefix
+                    [for]="picker"
+                    class="calendar-datepicker-icon"
+                  >
+                    <mat-icon class="calendar-icon-cls" matDatepickerToggleIcon
+                      ><img [src]="calendarDateIcon" alt="Icon" />
+                    </mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error
+                    *ngIf="
+                      stepThreeForm
+                        .get('predefinedDate')
+                        ?.hasError('required') &&
+                      stepThreeForm.get('selectedInterval')?.value ===
+                        'predefined'
+                    "
+                  >
+                    Please select a date
+                  </mat-error>
+                </mat-form-field>
+              </div>
 
-            <div
-              *ngIf="selectedIntervalControl.value === 'predefined'"
-              class="selected-date-wrap"
-            >
-              <h6 class="fs-14 selected-date">Select Date</h6>
-              <mat-form-field class="example-full-width w-100 font-rubik">
-                <mat-label class="font-rubik f-14">DD/MM</mat-label>
-                <input matInput [matDatepicker]="picker" />
-                <mat-datepicker-toggle
-                  matIconPrefix
-                  [for]="picker"
-                  class="calendar-datepicker-icon"
-                >
-                  <mat-icon matDatepickerToggleIcon
-                    ><img [src]="calendarDateIcon" alt="Icon" />
-                  </mat-icon>
-                </mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <!-- Additional predefined date configuration options would go here -->
-            </div>
-
-            <div class="d-flex justify-content-end align-items-end w-100 mt-4">
-              <div class="button-wrap">
-                <button type="button" class="step-button fill" matStepperNext>
-                  Next
-                </button>
-                <button type="button" class="step-button" matStepperPrevious>
-                  Back
-                </button>
+              <div
+                class="d-flex justify-content-end align-items-end w-100 mt-4"
+              >
+                <div class="button-wrap">
+                  <button type="button" class="step-button fill" matStepperNext>
+                    Next
+                  </button>
+                  <button type="button" class="step-button" matStepperPrevious>
+                    Back
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </mat-step>
 
       <!-- Step 4 -->
-      <mat-step label="Step 4">
-        <div class="step">
-          <div class="tab-contents font-rubik">
-            <h3 class="fs-6 pb-3 mb-1">
-              Setting the Due Date for Payments
-              <span class="basic-setting"> ( Basic setting )</span>
-            </h3>
-            <app-step-four-due-date></app-step-four-due-date>
-            <div class="d-flex justify-content-end align-items-end w-100">
-              <div class="button-wrap">
-                <button type="button" class="step-button fill">Next</button>
-                <button type="button" class="step-button" matStepperPrevious>
-                  Back
-                </button>
+      <mat-step [stepControl]="stepFourForm" label="Step 4">
+        <form [formGroup]="stepFourForm">
+          <div class="step">
+            <div class="tab-contents font-rubik">
+              <h3 class="fs-6 pb-3 mb-1">
+                Setting the Due Date for Payments
+                <span class="basic-setting"> ( Basic setting )</span>
+              </h3>
+              <app-step-four-due-date></app-step-four-due-date>
+              <div class="d-flex justify-content-end align-items-end w-100">
+                <div class="button-wrap">
+                  <button
+                    type="button"
+                    class="step-button fill"
+                    (click)="onCompleteForm()"
+                  >
+                    Save
+                  </button>
+                  <button type="button" class="step-button" matStepperPrevious>
+                    Back
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </mat-step>
     </mat-stepper>
   `,
-  styles: ``,
+  styles: `
+    .calendar-icon-cls {
+      width: 16px;
+      height: 16px;
+    }
+    .calendar-icon-cls img {
+      max-width: 100%;
+    }
+    .error-message {
+      color: #f44336;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  `,
 })
 export class IntervalDueDataStepOneComponent {
-  selectedConditionValue: string | null = null;
-
-  onSelectionConditionChange() {
-    console.log('Selected option:', this.selectedValue);
-  }
-
   // Required asset paths
   intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
   textalignIcon = 'assets/images/textalign-justifycenter.svg';
+  calendarIcon = 'assets/images/calendar-edit.svg';
+  calendarDateIcon = 'assets/images/calendar-edit.svg';
+  numberIcon = 'assets/images/due-date-icon.svg';
 
+  // Form related variables
+  isLinear = true;
   private _formBuilder = inject(FormBuilder);
 
-  // Only keep the form controls we're actually using
-  selectedIntervalControl = this._formBuilder.control('');
+  // Form groups for each step
+  stepOneForm = this._formBuilder.group({
+    // For step 1, we just need a form group to enable the linear stepper
+    // No specific validation needed for this step
+    acceptedTerms: [true, Validators.requiredTrue],
+  });
 
-  // Method called when radio selection changes
-  onIntervalChange() {
-    // Empty method but still used in template
-  }
+  stepTwoForm = this._formBuilder.group({
+    selectedContributionType: ['', Validators.required],
+  });
+
+  stepThreeForm = this._formBuilder.group({
+    selectedInterval: ['', Validators.required],
+    predefinedDate: [''],
+  });
+
+  stepFourForm = this._formBuilder.group({
+    // This will be populated based on your StepFourDueDateComponent requirements
+    // For now, adding a placeholder field to ensure the form validation works
+    dueDateOption: ['', Validators.required],
+  });
 
   @ViewChild(MatStepper) stepper!: MatStepper;
+
+  ngOnInit() {
+    // Set conditional validation for predefinedDate based on selectedInterval value
+    this.stepThreeForm
+      .get('selectedInterval')
+      ?.valueChanges.subscribe((value) => {
+        const predefinedDateControl = this.stepThreeForm.get('predefinedDate');
+
+        if (value === 'predefined') {
+          predefinedDateControl?.setValidators(Validators.required);
+        } else {
+          predefinedDateControl?.clearValidators();
+        }
+
+        predefinedDateControl?.updateValueAndValidity();
+      });
+  }
 
   ngAfterViewInit() {
     // Set up an observer to watch for step changes
@@ -242,16 +364,50 @@ export class IntervalDueDataStepOneComponent {
     });
   }
 
-  // Select
-  numberIcon = 'assets/images/due-date-icon.svg';
-  calendarDateIcon = 'assets/images/calendar-edit.svg';
-  selectedValue: string | null = null;
+  // Method called when radio selection changes
+  onIntervalChange() {
+    const intervalValue = this.stepThreeForm.get('selectedInterval')?.value;
+    console.log('Selected interval:', intervalValue);
 
-  onSelectionChange() {
-    console.log('Selected option:', this.selectedValue);
+    // If predefined is selected but no date is chosen, mark as touched to show validation
+    if (intervalValue === 'predefined') {
+      this.stepThreeForm.get('predefinedDate')?.markAsTouched();
+    }
   }
 
-  // Input
-  value_id: number | null = null;
-  and_condition_value_id: number | null = null;
+  onCompleteForm() {
+    if (this.stepFourForm.valid) {
+      // Form is complete, do something with the data
+      console.log('Form completed successfully!');
+      console.log('Step 2 data:', this.stepTwoForm.value);
+      console.log('Step 3 data:', this.stepThreeForm.value);
+      console.log('Step 4 data:', this.stepFourForm.value);
+
+      // You can emit an event here or call a service method
+      // this.formComplete.emit(this.getAllFormData());
+    } else {
+      // Mark all fields as touched to trigger validation messages
+      this.markFormGroupTouched(this.stepFourForm);
+    }
+  }
+
+  // Helper method to mark all controls in a form group as touched
+  private markFormGroupTouched(formGroup: any) {
+    Object.values(formGroup.controls).forEach((control: any) => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  // Optional: Method to reset the stepper
+  resetStepper() {
+    this.stepper.reset();
+    this.stepOneForm.reset();
+    this.stepTwoForm.reset();
+    this.stepThreeForm.reset();
+    this.stepFourForm.reset();
+  }
 }

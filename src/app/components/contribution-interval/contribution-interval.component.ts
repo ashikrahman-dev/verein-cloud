@@ -1,20 +1,16 @@
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { Component } from '@angular/core';
-
 import { ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-
 // Datepicker imports
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
 import { MatIconModule } from '@angular/material/icon';
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
 import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';

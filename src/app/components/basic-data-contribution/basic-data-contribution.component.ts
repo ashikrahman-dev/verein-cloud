@@ -11,7 +11,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
-import { FreeFieldComponent } from '../free-field/free-field.component';
 
 @Component({
   selector: 'app-basic-data-contribution',
@@ -39,7 +38,6 @@ import { FreeFieldComponent } from '../free-field/free-field.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    FreeFieldComponent,
   ],
   template: `
     <mat-stepper

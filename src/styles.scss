@@ -731,37 +731,6 @@ div.mat-mdc-select-panel {
     line-height: 1.55; /* 155.556% */
   }
 
-  .form-input-field {
-    border-radius: 150px;
-    background: #f2f2f2;
-    color: #000000;
-    width: 100%;
-    padding: 12px 16px 12px 44px;
-    height: 40px;
-    border: 0px !important;
-    background: url('data:image/svg+xml,<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00033 8.50065C9.84127 8.50065 11.3337 7.00827 11.3337 5.16732C11.3337 3.32637 9.84127 1.83398 8.00033 1.83398C6.15938 1.83398 4.66699 3.32637 4.66699 5.16732C4.66699 7.00827 6.15938 8.50065 8.00033 8.50065Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7268 15.1667C13.7268 12.5867 11.1601 10.5 8.0001 10.5C4.8401 10.5 2.27344 12.5867 2.27344 15.1667" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'),
-      #f2f2f2;
-    background-repeat: no-repeat;
-    background-position: 16px center;
-
-    &::placeholder {
-      color: #999;
-      font-family: "Rubik", sans-serif;
-      font-size: 14px;
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    &.post-id {
-      background: url('data:image/svg+xml,<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 6.01398V3.32065C14.6667 2.26065 14.24 1.83398 13.18 1.83398H10.4867C9.42667 1.83398 9 2.26065 9 3.32065V6.01398C9 7.07398 9.42667 7.50065 10.4867 7.50065H13.18C14.24 7.50065 14.6667 7.07398 14.6667 6.01398Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.99967 6.18065V3.15398C6.99967 2.21398 6.57301 1.83398 5.51301 1.83398H2.81967C1.75967 1.83398 1.33301 2.21398 1.33301 3.15398V6.17398C1.33301 7.12065 1.75967 7.49398 2.81967 7.49398H5.51301C6.57301 7.50065 6.99967 7.12065 6.99967 6.18065Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.99967 13.68V10.9867C6.99967 9.92667 6.57301 9.5 5.51301 9.5H2.81967C1.75967 9.5 1.33301 9.92667 1.33301 10.9867V13.68C1.33301 14.74 1.75967 15.1667 2.81967 15.1667H5.51301C6.57301 15.1667 6.99967 14.74 6.99967 13.68Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10.834H14" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round"/><path d="M10 13.5H14" stroke="%23292D32" stroke-width="1.5" stroke-linecap="round"/></svg>'),
-        #f2f2f2;
-      background-repeat: no-repeat;
-      background-position: 16px center;
-    }
-  }
-
   .mat-mdc-text-field-wrapper {
     height: 40px;
 
@@ -780,6 +749,87 @@ div.mat-mdc-select-panel {
     .mat-mdc-select-arrow-wrapper {
       margin-top: 5px;
     }
+  }
+}
+
+.mat-mdc-text-field-wrapper {
+  height: 40px !important;
+
+  .mdc-floating-label {
+    top: 26px !important;
+    &.mdc-floating-label--float-above {
+      display: none;
+    }
+  }
+  .mat-mdc-form-field-infix {
+    top: -8px;
+  }
+  .mat-mdc-select-trigger {
+    top: -11px;
+  }
+  .mat-mdc-select-arrow-wrapper {
+    margin-top: 5px;
+  }
+}
+
+// Datepicker Icon
+button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 0% !important;
+}
+button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base
+  .mat-mdc-button-touch-target {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.mat-icon.notranslate.calendar-icon-cls.material-icons.mat-ligature-font.mat-icon-no-color {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 2px !important;
+  margin-top: -24px !important;
+}
+
+.interval-date-dropdown .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+  top: -14px !important;
+}
+.interval-date-dropdown label#mat-mdc-form-field-label-19 {
+  padding-top: 10px !important;
+  padding-left: 8px !important;
+}
+.due-date-select-field .mat-mdc-text-field-wrapper .mat-mdc-select-trigger {
+  top: -7px !important;
+}
+
+.form-input-field {
+  border-radius: 150px;
+  background: #f2f2f2;
+  color: #000000;
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  height: 40px;
+  border: 0px !important;
+  background: url('data:image/svg+xml,<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.00033 8.50065C9.84127 8.50065 11.3337 7.00827 11.3337 5.16732C11.3337 3.32637 9.84127 1.83398 8.00033 1.83398C6.15938 1.83398 4.66699 3.32637 4.66699 5.16732C4.66699 7.00827 6.15938 8.50065 8.00033 8.50065Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7268 15.1667C13.7268 12.5867 11.1601 10.5 8.0001 10.5C4.8401 10.5 2.27344 12.5867 2.27344 15.1667" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'),
+    #f2f2f2;
+  background-repeat: no-repeat;
+  background-position: 16px center;
+
+  &::placeholder {
+    color: #999;
+    font-family: "Rubik", sans-serif;
+    font-size: 14px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.post-id {
+    background: url('data:image/svg+xml,<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 6.01398V3.32065C14.6667 2.26065 14.24 1.83398 13.18 1.83398H10.4867C9.42667 1.83398 9 2.26065 9 3.32065V6.01398C9 7.07398 9.42667 7.50065 10.4867 7.50065H13.18C14.24 7.50065 14.6667 7.07398 14.6667 6.01398Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.99967 6.18065V3.15398C6.99967 2.21398 6.57301 1.83398 5.51301 1.83398H2.81967C1.75967 1.83398 1.33301 2.21398 1.33301 3.15398V6.17398C1.33301 7.12065 1.75967 7.49398 2.81967 7.49398H5.51301C6.57301 7.50065 6.99967 7.12065 6.99967 6.18065Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.99967 13.68V10.9867C6.99967 9.92667 6.57301 9.5 5.51301 9.5H2.81967C1.75967 9.5 1.33301 9.92667 1.33301 10.9867V13.68C1.33301 14.74 1.75967 15.1667 2.81967 15.1667H5.51301C6.57301 15.1667 6.99967 14.74 6.99967 13.68Z" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10.834H14" stroke="%235A5A5A" stroke-width="1.5" stroke-linecap="round"/><path d="M10 13.5H14" stroke="%23292D32" stroke-width="1.5" stroke-linecap="round"/></svg>'),
+      #f2f2f2;
+    background-repeat: no-repeat;
+    background-position: 16px center;
   }
 }
 .mat-mdc-select-trigger {
