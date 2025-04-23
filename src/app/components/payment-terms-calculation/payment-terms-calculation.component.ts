@@ -98,63 +98,38 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                 />
               </svg>
             </h4>
-            <p class="form-label pt-2 mt-3">Payment Deadline</p>
-            <div class="basic-data-contribution-form">
-              <div>
-                <mat-form-field class="w-100 bg-white font-rubik">
-                  <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                    <img
-                      [src]="intervalCalendarIcon"
-                      alt="Calendar Icon"
-                      class=""
-                    />
-                    Select Payment Day
-                  </mat-label>
-                  <mat-select
-                    class="font-rubik"
-                    formControlName="paymentDay"
-                    required
-                  >
-                    <mat-option value="7"> 7 </mat-option>
-                    <mat-option value="8"> 8 </mat-option>
-                    <mat-option value="9"> 9 </mat-option>
-                    <mat-option value="10"> 10 </mat-option>
-                    <mat-option value="11"> 11 </mat-option>
-                    <mat-option value="12"> 12 </mat-option>
-                  </mat-select>
-                  <mat-error
-                    *ngIf="
-                      step2FormGroup.get('paymentDay')?.hasError('required')
-                    "
-                  >
-                    Payment day is required
-                  </mat-error>
-                </mat-form-field>
-              </div>
+            <div class="">
 
+              <!-- Payment Deadline -->
               <div>
-                <mat-form-field class="w-100 bg-white font-rubik">
-                  <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                    <img [src]="textalignIcon" alt="Calendar Icon" class="" />
-                    Select Due Days
-                  </mat-label>
-                  <mat-select
-                    class="font-rubik"
-                    formControlName="dueDays"
-                    required
-                  >
-                    <mat-option value="1"> 1 Day </mat-option>
-                    <mat-option value="2"> 2 Day's </mat-option>
-                    <mat-option value="3"> 3 Day's </mat-option>
-                    <mat-option value="4"> 4 Day's </mat-option>
-                    <mat-option value="5"> 5 Day's </mat-option>
-                  </mat-select>
-                  <mat-error
-                    *ngIf="step2FormGroup.get('dueDays')?.hasError('required')"
-                  >
-                    Due days selection is required
-                  </mat-error>
-                </mat-form-field>
+                <p class="form-label pt-3">Payment Deadline</p>
+                <input
+                  placeholder="Enter day (1-31)"
+                  class="form-input-field font-rubik remove-icon-cls"
+                  formControlName="paymentDeadline"
+                  type="number"
+                  min="1"
+                  max="31"
+                  maxlength="2"
+                  (input)="enforceMaxLength($event)"
+                />
+                <div
+                  class="error-message font-rubik"
+                  *ngIf="paymentDeadlineControl.invalid && (paymentDeadlineControl.dirty || paymentDeadlineControl.touched)"
+                >
+                  <div *ngIf="paymentDeadlineControl.errors?.['required']">
+                    Payment deadline is required
+                  </div>
+                  <div *ngIf="paymentDeadlineControl.errors?.['min']">
+                    Payment deadline must be at least 1
+                  </div>
+                  <div *ngIf="paymentDeadlineControl.errors?.['max']">
+                    Payment deadline cannot exceed 31
+                  </div>
+                  <div *ngIf="paymentDeadlineControl.errors?.['pattern']">
+                    Please enter a valid number between 1 and 31
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -252,7 +227,10 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                 "
                 class="selected-date-wrap d-flex gap-4 align-items-center mt-3"
               >
-                <mat-radio-group formControlName="monthlyProratedOption" class="d-flex gap-4">
+                <mat-radio-group
+                  formControlName="monthlyProratedOption"
+                  class="d-flex gap-4"
+                >
                   <mat-radio-button
                     class="mpc-check-box-item font-rubik"
                     value="at-the-beginning"
@@ -326,7 +304,12 @@ export class PaymentTermsCalculationComponent {
   });
 
   step2FormGroup = this._formBuilder.group({
-    paymentDay: ['', Validators.required],
+    paymentDeadline: ['', [
+      Validators.required,
+      Validators.min(1),
+      Validators.max(31),
+      Validators.pattern('^[0-9]{1,2}$')
+    ]],
     dueDays: ['', Validators.required],
   });
 
@@ -334,6 +317,11 @@ export class PaymentTermsCalculationComponent {
     calculationMethod: ['no-prorated-calculation', Validators.required],
     monthlyProratedOption: [''],
   });
+
+  // Getter for easy access to the payment deadline control
+  get paymentDeadlineControl() {
+    return this.step2FormGroup.get('paymentDeadline')!;
+  }
 
   @ViewChild(MatStepper) stepper!: MatStepper;
 
@@ -354,6 +342,20 @@ export class PaymentTermsCalculationComponent {
 
         monthlyProratedOption?.updateValueAndValidity();
       });
+  }
+
+  // Method to enforce maxlength on number input (since HTML maxlength doesn't work with type="number")
+  enforceMaxLength(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length > 2) {
+      input.value = input.value.slice(0, 2);
+    }
+    
+    // Also ensure the value is within range 1-31
+    const numValue = parseInt(input.value, 10);
+    if (numValue > 31) {
+      input.value = '31';
+    }
   }
 
   onIntervalChange() {

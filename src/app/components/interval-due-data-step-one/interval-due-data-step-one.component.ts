@@ -103,7 +103,6 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                     formControlName="selectedContributionType"
                     class="font-rubik"
                   >
-                    <mat-option value="one-time">One-time</mat-option>
                     <mat-option value="monthly">Monthly</mat-option>
                     <mat-option value="quarterly">Quarterly</mat-option>
                     <mat-option value="semi-annually">Semi-Annually</mat-option>
@@ -344,7 +343,7 @@ export class IntervalDueDataStepOneComponent {
   });
 
   stepTwoForm = this._formBuilder.group({
-    selectedContributionType: ['monthly', Validators.required], // Default value set to 'monthly'
+    selectedContributionType: ['', Validators.required], // Default value set to 'monthly'
   });
 
   stepThreeForm = this._formBuilder.group({

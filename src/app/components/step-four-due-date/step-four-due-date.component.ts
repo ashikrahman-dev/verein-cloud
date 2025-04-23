@@ -149,17 +149,71 @@ import { MatSelectModule } from '@angular/material/select';
       <!-- when selected quarterly then show this content -->
       <div
         class="selected-quarterly-content"
+        *ngIf="contributionType === 'monthly'"
+      >
+        <h4 class="fs-14 mt-4">Quarterly Payment Configuration</h4>
+        <div class="quarterly-options mt-3">
+          <mat-form-field class="w-100 bg-white font-rubik">
+            <mat-label class="font-rubik">Of the month</mat-label>
+            <mat-select [(ngModel)]="quarterStartMonth">
+              <mat-option value="ofTheMonth">Of the month</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- when selected quarterly then show this content -->
+
+      <!-- when selected quarterly then show this content -->
+      <div
+        class="selected-quarterly-content"
         *ngIf="contributionType === 'quarterly'"
       >
         <h4 class="fs-14 mt-4">Quarterly Payment Configuration</h4>
         <div class="quarterly-options mt-3">
           <mat-form-field class="w-100 bg-white font-rubik">
-            <mat-label class="font-rubik">Quarter Start Month</mat-label>
+            <mat-label class="font-rubik">Select</mat-label>
             <mat-select [(ngModel)]="quarterStartMonth">
-              <mat-option value="january">January</mat-option>
-              <mat-option value="february">February</mat-option>
-              <mat-option value="march">March</mat-option>
-              <mat-option value="april">April</mat-option>
+              <mat-option value="ofFirstMonth">Of 1st month</mat-option>
+              <mat-option value="ofSecondMonth">Of 2nd month</mat-option>
+              <mat-option value="ofThirdMonth">Of 3rd month</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- when selected quarterly then show this content -->
+
+      <!-- when selected quarterly then show this content -->
+      <div
+        class="selected-quarterly-content"
+        *ngIf="contributionType === 'semi-annually'"
+      >
+        <h4 class="fs-14 mt-4">Quarterly Payment Configuration</h4>
+        <div class="quarterly-options mt-3">
+          <mat-form-field class="w-100 bg-white font-rubik">
+            <mat-label class="font-rubik">Select</mat-label>
+            <mat-select [(ngModel)]="quarterStartMonth">
+              <mat-option value="firstMonthToSixthMonth"
+                >"of 1st month” up to “of 6th month”</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- when selected quarterly then show this content -->
+
+      <!-- when selected quarterly then show this content -->
+      <div
+        class="selected-quarterly-content"
+        *ngIf="contributionType === 'annually'"
+      >
+        <h4 class="fs-14 mt-4">Quarterly Payment Configuration</h4>
+        <div class="quarterly-options mt-3">
+          <mat-form-field class="w-100 bg-white font-rubik">
+            <mat-label class="font-rubik">Select</mat-label>
+            <mat-select [(ngModel)]="quarterStartMonth">
+              <mat-option value="firstMonthToTwelveMonth"
+                >“of 1st month” up to “of 12th month”</mat-option
+              >
             </mat-select>
           </mat-form-field>
         </div>
