@@ -1,7 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ViewChild, inject } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
@@ -123,7 +121,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-overview-data-table',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, MatCheckboxModule, RouterModule],
+  imports: [MatTableModule, MatSortModule, RouterModule],
   template: `
     <div
       class="d-flex justify-content-between align-items-center mb-3 overview-data-table-header"
@@ -162,28 +160,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
       (matSortChange)="announceSortChange($event)"
       class="mat-elevation-z8 overview-data-table"
     >
-      <!-- Checkbox Column -->
-      <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox
-            (change)="$event ? toggleAllRows() : null"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()"
-            [aria-label]="checkboxLabel()"
-          >
-          </mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <mat-checkbox
-            (click)="$event.stopPropagation()"
-            (change)="$event ? selection.toggle(row) : null"
-            [checked]="selection.isSelected(row)"
-            [aria-label]="checkboxLabel(row)"
-          >
-          </mat-checkbox>
-        </td>
-      </ng-container>
-
       <!-- id Column -->
       <ng-container matColumnDef="id">
         <th
@@ -338,7 +314,6 @@ export class OverviewDataTableComponent {
   private _liveAnnouncer = inject(LiveAnnouncer);
 
   displayedColumns: string[] = [
-    'select',
     'id',
     'designation',
     'contribution_type',
@@ -351,7 +326,6 @@ export class OverviewDataTableComponent {
     'members',
   ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -366,32 +340,5 @@ export class OverviewDataTableComponent {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
-  }
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.id + 1
-    }`;
   }
 }

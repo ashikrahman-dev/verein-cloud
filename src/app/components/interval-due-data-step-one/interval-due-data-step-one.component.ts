@@ -92,7 +92,9 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
               </p>
               <p class="fs-14">Selecting the Contribution Interval</p>
               <div>
-                <mat-form-field class="w-100 bg-white font-rubik">
+                <mat-form-field
+                  class="w-100 bg-white font-rubik selectedContributionTypeCls"
+                >
                   <mat-label class="font-rubik d-flex gap-2 align-items-center">
                     <img [src]="calendarIcon" alt="Calendar Icon" class="" />
                     Choose an option</mat-label
@@ -118,6 +120,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                   </mat-error>
                 </mat-form-field>
               </div>
+
               <div class="d-flex justify-content-end align-items-end w-100">
                 <div class="button-wrap">
                   <button type="button" class="step-button fill" matStepperNext>
@@ -256,7 +259,11 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                 Setting the Due Date for Payments
                 <span class="basic-setting"> ( Basic setting )</span>
               </h3>
-              <app-step-four-due-date></app-step-four-due-date>
+              <app-step-four-due-date
+                [contributionType]="
+                  stepTwoForm.get('selectedContributionType')?.value || ''
+                "
+              ></app-step-four-due-date>
               <div class="d-flex justify-content-end align-items-end w-100">
                 <div class="button-wrap">
                   <button
@@ -290,6 +297,31 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
       font-size: 12px;
       margin-top: 4px;
     }
+    .basic-setting {
+      font-size: 12px;
+      color: #666;
+      font-style: italic;
+    }
+    .step-button {
+      padding: 8px 16px;
+      border-radius: 4px;
+      margin-left: 8px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      background-color: white;
+      transition: all 0.3s ease;
+    }
+    .step-button.fill {
+      background-color: #3f51b5;
+      color: white;
+      border: 1px solid #3f51b5;
+    }
+    .step-button:hover {
+      opacity: 0.9;
+    }
+    .button-wrap {
+      margin-top: 24px;
+    }
   `,
 })
 export class IntervalDueDataStepOneComponent {
@@ -312,7 +344,7 @@ export class IntervalDueDataStepOneComponent {
   });
 
   stepTwoForm = this._formBuilder.group({
-    selectedContributionType: ['', Validators.required],
+    selectedContributionType: ['monthly', Validators.required], // Default value set to 'monthly'
   });
 
   stepThreeForm = this._formBuilder.group({
@@ -327,6 +359,11 @@ export class IntervalDueDataStepOneComponent {
   });
 
   @ViewChild(MatStepper) stepper!: MatStepper;
+
+  // Helper getter method to safely return the contribution type as string
+  get selectedContributionType(): string {
+    return this.stepTwoForm.get('selectedContributionType')?.value || '';
+  }
 
   ngOnInit() {
     // Set conditional validation for predefinedDate based on selectedInterval value
@@ -406,7 +443,9 @@ export class IntervalDueDataStepOneComponent {
   resetStepper() {
     this.stepper.reset();
     this.stepOneForm.reset();
-    this.stepTwoForm.reset();
+    this.stepTwoForm.reset({
+      selectedContributionType: 'monthly', // Reset to default 'monthly' value
+    });
     this.stepThreeForm.reset();
     this.stepFourForm.reset();
   }

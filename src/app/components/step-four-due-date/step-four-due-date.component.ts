@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -86,7 +86,7 @@ import { MatSelectModule } from '@angular/material/select';
               an option</mat-label
             >
             <mat-select
-              [(ngModel)]="selectedValue"
+              [(ngModel)]="selectedAnzahlInterval"
               (selectionChange)="onSelectionChange()"
             >
               <mat-option value="days">Days</mat-option>
@@ -113,7 +113,7 @@ import { MatSelectModule } from '@angular/material/select';
               an option</mat-label
             >
             <mat-select
-              [(ngModel)]="selectedValue"
+              [(ngModel)]="selectedInterval"
               (selectionChange)="onSelectionChange()"
             >
               <mat-option value="before-the-start-current-interval"
@@ -144,50 +144,27 @@ import { MatSelectModule } from '@angular/material/select';
             />
           </div>
         </div>
-        <!-- <div
-          class="conditional-content w-100"
-          *ngIf="selectedValue === 'fixed-date'"
-        >
-          <p class="form-label">Anzahl</p>
-          <mat-form-field class="w-100 bg-white font-rubik">
-            <mat-label class="font-rubik d-flex gap-2 align-items-center">
-              <img [src]="calendarIcon" alt="Calendar Icon" class="" /> Choose
-              an option</mat-label
-            >
-            <mat-select
-              [(ngModel)]="selectedValue"
-              (selectionChange)="onSelectionChange()"
-            >
-              <mat-option value="days">Days</mat-option>
-              <mat-option value="weeks">Weeks</mat-option>
-              <mat-option value="months">Months</mat-option>
-              <mat-option value="quarters">Quarters</mat-option>
-              <mat-option value="halfYears">Half-years</mat-option>
-              <mat-option value="years">Years</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
       </div>
 
-      <!-- <div class="conditional-content" *ngIf="selectedValue === 'fixed-date'">
-        <div class="selected-date-wrap">
-          <h6 class="fs-14 selected-date">Select Date</h6>
-          <mat-form-field class="example-full-width w-100 font-rubik">
-            <mat-label class="font-rubik f-14">DD/MM</mat-label>
-            <input matInput [matDatepicker]="picker" />
-            <mat-datepicker-toggle
-              matIconPrefix
-              [for]="picker"
-              class="calendar-datepicker-icon"
-            >
-              <mat-icon matDatepickerToggleIcon
-                ><img [src]="calendarDateIcon" alt="Icon" />
-              </mat-icon>
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+      <!-- when selected quarterly then show this content -->
+      <div
+        class="selected-quarterly-content"
+        *ngIf="contributionType === 'quarterly'"
+      >
+        <h4 class="fs-14 mt-4">Quarterly Payment Configuration</h4>
+        <div class="quarterly-options mt-3">
+          <mat-form-field class="w-100 bg-white font-rubik">
+            <mat-label class="font-rubik">Quarter Start Month</mat-label>
+            <mat-select [(ngModel)]="quarterStartMonth">
+              <mat-option value="january">January</mat-option>
+              <mat-option value="february">February</mat-option>
+              <mat-option value="march">March</mat-option>
+              <mat-option value="april">April</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-      </div> -->
+      </div>
+      <!-- when selected quarterly then show this content -->
     </div>
   `,
   styles: `
@@ -196,18 +173,25 @@ import { MatSelectModule } from '@angular/material/select';
       font-weight: 500;
     }
     
-    .conditional-content {
-      margin-top: 16px;
-    }
+
   `,
 })
 export class StepFourDueDateComponent {
+  @Input() contributionType: string = '';
+
   numberIcon = 'assets/images/due-date-icon.svg';
   calendarDateIcon = 'assets/images/calendar-edit.svg';
   calendarIcon = 'assets/images/calendar-edit.svg';
+
   selectedValue: string | null = null;
+  selectedAnzahlInterval: string | null = null;
+  selectedInterval: string | null = null;
   dueDateAnzahl: string = '';
   dueDateTage: string = '';
+
+  // Quarterly specific properties
+  quarterStartMonth: string = 'january';
+  proRateFirstQuarter: boolean = false;
 
   onSelectionChange() {
     console.log('Selected option:', this.selectedValue);

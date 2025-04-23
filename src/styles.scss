@@ -337,7 +337,7 @@ ul li {
   padding: 12px 20px;
   display: flex;
   align-items: center;
-  border-radius: 50px;
+  border-radius: 990px !important;
   justify-content: center;
   border: 1px solid #5a5a5a;
   background: transparent;
@@ -801,7 +801,9 @@ button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base
 .due-date-select-field .mat-mdc-text-field-wrapper .mat-mdc-select-trigger {
   top: -7px !important;
 }
-
+.selectedContributionTypeCls .mat-mdc-text-field-wrapper .mat-mdc-select-trigger {
+  top: -6px;
+}
 .form-input-field {
   border-radius: 150px;
   background: #f2f2f2;
