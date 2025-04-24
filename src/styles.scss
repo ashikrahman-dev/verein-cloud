@@ -588,6 +588,15 @@ div.mat-mdc-select-panel {
   text-transform: uppercase;
 }
 
+.matMenuWrap {
+  padding: 0 !important;
+  background: #fff !important;
+  span {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+  }
+}
+
 .mat-mdc-form-field-has-icon-prefix .mat-mdc-text-field-wrapper {
   padding-left: 10px !important;
 }
@@ -801,7 +810,9 @@ button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base
 .due-date-select-field .mat-mdc-text-field-wrapper .mat-mdc-select-trigger {
   top: -7px !important;
 }
-.selectedContributionTypeCls .mat-mdc-text-field-wrapper .mat-mdc-select-trigger {
+.selectedContributionTypeCls
+  .mat-mdc-text-field-wrapper
+  .mat-mdc-select-trigger {
   top: -6px;
 }
 .form-input-field {

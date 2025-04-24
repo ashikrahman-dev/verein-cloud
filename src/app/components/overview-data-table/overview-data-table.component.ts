@@ -1,5 +1,8 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ViewChild, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
@@ -121,7 +124,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-overview-data-table',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, RouterModule],
+  imports: [
+    MatTableModule,
+    MatSortModule,
+    RouterModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   template: `
     <div
       class="d-flex justify-content-between align-items-center mb-3 overview-data-table-header"
@@ -300,6 +310,42 @@ const ELEMENT_DATA: PeriodicElement[] = [
         </td>
       </ng-container>
 
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Actions menu"
+            class="table-actions-button"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="10.0002" cy="4.16667" r="1.66667" fill="#999999" />
+              <circle cx="10.0002" cy="10.0007" r="1.66667" fill="#999999" />
+              <circle cx="10.0002" cy="15.8327" r="1.66667" fill="#999999" />
+            </svg>
+          </button>
+          <mat-menu #menu="matMenu" class="font-rubik matMenuWrap">
+            <button mat-menu-item (click)="onEdit(element)">
+              <span class="font-rubik">Edit</span>
+            </button>
+            <button mat-menu-item (click)="onDelete(element)">
+              <span class="font-rubik">Delete</span>
+            </button>
+            <button mat-menu-item (click)="onViewDetails(element)">
+              <span class="font-rubik">View Details</span>
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
@@ -308,6 +354,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
     .mdc-data-table__cell, .mdc-data-table__header-cell {
       padding: 0 8px;
     }
+    
+    /* Make three dots menu align center in the cell */
+    [mat-cell]:last-of-type {
+      text-align: center;
+    }
+    
+    /* Hide actions column header text but keep the space */
+    [mat-header-cell]:last-of-type {
+      text-align: center;
+    }
+    .table-actions-button svg {
+      width: 20px;
+    }
+
+
   `,
 })
 export class OverviewDataTableComponent {
@@ -324,6 +385,7 @@ export class OverviewDataTableComponent {
     'cost_center',
     'department',
     'members',
+    'actions', // Added new actions column
   ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -340,5 +402,20 @@ export class OverviewDataTableComponent {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  onEdit(element: PeriodicElement) {
+    console.log('Edit clicked for:', element);
+    // Implement your edit logic here
+  }
+
+  onDelete(element: PeriodicElement) {
+    console.log('Delete clicked for:', element);
+    // Implement your delete logic here
+  }
+
+  onViewDetails(element: PeriodicElement) {
+    console.log('View Details clicked for:', element);
+    // Implement your view details logic here
   }
 }
