@@ -17,6 +17,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-payment-terms-calculation',
+  standalone: true,
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -99,7 +100,6 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
               </svg>
             </h4>
             <div class="">
-
               <!-- Payment Deadline -->
               <div>
                 <p class="form-label pt-3">Payment Deadline</p>
@@ -141,7 +141,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                   type="button"
                   class="step-button fill"
                   matStepperNext
-                  [disabled]="step2FormGroup.invalid"
+                  [disabled]="!isStep2Valid()"
                 >
                   Next
                 </button>
@@ -180,9 +180,8 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
               </h6>
               <div class="tab-checkbox-wrap d-flex">
                 <mat-radio-group
-                  class="tab-checkbox-wrap d-flex"
+                  class="tab-checkbox-wrap d-flex gap-3 flex-row"
                   formControlName="calculationMethod"
-                  (change)="onIntervalChange()"
                 >
                   <mat-radio-button
                     class="w-100 check-box-item font-rubik"
@@ -219,35 +218,6 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                   </mat-radio-button>
                 </mat-radio-group>
               </div>
-
-              <div
-                *ngIf="
-                  step3FormGroup.get('calculationMethod')?.value ===
-                  'monthly-prorated-calculation'
-                "
-                class="selected-date-wrap d-flex gap-4 align-items-center mt-3"
-              >
-                <mat-radio-group
-                  formControlName="monthlyProratedOption"
-                  class="d-flex gap-4"
-                >
-                  <mat-radio-button
-                    class="mpc-check-box-item font-rubik"
-                    value="at-the-beginning"
-                  >
-                    <p>At the beginning</p>
-                  </mat-radio-button>
-                  <mat-radio-button
-                    class="mpc-check-box-item font-rubik"
-                    value="at-the-end"
-                  >
-                    <p>At the end</p>
-                  </mat-radio-button>
-                </mat-radio-group>
-                <!-- <mat-error *ngIf="showMonthlyProratedOptionError">
-                  Please select an option
-                </mat-error> -->
-              </div>
             </div>
 
             <div class="w-100 mt-4">
@@ -258,7 +228,6 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                   type="button"
                   class="step-button fill"
                   (click)="saveForm()"
-                  [disabled]="!isFormValid()"
                 >
                   Save
                 </button>
@@ -287,13 +256,54 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
       font-size: 12px;
       margin-top: 4px;
     }
+
+    .form-input-field {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .tab-checkbox-wrap {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .check-box-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 12px;
+    }
+
+    .check-box-item h6 {
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .check-box-item p {
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    .step-button {
+      padding: 8px 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+    }
+
+    .step-button.fill {
+      background: #1976d2;
+      color: white;
+      border: 1px solid #1976d2;
+    }
   `,
 })
 export class PaymentTermsCalculationComponent {
   isLinear = true;
   intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
   textalignIcon = 'assets/images/textalign-justifycenter.svg';
-  showMonthlyProratedOptionError = false;
 
   private _formBuilder = inject(FormBuilder);
 
@@ -310,12 +320,10 @@ export class PaymentTermsCalculationComponent {
       Validators.max(31),
       Validators.pattern('^[0-9]{1,2}$')
     ]],
-    dueDays: ['', Validators.required],
   });
 
   step3FormGroup = this._formBuilder.group({
     calculationMethod: ['no-prorated-calculation', Validators.required],
-    monthlyProratedOption: [''],
   });
 
   // Getter for easy access to the payment deadline control
@@ -324,25 +332,6 @@ export class PaymentTermsCalculationComponent {
   }
 
   @ViewChild(MatStepper) stepper!: MatStepper;
-
-  ngOnInit() {
-    // Add conditional validation for monthlyProratedOption
-    this.step3FormGroup
-      .get('calculationMethod')
-      ?.valueChanges.subscribe((value) => {
-        const monthlyProratedOption = this.step3FormGroup.get(
-          'monthlyProratedOption'
-        );
-
-        if (value === 'monthly-prorated-calculation') {
-          monthlyProratedOption?.setValidators(Validators.required);
-        } else {
-          monthlyProratedOption?.clearValidators();
-        }
-
-        monthlyProratedOption?.updateValueAndValidity();
-      });
-  }
 
   // Method to enforce maxlength on number input (since HTML maxlength doesn't work with type="number")
   enforceMaxLength(event: Event) {
@@ -358,36 +347,14 @@ export class PaymentTermsCalculationComponent {
     }
   }
 
-  onIntervalChange() {
-    // Reset the monthlyProratedOption when changing the calculation method
-    if (
-      this.step3FormGroup.get('calculationMethod')?.value !==
-      'monthly-prorated-calculation'
-    ) {
-      this.step3FormGroup.get('monthlyProratedOption')?.setValue('');
-      this.showMonthlyProratedOptionError = false;
-    }
-  }
-
-  isFormValid(): boolean {
-    // Check if all forms are valid
-    if (!this.step3FormGroup.valid) {
-      // Specifically check the monthlyProratedOption if monthly calculation is selected
-      if (
-        this.step3FormGroup.get('calculationMethod')?.value ===
-          'monthly-prorated-calculation' &&
-        !this.step3FormGroup.get('monthlyProratedOption')?.value
-      ) {
-        this.showMonthlyProratedOptionError = true;
-        return false;
-      }
-      return false;
-    }
-    return true;
+  // Dedicated method for Step 2 validation
+  isStep2Valid(): boolean {
+    // Now just checks the payment deadline field
+    return this.paymentDeadlineControl.valid;
   }
 
   saveForm() {
-    if (this.isFormValid()) {
+    if (this.step2FormGroup.valid && this.step3FormGroup.valid) {
       // Combine all form data
       const formData = {
         ...this.step1FormGroup.value,
