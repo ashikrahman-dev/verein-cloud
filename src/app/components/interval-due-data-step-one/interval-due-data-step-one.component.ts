@@ -16,12 +16,44 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+// import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
+
+import { FormControl } from '@angular/forms';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  provideMomentDateAdapter,
+} from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import { default as _rollupMoment } from 'moment';
+
+// Import the locale for Monday as first day of the week
+import 'moment/locale/en-gb';
+
+const moment = _rollupMoment || _moment;
+
+// Set the locale globally to en-gb (starts week on Monday)
+moment.locale('en-gb');
+
+// Custom date formats
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-interval-due-data-step-one',
@@ -31,7 +63,14 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },
     },
+    provideMomentDateAdapter(),
+    {
+      provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+      useValue: { useUtc: false, firstDayOfWeek: 1 }, // Monday
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
+
   imports: [
     CommonModule,
     FormsModule,
@@ -41,11 +80,10 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
     MatStepperModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,
     MatRadioModule,
     MatDatepickerModule,
-    StepFourDueDateComponent,
     MatCheckboxModule,
+    StepFourDueDateComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -207,6 +245,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
                     matInput
                     [matDatepicker]="picker"
                     formControlName="predefinedDate"
+                    class="datepicker-input"
                   />
                   <mat-datepicker-toggle
                     matIconPrefix
@@ -324,6 +363,7 @@ import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-da
   `,
 })
 export class IntervalDueDataStepOneComponent {
+  readonly date = new FormControl(moment());
   // Required asset paths
   intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
   textalignIcon = 'assets/images/textalign-justifycenter.svg';
@@ -343,7 +383,7 @@ export class IntervalDueDataStepOneComponent {
   });
 
   stepTwoForm = this._formBuilder.group({
-    selectedContributionType: ['', Validators.required], // Default value set to 'monthly'
+    selectedContributionType: ['', Validators.required], // Default value set to empty string
   });
 
   stepThreeForm = this._formBuilder.group({
@@ -443,7 +483,7 @@ export class IntervalDueDataStepOneComponent {
     this.stepper.reset();
     this.stepOneForm.reset();
     this.stepTwoForm.reset({
-      selectedContributionType: 'monthly', // Reset to default 'monthly' value
+      selectedContributionType: '', // Reset to empty string
     });
     this.stepThreeForm.reset();
     this.stepFourForm.reset();

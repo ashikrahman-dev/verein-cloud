@@ -508,12 +508,23 @@ div.mat-mdc-select-panel {
 }
 /* Checkbox Style */
 
+// .mat-calendar-header,
+// .mat-calendar-body-label {
+//   display: none !important;
+// }
 .mat-calendar-header,
 .mat-calendar-body-label {
-  display: none !important;
+  // display: none !important;
 }
 .cdk-overlay-pane {
-  max-height: 265px !important;
+  max-height: 310px !important;
+}
+.mat-calendar-controls {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+.mat-calendar-content {
+  margin-top: 5px !important;
 }
 .mat-datepicker-content {
   // Border radious...
@@ -541,7 +552,7 @@ div.mat-mdc-select-panel {
 .mat-calendar-table-header th {
   font-weight: 400 !important;
 
-  &:last-child {
+  &:nth-child(2) {
     color: #ff0032 !important;
   }
 }
@@ -550,7 +561,33 @@ div.mat-mdc-select-panel {
 }
 
 .mat-calendar-content {
-  margin-top: 26px !important;
+  margin-top: 10px !important;
+}
+.mdc-button__label {
+  font-family: "Rubik", sans-serif !important;
+}
+.mat-calendar-period-button.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base {
+  &:hover {
+    background: #ffdfe5 !important;
+  }
+}
+.mat-mdc-button-persistent-ripple.mdc-button__ripple {
+  &:hover {
+    background: #ffdfe5 !important;
+  }
+}
+.mat-mdc-button:not(:disabled) {
+  color: #000000 !important;
+}
+.mat-mdc-button:hover > .mat-mdc-button-persistent-ripple::before {
+  opacity: 0 !important;
+}
+.mat-calendar-body {
+  tr {
+    &:first-child {
+      display: none !important;
+    }
+  }
 }
 
 .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
@@ -783,19 +820,23 @@ div.mat-mdc-select-panel {
 
 // Datepicker Icon
 button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base {
-  width: 24px !important;
-  height: 24px !important;
+  width: 22px !important;
+  height: 22px !important;
   padding: 0% !important;
+  margin-top: -18px;
+}
+.datepicker-input {
+  padding-left: 10px !important;
 }
 button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base
   .mat-mdc-button-touch-target {
-  width: 24px !important;
-  height: 24px !important;
+  width: 22px !important;
+  height: 22px !important;
 }
 
 .mat-icon.notranslate.calendar-icon-cls.material-icons.mat-ligature-font.mat-icon-no-color {
-  width: 24px !important;
-  height: 24px !important;
+  width: 22px !important;
+  height: 22px !important;
   padding: 2px !important;
   margin-top: -24px !important;
 }
