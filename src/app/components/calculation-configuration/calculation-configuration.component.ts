@@ -104,19 +104,21 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               [(ngModel)]="selectedValue"
               (selectionChange)="onSelectionChange()"
             >
-              <mat-option value="option1">
+              <mat-option value="fixed-value">
                 Fixed Value – A static contribution amount
               </mat-option>
-              <mat-option value="option2">
+              <mat-option value="free-field-value">
                 Free Field Value - Contribution is determined based on free
                 field variables (e.g. work hours, usage, member status)
               </mat-option>
-              <mat-option value="option3">
+              <mat-option value="variable-value">
                 Variable Value - Use formulas to calculate contributions
                 dynamically
               </mat-option>
             </mat-select>
           </mat-form-field>
+
+          
 
           <div class="w-100 mt-4">
             <div

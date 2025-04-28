@@ -229,20 +229,6 @@ ul li {
   font-weight: 800 !important;
 }
 
-// [ng-reflect-selected="true"] {
-//   background-color: #ffce42 !important;
-// }
-// [aria-selected="true"] {
-//   background-color: #ffce42 !important;
-// }
-// [ng-reflect-state="done"] {
-//   background-color: #ffce42 !important;
-// }
-
-// []{}
-// [ng-reflect-state="done"] {
-//   background: #ffce42 !important;
-// }
 
 .mat-step-header:hover {
   background: #ffe28e !important;
@@ -512,10 +498,7 @@ div.mat-mdc-select-panel {
 // .mat-calendar-body-label {
 //   display: none !important;
 // }
-.mat-calendar-header,
-.mat-calendar-body-label {
-  // display: none !important;
-}
+
 .cdk-overlay-pane {
   max-height: 310px !important;
 }
@@ -527,7 +510,7 @@ div.mat-mdc-select-panel {
   margin-top: 5px !important;
 }
 .mat-datepicker-content {
-  // Border radious...
+  // Border radius...
   border-radius: 8px !important;
   border-top: 1px solid #ff0032 !important;
   background: #fff !important;
@@ -661,7 +644,7 @@ div.mat-mdc-select-panel {
 }
 /* Calendar style */
 
-/*  Overview Datatable start */
+/*  Overview Data Table start */
 .overview-datatable-wrap {
   border-radius: 16px;
   border: 1px solid #eaeaea;
@@ -758,7 +741,7 @@ div.mat-mdc-select-panel {
     }
   }
 }
-/*  Overview Datatable end */
+/*  Overview Data Table end */
 
 /* Basic data contribution -start */
 
