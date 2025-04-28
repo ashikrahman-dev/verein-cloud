@@ -28,7 +28,7 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   provideMomentDateAdapter,
 } from '@angular/material-moment-adapter';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -39,8 +39,11 @@ import 'moment/locale/en-gb';
 
 const moment = _rollupMoment || _moment;
 
-// Set the locale globally to en-gb (starts week on Monday)
-moment.locale('en-gb');
+// Customize the day names
+moment.updateLocale('en-gb', {
+  weekdaysMin: ['S', 'M', 'D', 'M', 'D', 'F', 'S'], // Customize short day names
+  // You could also customize weekdaysShort or weekdays if needed
+});
 
 // Custom date formats
 export const MY_DATE_FORMATS = {
@@ -69,6 +72,7 @@ export const MY_DATE_FORMATS = {
       useValue: { useUtc: false, firstDayOfWeek: 1 }, // Monday
     },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-gb' },
   ],
 
   imports: [
@@ -239,24 +243,29 @@ export const MY_DATE_FORMATS = {
                 class="selected-date-wrap interval-date-dropdown"
               >
                 <h6 class="fs-14 selected-date">Select Date</h6>
-                <mat-form-field class="example-full-width w-100 font-rubik">
+                <mat-form-field
+                  class="example-full-width w-100 font-rubik"
+                  appearance="fill"
+                >
                   <mat-label class="font-rubik f-14">DD/MM</mat-label>
                   <input
                     matInput
-                    [matDatepicker]="picker"
+                    [matDatepicker]="dp"
+                    [formControl]="date"
                     formControlName="predefinedDate"
                     class="datepicker-input"
                   />
+                  <mat-hint>DD.MM.YYYY</mat-hint>
                   <mat-datepicker-toggle
                     matIconPrefix
-                    [for]="picker"
+                    [for]="dp"
                     class="calendar-datepicker-icon"
                   >
                     <mat-icon class="calendar-icon-cls" matDatepickerToggleIcon
                       ><img [src]="calendarDateIcon" alt="Icon" />
                     </mat-icon>
                   </mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-datepicker #dp></mat-datepicker>
                   <mat-error
                     *ngIf="
                       stepThreeForm

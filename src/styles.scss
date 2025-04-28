@@ -552,7 +552,7 @@ div.mat-mdc-select-panel {
 .mat-calendar-table-header th {
   font-weight: 400 !important;
 
-  &:nth-child(2) {
+  &:first-child {
     color: #ff0032 !important;
   }
 }

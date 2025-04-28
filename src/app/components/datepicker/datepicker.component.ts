@@ -4,7 +4,7 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   provideMomentDateAdapter,
 } from '@angular/material-moment-adapter';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +20,12 @@ const moment = _rollupMoment || _moment;
 
 // Set the locale globally to en-gb (starts week on Monday)
 moment.locale('en-gb');
+
+// Customize the day names
+moment.updateLocale('en-gb', {
+  weekdaysMin: ['S', 'M', 'D', 'M', 'D', 'F', 'S'], // Customize short day names
+  // You could also customize weekdaysShort or weekdays if needed
+});
 
 // Custom date formats
 export const MY_DATE_FORMATS = {
@@ -43,6 +49,7 @@ export const MY_DATE_FORMATS = {
       useValue: { useUtc: false, firstDayOfWeek: 1 }, // Monday
     },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-gb' },
   ],
   imports: [
     MatFormFieldModule,
