@@ -608,7 +608,13 @@ div.mat-mdc-select-panel {
   border: none !important;
 }
 .mat-calendar-body-cell-content.mat-focus-indicator.mat-calendar-body-today {
-  background: transparent !important;
+  background: #FFDFE5 !important;
+  color: #ff0032 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.mat-calendar-body-today {
+  background: #FFDFE5 !important;
   color: #ff0032 !important;
 }
 .mat-calendar-body-selected {
