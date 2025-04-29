@@ -1,12 +1,6 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -32,7 +26,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
       useValue: { displayDefaultIndicatorType: false },
     },
   ],
-
   imports: [
     CommonModule,
     FormsModule,
@@ -61,6 +54,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                 class="fs-24 pb-2 d-flex gap-2 align-items-center justify-content-center"
               >
                 Proceeding to the Calculation Configuration
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9C16.5 13.1421 13.1421 16.5 9 16.5ZM9 15C12.3137 15 15 12.3137 15 9C15 5.68629 12.3137 3 9 3C5.68629 3 3 5.68629 3 9C3 12.3137 5.68629 15 9 15ZM8.25 11.25H9.75V12.75H8.25V11.25ZM9.75 10.0163V10.5H8.25V9.375C8.25 8.96077 8.58577 8.625 9 8.625C9.6213 8.625 10.125 8.1213 10.125 7.5C10.125 6.87868 9.6213 6.375 9 6.375C8.45423 6.375 7.9992 6.76367 7.8966 7.27933L6.42548 6.9851C6.66478 5.78189 7.7265 4.875 9 4.875C10.4497 4.875 11.625 6.05025 11.625 7.5C11.625 8.68913 10.8343 9.6936 9.75 10.0163Z"
+                    fill="#5A5A5A"
+                  />
+                </svg>
               </h3>
               <p class="fs-14 font-normal cc-first-step-content">
                 Configures how contributions are calculated, allowing
@@ -277,6 +282,349 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
               <h5 class="form-label pt-2 mt-3 fw-medium">
                 Select Calculation Method
               </h5>
+
+              <div class="calculation-configuration-step">
+                <!-- 1 Item -->
+                <div class="w-100">
+                  <p class="form-label fw-normal">
+                    Function <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getConditionFunctionDisplayValue() }}
+                    </mat-label>
+                    <mat-select
+                      formControlName="conditionFunction"
+                      class="font-rubik"
+                    >
+                      <mat-option value="if_condition_wenn">
+                        "IF" Condition (WENN)
+                      </mat-option>
+                      <mat-option value="and_condition_wenn_und">
+                        "AND" Condition (WENN UND)
+                      </mat-option>
+                      <mat-option value="or_condition_wenn_oder">
+                        "OR" Condition (WENN ODER)
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        stepThreeForm
+                          .get('conditionFunction')
+                          ?.hasError('required')
+                      "
+                    >
+                      Function is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!--  2 Item -->
+                <div class="w-100">
+                  <p class="form-label fw-normal">
+                    If <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getIfOptionDisplayValue() }}
+                    </mat-label>
+                    <mat-select class="font-rubik" formControlName="ifOption">
+                      <mat-option value="if_option_100"> 100 </mat-option>
+                      <mat-option value="if_option_200"> 200 </mat-option>
+                      <mat-option value="if_option_300"> 300 </mat-option>
+                      <mat-option value="if_option_400"> 400 </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        stepThreeForm.get('ifOption')?.hasError('required')
+                      "
+                    >
+                      If value is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 3 Item -->
+                <div class="w-100">
+                  <p class="form-label fw-normal">
+                    Operator <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getOperatorDisplayValue() }}
+                    </mat-label>
+                    <mat-select class="font-rubik" formControlName="operator">
+                      <mat-option value="operator_option_1"> >= </mat-option>
+                      <mat-option value="operator_option_2"> > </mat-option>
+                      <mat-option value="operator_option_3"> < </mat-option>
+                      <mat-option value="operator_option_4"> <= </mat-option>
+                      <mat-option value="operator_option_5"> = </mat-option>
+                      <mat-option value="operator_option_6"> <> </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        stepThreeForm.get('operator')?.hasError('required')
+                      "
+                    >
+                      Operator is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 4 Item -->
+                <div *ngIf="isAdvancedCondition()">
+                  <p class="form-label fw-normal">
+                    Value <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <input
+                      matInput
+                      type="number"
+                      formControlName="conditionValue"
+                      placeholder="0"
+                    />
+                    <mat-error
+                      *ngIf="
+                        stepThreeForm
+                          .get('conditionValue')
+                          ?.hasError('required')
+                      "
+                    >
+                      Value is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 5 Item -->
+                <div
+                  *ngIf="
+                    stepThreeForm.get('conditionFunction')?.value ===
+                    'and_condition_wenn_und'
+                  "
+                  class="w-100"
+                >
+                  <p class="form-label fw-normal">
+                    And <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getClubStatusDisplayValue() }}
+                    </mat-label>
+                    <mat-select class="font-rubik" formControlName="clubStatus">
+                      <mat-option value="club_status_1">
+                        Club Status
+                      </mat-option>
+                      <mat-option value="club_status_2">
+                        Club Status 1</mat-option
+                      >
+                      <mat-option value="club_status_3">
+                        Club Status 2
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        stepThreeForm.get('clubStatus')?.hasError('required') &&
+                        isAndCondition()
+                      "
+                    >
+                      Club status is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 5 OR Item -->
+                <div
+                  *ngIf="
+                    stepThreeForm.get('conditionFunction')?.value ===
+                    'or_condition_wenn_oder'
+                  "
+                  class="w-100"
+                >
+                  <p class="form-label fw-normal">
+                    Or <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getOrClubStatusDisplayValue() }}
+                    </mat-label>
+                    <mat-select
+                      class="font-rubik"
+                      formControlName="orClubStatus"
+                    >
+                      <mat-option value="or_club_status_1">
+                        Club Status
+                      </mat-option>
+                      <mat-option value="or_club_status_2">
+                        Club Status 1</mat-option
+                      >
+                      <mat-option value="or_club_status_3">
+                        Club Status 2
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        stepThreeForm
+                          .get('orClubStatus')
+                          ?.hasError('required') && isOrCondition()
+                      "
+                    >
+                      Club status is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 6 Item -->
+                <div *ngIf="isAdvancedCondition()" class="w-100">
+                  <p class="form-label fw-normal">
+                    Operator <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getSecondOperatorDisplayValue() }}
+                    </mat-label>
+                    <mat-select
+                      class="font-rubik"
+                      formControlName="secondOperator"
+                    >
+                      <mat-option value="operator_active"> Active </mat-option>
+                      <mat-option value="operator_passive"> Passive</mat-option>
+                      <mat-option value="operator_none_zero">
+                        None zero
+                      </mat-option>
+                      <mat-option value="operator_zero"> Zero </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        stepThreeForm
+                          .get('secondOperator')
+                          ?.hasError('required') && isAdvancedCondition()
+                      "
+                    >
+                      Operator is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 7 Item -->
+                <div>
+                  <p class="form-label fw-normal">
+                    Value <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <input
+                      matInput
+                      type="number"
+                      formControlName="valueId"
+                      placeholder="0"
+                    />
+                    <mat-error
+                      *ngIf="stepThreeForm.get('valueId')?.hasError('required')"
+                    >
+                      Value is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 8 Item -->
+                <div class="w-100">
+                  <p class="form-label fw-normal">
+                    Formula <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getFormulaDisplayValue() }}
+                    </mat-label>
+                    <mat-select class="font-rubik" formControlName="formula">
+                      <mat-option value="formula_1_5">
+                        [FF space size] 1.5
+                      </mat-option>
+                      <mat-option value="formula_2">
+                        [FF space size] 2</mat-option
+                      >
+                      <mat-option value="formula_3_5">
+                        [FF space size] 3.5
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="stepThreeForm.get('formula')?.hasError('required')"
+                    >
+                      Formula is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 9 Item -->
+                <div class="w-100">
+                  <p class="form-label fw-normal">
+                    Other Formula <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getOtherFormulaDisplayValue() }}
+                    </mat-label>
+                    <mat-select
+                      class="font-rubik"
+                      formControlName="otherFormula"
+                    >
+                      <mat-option value="other_formula_1_5">
+                        [FF space size] 1.2
+                      </mat-option>
+                      <mat-option value="other_formula_2">
+                        [FF space size] 1.2</mat-option
+                      >
+                      <mat-option value="other_formula_3_5">
+                        [FF space size] 1.2
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        stepThreeForm.get('otherFormula')?.hasError('required')
+                      "
+                    >
+                      Other formula is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- 10 Item -->
+                <div class="w-100">
+                  <p class="form-label fw-normal">
+                    Tax <span class="text-red">*</span>
+                  </p>
+                  <mat-form-field class="w-100 bg-white font-rubik">
+                    <mat-label
+                      class="font-rubik d-flex gap-2 align-items-center"
+                    >
+                      {{ getTaxDisplayValue() }}
+                    </mat-label>
+                    <mat-select class="font-rubik" formControlName="tax">
+                      <mat-option value="tax_number_no"> No </mat-option>
+                      <mat-option value="tax_number_yes"> Yes</mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="stepThreeForm.get('tax')?.hasError('required')"
+                    >
+                      Tax selection is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
             </div>
             <!-- Free field Value Content - end -->
 
@@ -301,7 +649,110 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
       <mat-step label="Step 4" [stepControl]="stepFourForm">
         <form [formGroup]="stepFourForm">
           <div class="basic-data-contribution">
-            <h4 class="heading">Assigning Financial Accounts</h4>
+            <h4 class="heading">
+              Assigning Financial Accounts
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9C16.5 13.1421 13.1421 16.5 9 16.5ZM9 15C12.3137 15 15 12.3137 15 9C15 5.68629 12.3137 3 9 3C5.68629 3 3 5.68629 3 9C3 12.3137 5.68629 15 9 15ZM8.25 11.25H9.75V12.75H8.25V11.25ZM9.75 10.0163V10.5H8.25V9.375C8.25 8.96077 8.58577 8.625 9 8.625C9.6213 8.625 10.125 8.1213 10.125 7.5C10.125 6.87868 9.6213 6.375 9 6.375C8.45423 6.375 7.9992 6.76367 7.8966 7.27933L6.42548 6.9851C6.66478 5.78189 7.7265 4.875 9 4.875C10.4497 4.875 11.625 6.05025 11.625 7.5C11.625 8.68913 10.8343 9.6936 9.75 10.0163Z"
+                  fill="#5A5A5A"
+                />
+              </svg>
+            </h4>
+            <h5 class="form-label pt-2 mt-3 fw-medium pb-4">
+              Select Financial Accounts
+            </h5>
+
+            <div class="calculation-configuration-step">
+              <!--  1 Item -->
+              <div class="w-100">
+                <p class="form-label fw-normal">
+                  Revenue Account <span class="text-red">*</span>
+                </p>
+                <mat-form-field class="w-100 bg-white font-rubik">
+                  <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                    {{ getRevenueAccountDisplayValue() }}
+                  </mat-label>
+                  <mat-select
+                    class="font-rubik"
+                    formControlName="revenueAccount"
+                  >
+                    <mat-option value="revenue_account_100"> 100 </mat-option>
+                    <mat-option value="revenue_account_200"> 200 </mat-option>
+                    <mat-option value="revenue_account_300"> 300 </mat-option>
+                    <mat-option value="revenue_account_500"> 500 </mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="
+                      stepFourForm.get('revenueAccount')?.hasError('required')
+                    "
+                  >
+                    Revenue account is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- 2 Item -->
+              <div class="w-100">
+                <p class="form-label fw-normal">
+                  Activity Account <span class="text-red">*</span>
+                </p>
+                <mat-form-field class="w-100 bg-white font-rubik">
+                  <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                    {{ getActivityAccountDisplayValue() }}
+                  </mat-label>
+                  <mat-select
+                    class="font-rubik"
+                    formControlName="activityAccount"
+                  >
+                    <mat-option value="activity_account_18000">
+                      18000
+                    </mat-option>
+                    <mat-option value="activity_account_19000">
+                      19000
+                    </mat-option>
+                    <mat-option value="activity_account_22000">
+                      22000
+                    </mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="
+                      stepFourForm.get('activityAccount')?.hasError('required')
+                    "
+                  >
+                    Activity account is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- 3 Item -->
+              <div class="w-100">
+                <p class="form-label fw-normal">
+                  Cost Centers <span class="text-red">*</span>
+                </p>
+                <mat-form-field class="w-100 bg-white font-rubik">
+                  <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                    {{ getCostCenterDisplayValue() }}
+                  </mat-label>
+                  <mat-select class="font-rubik" formControlName="costCenter">
+                    <mat-option value="cost_center_1000"> 1000 </mat-option>
+                    <mat-option value="cost_center_12000"> 12000 </mat-option>
+                    <mat-option value="cost_center_15000"> 15000 </mat-option>
+                    <mat-option value="cost_center_16000"> 16000 </mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="stepFourForm.get('costCenter')?.hasError('required')"
+                  >
+                    Cost center is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
 
             <!-- Button group -->
             <div class="w-100 mt-4">
@@ -344,9 +795,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     }
   `,
 })
-export class CalculationConfigurationComponent implements OnInit {
+export class CalculationConfigurationComponent {
   private _formBuilder = inject(FormBuilder);
-  private _cdr = inject(ChangeDetectorRef); // Add ChangeDetectorRef injection
 
   // Setting isLinear to true to ensure step validation
   isLinear = true;
@@ -368,29 +818,29 @@ export class CalculationConfigurationComponent implements OnInit {
   });
 
   stepTwoForm: FormGroup = this._formBuilder.group({
-    calculationMethod: ['fixed-value', Validators.required], // Default to 'fixed-value'
+    calculationMethod: ['fixed-value', Validators.required], // Default to 'free-field-value' to show the form
   });
 
   stepThreeForm: FormGroup = this._formBuilder.group({
-    // For fixed-value calculation
+    // Moved from stepTwoForm to stepThreeForm
     basicAmount: [69, [Validators.required, Validators.min(0)]], // Default value 69
     taxPercentage: [
       19,
       [Validators.required, Validators.min(0), Validators.max(100)],
     ], // Default value 19%
 
-    // For other calculation methods (initialized with null or empty values)
-    conditionFunction: [null],
-    ifOption: [null],
-    operator: [null],
-    conditionValue: [null],
-    clubStatus: [null],
-    orClubStatus: [null],
-    secondOperator: [null],
-    valueId: [null],
-    formula: [null],
-    otherFormula: [null],
-    tax: [null],
+    // Original stepThreeForm controls
+    conditionFunction: ['if_condition_wenn', Validators.required],
+    ifOption: ['', Validators.required],
+    operator: ['', Validators.required],
+    conditionValue: [''],
+    clubStatus: [''],
+    orClubStatus: [''],
+    secondOperator: [''],
+    valueId: ['', Validators.required],
+    formula: ['', Validators.required],
+    otherFormula: ['', Validators.required],
+    tax: ['', Validators.required],
   });
 
   stepFourForm: FormGroup = this._formBuilder.group({
@@ -405,51 +855,59 @@ export class CalculationConfigurationComponent implements OnInit {
     // Calculate the initial total based on default values
     this.calculateTotal();
 
-    // Log initial values to confirm they are set
-    console.log(
-      'Initial basic amount:',
-      this.stepThreeForm.get('basicAmount')?.value
-    );
-    console.log(
-      'Initial tax percentage:',
-      this.stepThreeForm.get('taxPercentage')?.value
-    );
-    console.log('Initial total amount:', this.totalAmount);
-
     // Set up conditional validators based on selected calculation method
     this.stepTwoForm
       .get('calculationMethod')
       ?.valueChanges.subscribe((value) => {
-        console.log('Calculation method changed to:', value);
-
         if (value === 'fixed-value') {
           // Make sure to calculate when showing the form
           this.calculateTotal();
-          this._cdr.detectChanges(); // Force change detection
         }
-
-        // Set appropriate validators based on calculation method
-        this.updateFormValidators(value);
       });
 
     // Watch for changes in both basic amount and tax fields
-    this.stepThreeForm.get('basicAmount')?.valueChanges.subscribe((value) => {
-      console.log('Basic amount changed to:', value);
+    this.stepThreeForm.get('basicAmount')?.valueChanges.subscribe(() => {
       this.calculateTotal();
-      this._cdr.detectChanges(); // Force change detection
     });
 
-    this.stepThreeForm.get('taxPercentage')?.valueChanges.subscribe((value) => {
-      console.log('Tax percentage changed to:', value);
+    this.stepThreeForm.get('taxPercentage')?.valueChanges.subscribe(() => {
       this.calculateTotal();
-      this._cdr.detectChanges(); // Force change detection
     });
 
     // Set up conditional validators based on selected condition function
     this.stepThreeForm
       .get('conditionFunction')
       ?.valueChanges.subscribe((value) => {
-        this.updateConditionValidators(value);
+        const conditionValueControl = this.stepThreeForm.get('conditionValue');
+        const clubStatusControl = this.stepThreeForm.get('clubStatus');
+        const orClubStatusControl = this.stepThreeForm.get('orClubStatus');
+        const secondOperatorControl = this.stepThreeForm.get('secondOperator');
+
+        if (
+          value === 'and_condition_wenn_und' ||
+          value === 'or_condition_wenn_oder'
+        ) {
+          conditionValueControl?.setValidators([Validators.required]);
+          secondOperatorControl?.setValidators([Validators.required]);
+
+          if (value === 'and_condition_wenn_und') {
+            clubStatusControl?.setValidators([Validators.required]);
+            orClubStatusControl?.clearValidators();
+          } else if (value === 'or_condition_wenn_oder') {
+            orClubStatusControl?.setValidators([Validators.required]);
+            clubStatusControl?.clearValidators();
+          }
+        } else {
+          conditionValueControl?.clearValidators();
+          clubStatusControl?.clearValidators();
+          orClubStatusControl?.clearValidators();
+          secondOperatorControl?.clearValidators();
+        }
+
+        conditionValueControl?.updateValueAndValidity();
+        clubStatusControl?.updateValueAndValidity();
+        orClubStatusControl?.updateValueAndValidity();
+        secondOperatorControl?.updateValueAndValidity();
       });
   }
 
@@ -469,98 +927,7 @@ export class CalculationConfigurationComponent implements OnInit {
           stepHeader.classList.add('previous-step');
         }
       }
-
-      // Recalculate total when moving to step 3
-      if (
-        event.selectedIndex === 2 &&
-        this.stepTwoForm.get('calculationMethod')?.value === 'fixed-value'
-      ) {
-        this.calculateTotal();
-        this._cdr.detectChanges(); // Force change detection
-      }
     });
-  }
-
-  // Helper method to update form validators based on calculation method
-  private updateFormValidators(calculationMethod: string) {
-    if (calculationMethod === 'fixed-value') {
-      // Set validators for fixed value calculation
-      this.stepThreeForm
-        .get('basicAmount')
-        ?.setValidators([Validators.required, Validators.min(0)]);
-      this.stepThreeForm
-        .get('taxPercentage')
-        ?.setValidators([
-          Validators.required,
-          Validators.min(0),
-          Validators.max(100),
-        ]);
-
-      // Clear validators for other calculation methods
-      this.stepThreeForm.get('conditionFunction')?.clearValidators();
-      this.stepThreeForm.get('ifOption')?.clearValidators();
-      this.stepThreeForm.get('operator')?.clearValidators();
-      this.stepThreeForm.get('valueId')?.clearValidators();
-      this.stepThreeForm.get('formula')?.clearValidators();
-      this.stepThreeForm.get('otherFormula')?.clearValidators();
-      this.stepThreeForm.get('tax')?.clearValidators();
-    } else {
-      // Set validators for other calculation methods
-      this.stepThreeForm
-        .get('conditionFunction')
-        ?.setValidators([Validators.required]);
-      this.stepThreeForm.get('ifOption')?.setValidators([Validators.required]);
-      this.stepThreeForm.get('operator')?.setValidators([Validators.required]);
-      this.stepThreeForm.get('valueId')?.setValidators([Validators.required]);
-      this.stepThreeForm.get('formula')?.setValidators([Validators.required]);
-      this.stepThreeForm
-        .get('otherFormula')
-        ?.setValidators([Validators.required]);
-      this.stepThreeForm.get('tax')?.setValidators([Validators.required]);
-
-      // Clear validators for fixed value calculation
-      this.stepThreeForm.get('basicAmount')?.clearValidators();
-      this.stepThreeForm.get('taxPercentage')?.clearValidators();
-    }
-
-    // Update validity for all form controls
-    Object.keys(this.stepThreeForm.controls).forEach((key) => {
-      this.stepThreeForm.get(key)?.updateValueAndValidity();
-    });
-  }
-
-  // Helper method to update condition validators
-  private updateConditionValidators(conditionFunction: string) {
-    const conditionValueControl = this.stepThreeForm.get('conditionValue');
-    const clubStatusControl = this.stepThreeForm.get('clubStatus');
-    const orClubStatusControl = this.stepThreeForm.get('orClubStatus');
-    const secondOperatorControl = this.stepThreeForm.get('secondOperator');
-
-    if (
-      conditionFunction === 'and_condition_wenn_und' ||
-      conditionFunction === 'or_condition_wenn_oder'
-    ) {
-      conditionValueControl?.setValidators([Validators.required]);
-      secondOperatorControl?.setValidators([Validators.required]);
-
-      if (conditionFunction === 'and_condition_wenn_und') {
-        clubStatusControl?.setValidators([Validators.required]);
-        orClubStatusControl?.clearValidators();
-      } else if (conditionFunction === 'or_condition_wenn_oder') {
-        orClubStatusControl?.setValidators([Validators.required]);
-        clubStatusControl?.clearValidators();
-      }
-    } else {
-      conditionValueControl?.clearValidators();
-      clubStatusControl?.clearValidators();
-      orClubStatusControl?.clearValidators();
-      secondOperatorControl?.clearValidators();
-    }
-
-    conditionValueControl?.updateValueAndValidity();
-    clubStatusControl?.updateValueAndValidity();
-    orClubStatusControl?.updateValueAndValidity();
-    secondOperatorControl?.updateValueAndValidity();
   }
 
   // Calculate the total amount (Basic Amount + Tax)
@@ -575,23 +942,14 @@ export class CalculationConfigurationComponent implements OnInit {
 
     // Calculate total (basic amount + tax amount)
     this.totalAmount = basicAmount + taxAmount;
-
-    console.log('Calculated total:', this.totalAmount);
   }
 
   // Helper methods for display values in select controls
   getCalculationMethodDisplayValue(): string {
-    const value = this.stepTwoForm?.get('calculationMethod')?.value;
-    switch (value) {
-      case 'fixed-value':
-        return 'Fixed Value – A static contribution amount';
-      case 'free-field-value':
-        return 'Free Field Value';
-      case 'variable-value':
-        return 'Variable Value';
-      default:
-        return 'Select Calculation Method';
-    }
+    return (
+      this.stepTwoForm?.get('calculationMethod')?.value ||
+      'Select Calculation Method'
+    );
   }
 
   getConditionFunctionDisplayValue(): string {
@@ -810,7 +1168,6 @@ export class CalculationConfigurationComponent implements OnInit {
         ...this.stepTwoForm.value,
         ...this.stepThreeForm.value,
         ...this.stepFourForm.value,
-        calculatedTotal: this.totalAmount, // Include the calculated total
       };
 
       console.log('Form saved successfully:', formData);
