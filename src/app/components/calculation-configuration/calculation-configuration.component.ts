@@ -818,7 +818,7 @@ export class CalculationConfigurationComponent {
   });
 
   stepTwoForm: FormGroup = this._formBuilder.group({
-    calculationMethod: ['free-field-value', Validators.required], // Default to 'free-field-value' to show the form
+    calculationMethod: ['fixed-value', Validators.required], // Default to 'free-field-value' to show the form
   });
 
   stepThreeForm: FormGroup = this._formBuilder.group({
