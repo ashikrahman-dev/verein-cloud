@@ -414,6 +414,500 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                         </div>
                         <!-- Free field Value Content - end -->
 
+                        <!-- Variable Value Content - start -->
+                        <div
+                            *ngIf="
+                                stepTwoForm.get('calculationMethod')?.value ===
+                                'variable-value'
+                            "
+                            class="fixed-value-content-show"
+                        >
+                            <h4 class="heading">
+                                Selecting the Applying Conditional Logic
+                                <img
+                                    [src]="headingTooltipIcon"
+                                    alt="Calendar Icon"
+                                    class=""
+                                />
+                            </h4>
+                            <h5 class="form-label pt-2 mt-3 fw-medium">
+                                Select Calculation Method
+                            </h5>
+
+                            <div class="calculation-configuration-step">
+                                <!-- 1 Item -->
+                                <div class="w-100">
+                                    <p class="form-label fw-normal">
+                                        Function <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{
+                                                getConditionFunctionDisplayValue()
+                                            }}
+                                        </mat-label>
+                                        <mat-select
+                                            formControlName="conditionFunction"
+                                            class="font-rubik"
+                                        >
+                                            <mat-option
+                                                value="if_condition_wenn"
+                                            >
+                                                "IF" Condition (WENN)
+                                            </mat-option>
+                                            <mat-option
+                                                value="and_condition_wenn_und"
+                                            >
+                                                "AND" Condition (WENN UND)
+                                            </mat-option>
+                                            <mat-option
+                                                value="or_condition_wenn_oder"
+                                            >
+                                                "OR" Condition (WENN ODER)
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('conditionFunction')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Function is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!--  2 Item -->
+                                <div class="w-100">
+                                    <p class="form-label fw-normal">
+                                        If <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{ getIfOptionDisplayValue() }}
+                                        </mat-label>
+                                        <mat-select
+                                            class="font-rubik"
+                                            formControlName="ifOption"
+                                        >
+                                            <mat-option value="if_option_100">
+                                                100
+                                            </mat-option>
+                                            <mat-option value="if_option_200">
+                                                200
+                                            </mat-option>
+                                            <mat-option value="if_option_300">
+                                                300
+                                            </mat-option>
+                                            <mat-option value="if_option_400">
+                                                400
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('ifOption')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            If value is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 3 Item -->
+                                <div class="w-100">
+                                    <p class="form-label fw-normal">
+                                        Operator <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{ getOperatorDisplayValue() }}
+                                        </mat-label>
+                                        <mat-select
+                                            class="font-rubik"
+                                            formControlName="operator"
+                                        >
+                                            <mat-option
+                                                value="operator_option_1"
+                                            >
+                                                >=
+                                            </mat-option>
+                                            <mat-option
+                                                value="operator_option_2"
+                                            >
+                                                >
+                                            </mat-option>
+                                            <mat-option
+                                                value="operator_option_3"
+                                            >
+                                                <
+                                            </mat-option>
+                                            <mat-option
+                                                value="operator_option_4"
+                                            >
+                                                <=
+                                            </mat-option>
+                                            <mat-option
+                                                value="operator_option_5"
+                                            >
+                                                =
+                                            </mat-option>
+                                            <mat-option
+                                                value="operator_option_6"
+                                            >
+                                                <>
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('operator')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Operator is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 4 Item -->
+                                <div *ngIf="isAdvancedCondition()">
+                                    <p class="form-label fw-normal">
+                                        Value <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <input
+                                            matInput
+                                            type="number"
+                                            formControlName="conditionValue"
+                                            placeholder="0"
+                                        />
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('conditionValue')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Value is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 5 Item -->
+                                <div
+                                    *ngIf="
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value === 'and_condition_wenn_und'
+                                    "
+                                    class="w-100"
+                                >
+                                    <p class="form-label fw-normal">
+                                        And <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{ getClubStatusDisplayValue() }}
+                                        </mat-label>
+                                        <mat-select
+                                            class="font-rubik"
+                                            formControlName="clubStatus"
+                                        >
+                                            <mat-option value="club_status_1">
+                                                Club Status
+                                            </mat-option>
+                                            <mat-option value="club_status_2">
+                                                Club Status 1</mat-option
+                                            >
+                                            <mat-option value="club_status_3">
+                                                Club Status 2
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('clubStatus')
+                                                    ?.hasError('required') &&
+                                                isAndCondition()
+                                            "
+                                        >
+                                            Club status is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 5 OR Item -->
+                                <div
+                                    *ngIf="
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value === 'or_condition_wenn_oder'
+                                    "
+                                    class="w-100"
+                                >
+                                    <p class="form-label fw-normal">
+                                        Or <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{ getOrClubStatusDisplayValue() }}
+                                        </mat-label>
+                                        <mat-select
+                                            class="font-rubik"
+                                            formControlName="orClubStatus"
+                                        >
+                                            <mat-option
+                                                value="or_club_status_1"
+                                            >
+                                                Club Status
+                                            </mat-option>
+                                            <mat-option
+                                                value="or_club_status_2"
+                                            >
+                                                Club Status 1</mat-option
+                                            >
+                                            <mat-option
+                                                value="or_club_status_3"
+                                            >
+                                                Club Status 2
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('orClubStatus')
+                                                    ?.hasError('required') &&
+                                                isOrCondition()
+                                            "
+                                        >
+                                            Club status is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 6 Item -->
+                                <div
+                                    *ngIf="isAdvancedCondition()"
+                                    class="w-100"
+                                >
+                                    <p class="form-label fw-normal">
+                                        Operator <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{
+                                                getSecondOperatorDisplayValue()
+                                            }}
+                                        </mat-label>
+                                        <mat-select
+                                            class="font-rubik"
+                                            formControlName="secondOperator"
+                                        >
+                                            <mat-option value="operator_active">
+                                                Active
+                                            </mat-option>
+                                            <mat-option
+                                                value="operator_passive"
+                                            >
+                                                Passive</mat-option
+                                            >
+                                            <mat-option
+                                                value="operator_none_zero"
+                                            >
+                                                None zero
+                                            </mat-option>
+                                            <mat-option value="operator_zero">
+                                                Zero
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('secondOperator')
+                                                    ?.hasError('required') &&
+                                                isAdvancedCondition()
+                                            "
+                                        >
+                                            Operator is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 7 Item -->
+                                <div>
+                                    <p class="form-label fw-normal">
+                                        Value <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <input
+                                            matInput
+                                            type="number"
+                                            formControlName="valueId"
+                                            placeholder="0"
+                                        />
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('valueId')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Value is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 8 Item -->
+                                <div class="w-100">
+                                    <p class="form-label fw-normal">
+                                        Formula <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{ getFormulaDisplayValue() }}
+                                        </mat-label>
+                                        <mat-select
+                                            class="font-rubik"
+                                            formControlName="formula"
+                                        >
+                                            <mat-option value="formula_1_5">
+                                                [FF space size] 1.5
+                                            </mat-option>
+                                            <mat-option value="formula_2">
+                                                [FF space size] 2</mat-option
+                                            >
+                                            <mat-option value="formula_3_5">
+                                                [FF space size] 3.5
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('formula')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Formula is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 9 Item -->
+                                <div class="w-100">
+                                    <p class="form-label fw-normal">
+                                        Other Formula
+                                        <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{ getOtherFormulaDisplayValue() }}
+                                        </mat-label>
+                                        <mat-select
+                                            class="font-rubik"
+                                            formControlName="otherFormula"
+                                        >
+                                            <mat-option
+                                                value="other_formula_1_5"
+                                            >
+                                                [FF space size] 1.2
+                                            </mat-option>
+                                            <mat-option value="other_formula_2">
+                                                [FF space size] 1.2</mat-option
+                                            >
+                                            <mat-option
+                                                value="other_formula_3_5"
+                                            >
+                                                [FF space size] 1.2
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('otherFormula')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Other formula is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 10 Item -->
+                                <div class="w-100">
+                                    <p class="form-label fw-normal">
+                                        Tax <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <mat-label
+                                            class="font-rubik d-flex gap-2 align-items-center"
+                                        >
+                                            {{ getTaxDisplayValue() }}
+                                        </mat-label>
+                                        <mat-select
+                                            class="font-rubik"
+                                            formControlName="tax"
+                                        >
+                                            <mat-option value="tax_number_no">
+                                                No
+                                            </mat-option>
+                                            <mat-option value="tax_number_yes">
+                                                Yes</mat-option
+                                            >
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('tax')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Tax selection is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Variable Value Content - end -->
+
                         <!-- Button group -->
                         <div class="w-100 mt-4">
                             <div
