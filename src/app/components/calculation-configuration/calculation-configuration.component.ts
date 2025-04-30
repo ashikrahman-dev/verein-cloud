@@ -1,18 +1,18 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    inject,
+    OnInit,
+    ViewChild,
 } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,307 +25,453 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'app-calculation-configuration',
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { displayDefaultIndicatorType: false },
-    },
-  ],
+    selector: 'app-calculation-configuration',
+    providers: [
+        {
+            provide: STEPPER_GLOBAL_OPTIONS,
+            useValue: { displayDefaultIndicatorType: false },
+        },
+    ],
 
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatStepperModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <mat-stepper
-      #stepper
-      [linear]="isLinear"
-      class="contribution-basic-data-step-wrap payment-terms-calculation-wrap calculation-configuration-wrapper"
-    >
-      <!-- Step 1 -->
-      <mat-step label="Step 1" [stepControl]="stepOneForm">
-        <form [formGroup]="stepOneForm">
-          <div class="basic-data-contribution">
-            <div class="tab-contents text-center font-rubik">
-              <h3
-                class="fs-24 pb-2 d-flex gap-2 align-items-center justify-content-center"
-              >
-                Proceeding to the Calculation Configuration
-              </h3>
-              <p class="fs-14 font-normal cc-first-step-content">
-                Configures how contributions are calculated, allowing
-                flexibility based on dynamic rules and parameters. This ensures
-                accurate and customized billing for members.
-              </p>
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatStepperModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDatepickerModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
+        <mat-stepper
+            #stepper
+            [linear]="isLinear"
+            class="contribution-basic-data-step-wrap payment-terms-calculation-wrap calculation-configuration-wrapper"
+        >
+            <!-- Step 1 -->
+            <mat-step label="Step 1" [stepControl]="stepOneForm">
+                <form [formGroup]="stepOneForm">
+                    <div class="basic-data-contribution">
+                        <div class="tab-contents text-center font-rubik">
+                            <h3
+                                class="fs-24 pb-2 d-flex gap-2 align-items-center justify-content-center"
+                            >
+                                Proceeding to the Calculation Configuration
+                            </h3>
+                            <p class="fs-14 font-normal cc-first-step-content">
+                                Configures how contributions are calculated,
+                                allowing flexibility based on dynamic rules and
+                                parameters. This ensures accurate and customized
+                                billing for members.
+                            </p>
 
-              <div class="button-wrap d-flex justify-content-center pt-3 mt-2">
-                <button type="button" class="step-button fill" matStepperNext>
-                  Proceed
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </mat-step>
-
-      <!-- Step 2 -->
-      <mat-step label="Step 2" [stepControl]="stepTwoForm">
-        <form [formGroup]="stepTwoForm">
-          <div class="basic-data-contribution">
-            <h4 class="heading">
-              Selecting the Calculation Method
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9C16.5 13.1421 13.1421 16.5 9 16.5ZM9 15C12.3137 15 15 12.3137 15 9C15 5.68629 12.3137 3 9 3C5.68629 3 3 5.68629 3 9C3 12.3137 5.68629 15 9 15ZM8.25 11.25H9.75V12.75H8.25V11.25ZM9.75 10.0163V10.5H8.25V9.375C8.25 8.96077 8.58577 8.625 9 8.625C9.6213 8.625 10.125 8.1213 10.125 7.5C10.125 6.87868 9.6213 6.375 9 6.375C8.45423 6.375 7.9992 6.76367 7.8966 7.27933L6.42548 6.9851C6.66478 5.78189 7.7265 4.875 9 4.875C10.4497 4.875 11.625 6.05025 11.625 7.5C11.625 8.68913 10.8343 9.6936 9.75 10.0163Z"
-                  fill="#5A5A5A"
-                />
-              </svg>
-            </h4>
-            <p class="form-label pt-2 mt-3">Select Calculation Method</p>
-            <mat-form-field class="w-100 bg-white font-rubik">
-              <mat-label class="font-rubik d-flex gap-2 align-items-center">
-                <img [src]="numberIcon" alt="Calendar Icon" class="" />
-                {{ getCalculationMethodDisplayValue() }}
-              </mat-label>
-              <mat-select
-                class="font-rubik"
-                formControlName="calculationMethod"
-              >
-                <mat-option value="fixed-value">
-                  Fixed Value – A static contribution amount
-                </mat-option>
-                <mat-option value="free-field-value">
-                  Free Field Value - Contribution is determined based on free
-                  field variables (e.g. work hours, usage, member status)
-                </mat-option>
-                <mat-option value="variable-value">
-                  Variable Value - Use formulas to calculate contributions
-                  dynamically
-                </mat-option>
-              </mat-select>
-              <mat-error
-                *ngIf="
-                  stepTwoForm.get('calculationMethod')?.hasError('required')
-                "
-              >
-                Calculation method is required
-              </mat-error>
-            </mat-form-field>
-
-            <div class="w-100 mt-4">
-              <div
-                class="button-wrap d-flex justify-content-end align-items-end gap-3"
-              >
-                <button type="button" class="step-button fill" matStepperNext>
-                  Next
-                </button>
-                <button type="button" class="step-button" matStepperPrevious>
-                  Back
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </mat-step>
-
-      <!-- Step 3 -->
-      <mat-step label="Step 3" [stepControl]="stepThreeForm">
-        <form [formGroup]="stepThreeForm">
-          <div class="basic-data-contribution">
-            <!-- Fixed Value Content - start -->
-            <div
-              *ngIf="
-                stepTwoForm.get('calculationMethod')?.value === 'fixed-value'
-              "
-              class="fixed-value-content-show"
-            >
-              <div class="">
-                <h4 class="heading pb-3">
-                  New Contribution - Basic Amount, Tax, Accounts and Cost Center
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9C16.5 13.1421 13.1421 16.5 9 16.5ZM9 15C12.3137 15 15 12.3137 15 9C15 5.68629 12.3137 3 9 3C5.68629 3 3 5.68629 3 9C3 12.3137 5.68629 15 9 15ZM8.25 11.25H9.75V12.75H8.25V11.25ZM9.75 10.0163V10.5H8.25V9.375C8.25 8.96077 8.58577 8.625 9 8.625C9.6213 8.625 10.125 8.1213 10.125 7.5C10.125 6.87868 9.6213 6.375 9 6.375C8.45423 6.375 7.9992 6.76367 7.8966 7.27933L6.42548 6.9851C6.66478 5.78189 7.7265 4.875 9 4.875C10.4497 4.875 11.625 6.05025 11.625 7.5C11.625 8.68913 10.8343 9.6936 9.75 10.0163Z"
-                      fill="#5A5A5A"
-                    />
-                  </svg>
-                </h4>
-
-                <div class="new-contribution-content-box">
-                  <h6>Basic Settings</h6>
-                  <p>
-                    MB0001 - Membership Fee - Normal Contribution - No
-                    Department
-                  </p>
-                </div>
-
-                <div class="new-contribution-content-box">
-                  <h6>Interval, billing period and due date</h6>
-                  <p>
-                    Annual Interval - Due 5 days after the start of the interval
-                  </p>
-                </div>
-
-                <div class="new-contribution-content-box">
-                  <h6>Payment Term and Calculation</h6>
-                  <p>Payment Term 7 Days - No Pro-Rata Calculation</p>
-                </div>
-
-                <div class="new-contribution-content-box">
-                  <h6>Basic Amount, Tax, Accounts and Cost Center</h6>
-                  <p>
-                    The basic amount determines the contribution amount for the
-                    billing period. The tax rate determines whether sales tax is
-                    levied on the contribution. The contribution is posted to
-                    the specified revenue account. The active account determines
-                    from which bank account the contribution is collected.
-                    Optionally, a cost center can be assigned.
-                  </p>
-                </div>
-
-                <div class="new-contribution-content-form-wrap ">
-                  <div class="d-flex gap-4">
-                    <!-- Basic Amount -->
-                    <div class="w-100">
-                      <p class="form-label fw-normal">Basic Amount (€)</p>
-                      <input
-                        matInput
-                        type="number"
-                        formControlName="basicAmount"
-                        class="form-input-field font-rubik remove-icon-cls basic-amount-cls"
-                        placeholder="0"
-                        (input)="calculateTotal()"
-                      />
+                            <div
+                                class="button-wrap d-flex justify-content-center pt-3 mt-2"
+                            >
+                                <button
+                                    type="button"
+                                    class="step-button fill"
+                                    matStepperNext
+                                >
+                                    Proceed
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Tax -->
-                    <div class="w-100">
-                      <p class="form-label fw-normal">Tax (%)</p>
-                      <input
-                        matInput
-                        type="number"
-                        formControlName="taxPercentage"
-                        class="form-input-field font-rubik remove-icon-cls"
-                        placeholder="19"
-                        (input)="calculateTotal()"
-                      />
+                </form>
+            </mat-step>
+
+            <!-- Step 2 -->
+            <mat-step label="Step 2" [stepControl]="stepTwoForm">
+                <form [formGroup]="stepTwoForm">
+                    <div class="basic-data-contribution">
+                        <h4 class="heading">
+                            Selecting the Calculation Method
+                            <img
+                                [src]="headingTooltipIcon"
+                                alt="Calendar Icon"
+                                class=""
+                            />
+                        </h4>
+                        <p class="form-label pt-2 mt-3">
+                            Select Calculation Method
+                        </p>
+                        <mat-form-field class="w-100 bg-white font-rubik">
+                            <mat-label
+                                class="font-rubik d-flex gap-2 align-items-center"
+                            >
+                                <img
+                                    [src]="numberIcon"
+                                    alt="Calendar Icon"
+                                    class=""
+                                />
+                                {{ getCalculationMethodDisplayValue() }}
+                            </mat-label>
+                            <mat-select
+                                class="font-rubik"
+                                formControlName="calculationMethod"
+                            >
+                                <mat-option value="fixed-value">
+                                    Fixed Value – A static contribution amount
+                                </mat-option>
+                                <mat-option value="free-field-value">
+                                    Free Field Value - Contribution is
+                                    determined based on free field variables
+                                    (e.g. work hours, usage, member status)
+                                </mat-option>
+                                <mat-option value="variable-value">
+                                    Variable Value - Use formulas to calculate
+                                    contributions dynamically
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="
+                                    stepTwoForm
+                                        .get('calculationMethod')
+                                        ?.hasError('required')
+                                "
+                            >
+                                Calculation method is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="w-100 mt-4">
+                            <div
+                                class="button-wrap d-flex justify-content-end align-items-end gap-3"
+                            >
+                                <button
+                                    type="button"
+                                    class="step-button fill"
+                                    matStepperNext
+                                >
+                                    Next
+                                </button>
+                                <button
+                                    type="button"
+                                    class="step-button"
+                                    matStepperPrevious
+                                >
+                                    Back
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                </form>
+            </mat-step>
 
-                  <!-- Result -->
-                  <div>
-                    <div class="new-contribution-result w-100">
-                      <h4>Result :</h4>
-                      <p>
-                        <span>€</span>
-                        {{ totalAmount | number : '1.2-2' }}
-                        <!-- Total result is here -->
-                      </p>
+            <!-- Step 3 -->
+            <mat-step label="Step 3" [stepControl]="stepThreeForm">
+                <form [formGroup]="stepThreeForm">
+                    <div class="basic-data-contribution">
+                        <!-- Fixed Value Content - start -->
+                        <div
+                            *ngIf="
+                                stepTwoForm.get('calculationMethod')?.value ===
+                                'fixed-value'
+                            "
+                            class="fixed-value-content-show"
+                        >
+                            <div class="">
+                                <h4 class="heading pb-3">
+                                    New Contribution - Basic Amount, Tax,
+                                    Accounts and Cost Center
+                                    <img
+                                        [src]="headingTooltipIcon"
+                                        alt="Calendar Icon"
+                                        class=""
+                                    />
+                                </h4>
+
+                                <div class="new-contribution-content-box">
+                                    <h6>Basic Settings</h6>
+                                    <p>
+                                        MB0001 - Membership Fee - Normal
+                                        Contribution - No Department
+                                    </p>
+                                </div>
+
+                                <div class="new-contribution-content-box">
+                                    <h6>
+                                        Interval, billing period and due date
+                                    </h6>
+                                    <p>
+                                        Annual Interval - Due 5 days after the
+                                        start of the interval
+                                    </p>
+                                </div>
+
+                                <div class="new-contribution-content-box">
+                                    <h6>Payment Term and Calculation</h6>
+                                    <p>
+                                        Payment Term 7 Days - No Pro-Rata
+                                        Calculation
+                                    </p>
+                                </div>
+
+                                <div class="new-contribution-content-box">
+                                    <h6>
+                                        Basic Amount, Tax, Accounts and Cost
+                                        Center
+                                    </h6>
+                                    <p>
+                                        The basic amount determines the
+                                        contribution amount for the billing
+                                        period. The tax rate determines whether
+                                        sales tax is levied on the contribution.
+                                        The contribution is posted to the
+                                        specified revenue account. The active
+                                        account determines from which bank
+                                        account the contribution is collected.
+                                        Optionally, a cost center can be
+                                        assigned.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="new-contribution-content-form-wrap "
+                                >
+                                    <div class="d-flex gap-4">
+                                        <!-- Basic Amount -->
+                                        <div class="w-100">
+                                            <p class="form-label fw-normal">
+                                                Basic Amount (€)
+                                            </p>
+                                            <input
+                                                matInput
+                                                type="number"
+                                                formControlName="basicAmount"
+                                                class="form-input-field font-rubik remove-icon-cls basic-amount-cls"
+                                                placeholder="0"
+                                                (input)="calculateTotal()"
+                                            />
+                                        </div>
+                                        <!-- Tax -->
+                                        <div class="w-100">
+                                            <p class="form-label fw-normal">
+                                                Tax (%)
+                                            </p>
+                                            <input
+                                                matInput
+                                                type="number"
+                                                formControlName="taxPercentage"
+                                                class="form-input-field font-rubik remove-icon-cls"
+                                                placeholder="19"
+                                                (input)="calculateTotal()"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- Result -->
+                                    <div>
+                                        <div
+                                            class="new-contribution-result w-100"
+                                        >
+                                            <h4>Result :</h4>
+                                            <p>
+                                                <span>€</span>
+                                                {{
+                                                    totalAmount
+                                                        | number : '1.2-2'
+                                                }}
+                                                <!-- Total result is here -->
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- Result -->
+
+                                    <!-- Result -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fixed Value Content - end -->
+
+                        <!-- Free field Value Content - start -->
+                        <div
+                            *ngIf="
+                                stepTwoForm.get('calculationMethod')?.value ===
+                                'free-field-value'
+                            "
+                            class="fixed-value-content-show"
+                        >
+                            <div class="">
+                                <h4 class="heading pb-3">
+                                    New Contribution - Basic Amount, Tax,
+                                    Accounts and Cost Center
+                                    <img
+                                        [src]="headingTooltipIcon"
+                                        alt="Calendar Icon"
+                                        class=""
+                                    />
+                                </h4>
+
+                                <div class="new-contribution-content-box">
+                                    <h6>Basic Settings</h6>
+                                    <p>
+                                        MB0001 - Membership Fee - Normal
+                                        Contribution - No Department
+                                    </p>
+                                </div>
+
+                                <div class="new-contribution-content-box">
+                                    <h6>
+                                        Interval, billing period and due date
+                                    </h6>
+                                    <p>
+                                        Annual Interval - Due 5 days after the
+                                        start of the interval
+                                    </p>
+                                </div>
+
+                                <div class="new-contribution-content-box">
+                                    <h6>Payment Term and Calculation</h6>
+                                    <p>
+                                        Payment Term 7 Days - No Pro-Rata
+                                        Calculation
+                                    </p>
+                                </div>
+
+                                <div class="new-contribution-content-box">
+                                    <h6>
+                                        Basic Amount, Tax, Accounts and Cost
+                                        Center
+                                    </h6>
+                                    <p>
+                                        The basic amount determines the
+                                        contribution amount for the billing
+                                        period. The tax rate determines whether
+                                        sales tax is levied on the contribution.
+                                        The contribution is posted to the
+                                        specified revenue account. The active
+                                        account determines from which bank
+                                        account the contribution is collected.
+                                        Optionally, a cost center can be
+                                        assigned.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="new-contribution-content-form-wrap "
+                                >
+                                    <div class="d-flex gap-4">
+                                        <!-- Free Field Name -->
+                                        <div class="w-100">
+                                            <p class="form-label fw-normal">
+                                                Free Field Name
+                                            </p>
+
+                                            <mat-form-field
+                                                class="w-100 bg-white font-rubik"
+                                            >
+                                                <mat-label
+                                                    class="font-rubik d-flex gap-2 align-items-center"
+                                                >
+                                                    <img
+                                                        [src]="numberIcon"
+                                                        alt="Calendar Icon"
+                                                        class=""
+                                                    />
+                                                    Select Field
+                                                </mat-label>
+                                                <mat-select
+                                                    class="font-rubik"
+                                                    formControlName="calculationMethod"
+                                                >
+                                                    <mat-option
+                                                        value="working-hours"
+                                                    >
+                                                        Working Hours
+                                                    </mat-option>
+                                                    <mat-option
+                                                        value="electricity-usage"
+                                                    >
+                                                        Electricity Usage
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <!-- Duration -->
+                                        <div class="w-100">
+                                            <p class="form-label fw-normal">
+                                                Duration
+                                            </p>
+                                            <input
+                                                matInput
+                                                type="number"
+                                                class="form-input-field font-rubik remove-icon-cls"
+                                                placeholder="0"
+                                                value="8"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- Result -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Free field Value Content - end -->
+
+                        <!-- Button group -->
+                        <div class="w-100 mt-4">
+                            <div
+                                class="button-wrap d-flex justify-content-end align-items-end gap-3"
+                            >
+                                <button
+                                    type="button"
+                                    class="step-button fill"
+                                    matStepperNext
+                                >
+                                    Next
+                                </button>
+                                <button
+                                    type="button"
+                                    class="step-button"
+                                    matStepperPrevious
+                                >
+                                    Back
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <!-- Result -->
+                </form>
+            </mat-step>
 
-                  <!-- Result -->
-                </div>
-              </div>
-            </div>
-            <!-- Fixed Value Content - end -->
+            <!-- Step 4 -->
+            <mat-step label="Step 4" [stepControl]="stepFourForm">
+                <form [formGroup]="stepFourForm">
+                    <div class="basic-data-contribution">
+                        <h4 class="heading">Assigning Financial Accounts</h4>
 
-            <!-- Free field Value Content - start -->
-            <div
-              *ngIf="
-                stepTwoForm.get('calculationMethod')?.value ===
-                'free-field-value'
-              "
-              class="fixed-value-content-show"
-            >
-              <h4 class="heading">
-                Selecting the Applying Conditional Logic
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9 16.5C4.85786 16.5 1.5 13.1421 1.5 9C1.5 4.85786 4.85786 1.5 9 1.5C13.1421 1.5 16.5 4.85786 16.5 9C16.5 13.1421 13.1421 16.5 9 16.5ZM9 15C12.3137 15 15 12.3137 15 9C15 5.68629 12.3137 3 9 3C5.68629 3 3 5.68629 3 9C3 12.3137 5.68629 15 9 15ZM8.25 11.25H9.75V12.75H8.25V11.25ZM9.75 10.0163V10.5H8.25V9.375C8.25 8.96077 8.58577 8.625 9 8.625C9.6213 8.625 10.125 8.1213 10.125 7.5C10.125 6.87868 9.6213 6.375 9 6.375C8.45423 6.375 7.9992 6.76367 7.8966 7.27933L6.42548 6.9851C6.66478 5.78189 7.7265 4.875 9 4.875C10.4497 4.875 11.625 6.05025 11.625 7.5C11.625 8.68913 10.8343 9.6936 9.75 10.0163Z"
-                    fill="#5A5A5A"
-                  />
-                </svg>
-              </h4>
-              <h5 class="form-label pt-2 mt-3 fw-medium">
-                Select Calculation Method
-              </h5>
-            </div>
-            <!-- Free field Value Content - end -->
-
-            <!-- Button group -->
-            <div class="w-100 mt-4">
-              <div
-                class="button-wrap d-flex justify-content-end align-items-end gap-3"
-              >
-                <button type="button" class="step-button fill" matStepperNext>
-                  Next
-                </button>
-                <button type="button" class="step-button" matStepperPrevious>
-                  Back
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </mat-step>
-
-      <!-- Step 4 -->
-      <mat-step label="Step 4" [stepControl]="stepFourForm">
-        <form [formGroup]="stepFourForm">
-          <div class="basic-data-contribution">
-            <h4 class="heading">Assigning Financial Accounts</h4>
-
-            <!-- Button group -->
-            <div class="w-100 mt-4">
-              <div
-                class="button-wrap d-flex justify-content-end align-items-end gap-3"
-              >
-                <button
-                  type="button"
-                  class="step-button fill"
-                  (click)="saveForm()"
-                >
-                  Save
-                </button>
-                <button type="button" class="step-button" matStepperPrevious>
-                  Back
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </mat-step>
-    </mat-stepper>
-  `,
-  styles: `
+                        <!-- Button group -->
+                        <div class="w-100 mt-4">
+                            <div
+                                class="button-wrap d-flex justify-content-end align-items-end gap-3"
+                            >
+                                <button
+                                    type="button"
+                                    class="step-button fill"
+                                    (click)="saveForm()"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    type="button"
+                                    class="step-button"
+                                    matStepperPrevious
+                                >
+                                    Back
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-stepper>
+    `,
+    styles: `
     .calculation-configuration-step {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -345,509 +491,525 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   `,
 })
 export class CalculationConfigurationComponent implements OnInit {
-  private _formBuilder = inject(FormBuilder);
-  private _cdr = inject(ChangeDetectorRef); // Add ChangeDetectorRef injection
+    private _formBuilder = inject(FormBuilder);
+    private _cdr = inject(ChangeDetectorRef); // Add ChangeDetectorRef injection
 
-  // Setting isLinear to true to ensure step validation
-  isLinear = true;
+    // Setting isLinear to true to ensure step validation
+    isLinear = true;
 
-  // Property to store the calculated total amount
-  totalAmount: number = 0;
+    // Property to store the calculated total amount
+    totalAmount: number = 0;
 
-  // Required asset paths
-  numberIcon = 'assets/images/due-date-icon.svg';
-  intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
-  calendarDateIcon = 'assets/images/calendar-edit.svg';
-  textalignIcon = 'assets/images/textalign-justifycenter.svg';
+    // Required asset paths
+    numberIcon = 'assets/images/due-date-icon.svg';
+    intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
+    calendarDateIcon = 'assets/images/calendar-edit.svg';
+    textalignIcon = 'assets/images/textalign-justifycenter.svg';
+    headingTooltipIcon = 'assets/images/heading-tooltip-icon.svg';
 
-  // Form groups for each step
-  stepOneForm: FormGroup = this._formBuilder.group({
-    // Step 1 doesn't have any required fields in this example,
-    // but we need to define it for proper step validation
-    introStep: [''],
-  });
-
-  stepTwoForm: FormGroup = this._formBuilder.group({
-    calculationMethod: ['fixed-value', Validators.required], // Default to 'fixed-value'
-  });
-
-  stepThreeForm: FormGroup = this._formBuilder.group({
-    // For fixed-value calculation
-    basicAmount: [69, [Validators.required, Validators.min(0)]], // Default value 69
-    taxPercentage: [
-      19,
-      [Validators.required, Validators.min(0), Validators.max(100)],
-    ], // Default value 19%
-
-    // For other calculation methods (initialized with null or empty values)
-    conditionFunction: [null],
-    ifOption: [null],
-    operator: [null],
-    conditionValue: [null],
-    clubStatus: [null],
-    orClubStatus: [null],
-    secondOperator: [null],
-    valueId: [null],
-    formula: [null],
-    otherFormula: [null],
-    tax: [null],
-  });
-
-  stepFourForm: FormGroup = this._formBuilder.group({
-    revenueAccount: ['', Validators.required],
-    activityAccount: ['', Validators.required],
-    costCenter: ['', Validators.required],
-  });
-
-  @ViewChild(MatStepper) stepper!: MatStepper;
-
-  ngOnInit() {
-    // Calculate the initial total based on default values
-    this.calculateTotal();
-
-    // Log initial values to confirm they are set
-    console.log(
-      'Initial basic amount:',
-      this.stepThreeForm.get('basicAmount')?.value
-    );
-    console.log(
-      'Initial tax percentage:',
-      this.stepThreeForm.get('taxPercentage')?.value
-    );
-    console.log('Initial total amount:', this.totalAmount);
-
-    // Set up conditional validators based on selected calculation method
-    this.stepTwoForm
-      .get('calculationMethod')
-      ?.valueChanges.subscribe((value) => {
-        console.log('Calculation method changed to:', value);
-
-        if (value === 'fixed-value') {
-          // Make sure to calculate when showing the form
-          this.calculateTotal();
-          this._cdr.detectChanges(); // Force change detection
-        }
-
-        // Set appropriate validators based on calculation method
-        this.updateFormValidators(value);
-      });
-
-    // Watch for changes in both basic amount and tax fields
-    this.stepThreeForm.get('basicAmount')?.valueChanges.subscribe((value) => {
-      console.log('Basic amount changed to:', value);
-      this.calculateTotal();
-      this._cdr.detectChanges(); // Force change detection
+    // Form groups for each step
+    stepOneForm: FormGroup = this._formBuilder.group({
+        // Step 1 doesn't have any required fields in this example,
+        // but we need to define it for proper step validation
+        introStep: [''],
     });
 
-    this.stepThreeForm.get('taxPercentage')?.valueChanges.subscribe((value) => {
-      console.log('Tax percentage changed to:', value);
-      this.calculateTotal();
-      this._cdr.detectChanges(); // Force change detection
+    stepTwoForm: FormGroup = this._formBuilder.group({
+        calculationMethod: ['fixed-value', Validators.required], // Default to 'fixed-value'
     });
 
-    // Set up conditional validators based on selected condition function
-    this.stepThreeForm
-      .get('conditionFunction')
-      ?.valueChanges.subscribe((value) => {
-        this.updateConditionValidators(value);
-      });
-  }
+    stepThreeForm: FormGroup = this._formBuilder.group({
+        // For fixed-value calculation
+        basicAmount: [69, [Validators.required, Validators.min(0)]], // Default value 69
+        taxPercentage: [
+            19,
+            [Validators.required, Validators.min(0), Validators.max(100)],
+        ], // Default value 19%
 
-  ngAfterViewInit() {
-    // Set up an observer to watch for step changes
-    this.stepper.selectionChange.subscribe((event) => {
-      // Remove styling from all steps
-      const stepHeaders = document.querySelectorAll('.mat-step-header');
-      stepHeaders.forEach((header) => {
-        header.classList.remove('previous-step');
-      });
+        // For other calculation methods (initialized with null or empty values)
+        conditionFunction: [null],
+        ifOption: [null],
+        operator: [null],
+        conditionValue: [null],
+        clubStatus: [null],
+        orClubStatus: [null],
+        secondOperator: [null],
+        valueId: [null],
+        formula: [null],
+        otherFormula: [null],
+        tax: [null],
+    });
 
-      // Add styling to previous steps
-      for (let i = 0; i < event.selectedIndex; i++) {
-        const stepHeader = document.querySelectorAll('.mat-step-header')[i];
-        if (stepHeader) {
-          stepHeader.classList.add('previous-step');
-        }
-      }
+    stepFourForm: FormGroup = this._formBuilder.group({
+        revenueAccount: ['', Validators.required],
+        activityAccount: ['', Validators.required],
+        costCenter: ['', Validators.required],
+    });
 
-      // Recalculate total when moving to step 3
-      if (
-        event.selectedIndex === 2 &&
-        this.stepTwoForm.get('calculationMethod')?.value === 'fixed-value'
-      ) {
+    @ViewChild(MatStepper) stepper!: MatStepper;
+
+    ngOnInit() {
+        // Calculate the initial total based on default values
         this.calculateTotal();
-        this._cdr.detectChanges(); // Force change detection
-      }
-    });
-  }
 
-  // Helper method to update form validators based on calculation method
-  private updateFormValidators(calculationMethod: string) {
-    if (calculationMethod === 'fixed-value') {
-      // Set validators for fixed value calculation
-      this.stepThreeForm
-        .get('basicAmount')
-        ?.setValidators([Validators.required, Validators.min(0)]);
-      this.stepThreeForm
-        .get('taxPercentage')
-        ?.setValidators([
-          Validators.required,
-          Validators.min(0),
-          Validators.max(100),
-        ]);
+        // Log initial values to confirm they are set
+        console.log(
+            'Initial basic amount:',
+            this.stepThreeForm.get('basicAmount')?.value
+        );
+        console.log(
+            'Initial tax percentage:',
+            this.stepThreeForm.get('taxPercentage')?.value
+        );
+        console.log('Initial total amount:', this.totalAmount);
 
-      // Clear validators for other calculation methods
-      this.stepThreeForm.get('conditionFunction')?.clearValidators();
-      this.stepThreeForm.get('ifOption')?.clearValidators();
-      this.stepThreeForm.get('operator')?.clearValidators();
-      this.stepThreeForm.get('valueId')?.clearValidators();
-      this.stepThreeForm.get('formula')?.clearValidators();
-      this.stepThreeForm.get('otherFormula')?.clearValidators();
-      this.stepThreeForm.get('tax')?.clearValidators();
-    } else {
-      // Set validators for other calculation methods
-      this.stepThreeForm
-        .get('conditionFunction')
-        ?.setValidators([Validators.required]);
-      this.stepThreeForm.get('ifOption')?.setValidators([Validators.required]);
-      this.stepThreeForm.get('operator')?.setValidators([Validators.required]);
-      this.stepThreeForm.get('valueId')?.setValidators([Validators.required]);
-      this.stepThreeForm.get('formula')?.setValidators([Validators.required]);
-      this.stepThreeForm
-        .get('otherFormula')
-        ?.setValidators([Validators.required]);
-      this.stepThreeForm.get('tax')?.setValidators([Validators.required]);
+        // Set up conditional validators based on selected calculation method
+        this.stepTwoForm
+            .get('calculationMethod')
+            ?.valueChanges.subscribe((value) => {
+                console.log('Calculation method changed to:', value);
 
-      // Clear validators for fixed value calculation
-      this.stepThreeForm.get('basicAmount')?.clearValidators();
-      this.stepThreeForm.get('taxPercentage')?.clearValidators();
+                if (value === 'fixed-value') {
+                    // Make sure to calculate when showing the form
+                    this.calculateTotal();
+                    this._cdr.detectChanges(); // Force change detection
+                }
+
+                // Set appropriate validators based on calculation method
+                this.updateFormValidators(value);
+            });
+
+        // Watch for changes in both basic amount and tax fields
+        this.stepThreeForm
+            .get('basicAmount')
+            ?.valueChanges.subscribe((value) => {
+                console.log('Basic amount changed to:', value);
+                this.calculateTotal();
+                this._cdr.detectChanges(); // Force change detection
+            });
+
+        this.stepThreeForm
+            .get('taxPercentage')
+            ?.valueChanges.subscribe((value) => {
+                console.log('Tax percentage changed to:', value);
+                this.calculateTotal();
+                this._cdr.detectChanges(); // Force change detection
+            });
+
+        // Set up conditional validators based on selected condition function
+        this.stepThreeForm
+            .get('conditionFunction')
+            ?.valueChanges.subscribe((value) => {
+                this.updateConditionValidators(value);
+            });
     }
 
-    // Update validity for all form controls
-    Object.keys(this.stepThreeForm.controls).forEach((key) => {
-      this.stepThreeForm.get(key)?.updateValueAndValidity();
-    });
-  }
+    ngAfterViewInit() {
+        // Set up an observer to watch for step changes
+        this.stepper.selectionChange.subscribe((event) => {
+            // Remove styling from all steps
+            const stepHeaders = document.querySelectorAll('.mat-step-header');
+            stepHeaders.forEach((header) => {
+                header.classList.remove('previous-step');
+            });
 
-  // Helper method to update condition validators
-  private updateConditionValidators(conditionFunction: string) {
-    const conditionValueControl = this.stepThreeForm.get('conditionValue');
-    const clubStatusControl = this.stepThreeForm.get('clubStatus');
-    const orClubStatusControl = this.stepThreeForm.get('orClubStatus');
-    const secondOperatorControl = this.stepThreeForm.get('secondOperator');
+            // Add styling to previous steps
+            for (let i = 0; i < event.selectedIndex; i++) {
+                const stepHeader =
+                    document.querySelectorAll('.mat-step-header')[i];
+                if (stepHeader) {
+                    stepHeader.classList.add('previous-step');
+                }
+            }
 
-    if (
-      conditionFunction === 'and_condition_wenn_und' ||
-      conditionFunction === 'or_condition_wenn_oder'
-    ) {
-      conditionValueControl?.setValidators([Validators.required]);
-      secondOperatorControl?.setValidators([Validators.required]);
-
-      if (conditionFunction === 'and_condition_wenn_und') {
-        clubStatusControl?.setValidators([Validators.required]);
-        orClubStatusControl?.clearValidators();
-      } else if (conditionFunction === 'or_condition_wenn_oder') {
-        orClubStatusControl?.setValidators([Validators.required]);
-        clubStatusControl?.clearValidators();
-      }
-    } else {
-      conditionValueControl?.clearValidators();
-      clubStatusControl?.clearValidators();
-      orClubStatusControl?.clearValidators();
-      secondOperatorControl?.clearValidators();
+            // Recalculate total when moving to step 3
+            if (
+                event.selectedIndex === 2 &&
+                this.stepTwoForm.get('calculationMethod')?.value ===
+                    'fixed-value'
+            ) {
+                this.calculateTotal();
+                this._cdr.detectChanges(); // Force change detection
+            }
+        });
     }
 
-    conditionValueControl?.updateValueAndValidity();
-    clubStatusControl?.updateValueAndValidity();
-    orClubStatusControl?.updateValueAndValidity();
-    secondOperatorControl?.updateValueAndValidity();
-  }
+    // Helper method to update form validators based on calculation method
+    private updateFormValidators(calculationMethod: string) {
+        if (calculationMethod === 'fixed-value') {
+            // Set validators for fixed value calculation
+            this.stepThreeForm
+                .get('basicAmount')
+                ?.setValidators([Validators.required, Validators.min(0)]);
+            this.stepThreeForm
+                .get('taxPercentage')
+                ?.setValidators([
+                    Validators.required,
+                    Validators.min(0),
+                    Validators.max(100),
+                ]);
 
-  // Calculate the total amount (Basic Amount + Tax)
-  calculateTotal() {
-    const basicAmount =
-      parseFloat(this.stepThreeForm.get('basicAmount')?.value) || 0;
-    const taxPercentage =
-      parseFloat(this.stepThreeForm.get('taxPercentage')?.value) || 0;
+            // Clear validators for other calculation methods
+            this.stepThreeForm.get('conditionFunction')?.clearValidators();
+            this.stepThreeForm.get('ifOption')?.clearValidators();
+            this.stepThreeForm.get('operator')?.clearValidators();
+            this.stepThreeForm.get('valueId')?.clearValidators();
+            this.stepThreeForm.get('formula')?.clearValidators();
+            this.stepThreeForm.get('otherFormula')?.clearValidators();
+            this.stepThreeForm.get('tax')?.clearValidators();
+        } else {
+            // Set validators for other calculation methods
+            this.stepThreeForm
+                .get('conditionFunction')
+                ?.setValidators([Validators.required]);
+            this.stepThreeForm
+                .get('ifOption')
+                ?.setValidators([Validators.required]);
+            this.stepThreeForm
+                .get('operator')
+                ?.setValidators([Validators.required]);
+            this.stepThreeForm
+                .get('valueId')
+                ?.setValidators([Validators.required]);
+            this.stepThreeForm
+                .get('formula')
+                ?.setValidators([Validators.required]);
+            this.stepThreeForm
+                .get('otherFormula')
+                ?.setValidators([Validators.required]);
+            this.stepThreeForm.get('tax')?.setValidators([Validators.required]);
 
-    // Calculate tax amount
-    const taxAmount = (basicAmount * taxPercentage) / 100;
+            // Clear validators for fixed value calculation
+            this.stepThreeForm.get('basicAmount')?.clearValidators();
+            this.stepThreeForm.get('taxPercentage')?.clearValidators();
+        }
 
-    // Calculate total (basic amount + tax amount)
-    this.totalAmount = basicAmount + taxAmount;
-
-    console.log('Calculated total:', this.totalAmount);
-  }
-
-  // Helper methods for display values in select controls
-  getCalculationMethodDisplayValue(): string {
-    const value = this.stepTwoForm?.get('calculationMethod')?.value;
-    switch (value) {
-      case 'fixed-value':
-        return 'Fixed Value – A static contribution amount';
-      case 'free-field-value':
-        return 'Free Field Value';
-      case 'variable-value':
-        return 'Variable Value';
-      default:
-        return 'Select Calculation Method';
+        // Update validity for all form controls
+        Object.keys(this.stepThreeForm.controls).forEach((key) => {
+            this.stepThreeForm.get(key)?.updateValueAndValidity();
+        });
     }
-  }
 
-  getConditionFunctionDisplayValue(): string {
-    const value = this.stepThreeForm?.get('conditionFunction')?.value;
-    switch (value) {
-      case 'if_condition_wenn':
-        return '"IF" Condition (WENN)';
-      case 'and_condition_wenn_und':
-        return '"AND" Condition (WENN UND)';
-      case 'or_condition_wenn_oder':
-        return '"OR" Condition (WENN ODER)';
-      default:
-        return 'Select Function';
+    // Helper method to update condition validators
+    private updateConditionValidators(conditionFunction: string) {
+        const conditionValueControl = this.stepThreeForm.get('conditionValue');
+        const clubStatusControl = this.stepThreeForm.get('clubStatus');
+        const orClubStatusControl = this.stepThreeForm.get('orClubStatus');
+        const secondOperatorControl = this.stepThreeForm.get('secondOperator');
+
+        if (
+            conditionFunction === 'and_condition_wenn_und' ||
+            conditionFunction === 'or_condition_wenn_oder'
+        ) {
+            conditionValueControl?.setValidators([Validators.required]);
+            secondOperatorControl?.setValidators([Validators.required]);
+
+            if (conditionFunction === 'and_condition_wenn_und') {
+                clubStatusControl?.setValidators([Validators.required]);
+                orClubStatusControl?.clearValidators();
+            } else if (conditionFunction === 'or_condition_wenn_oder') {
+                orClubStatusControl?.setValidators([Validators.required]);
+                clubStatusControl?.clearValidators();
+            }
+        } else {
+            conditionValueControl?.clearValidators();
+            clubStatusControl?.clearValidators();
+            orClubStatusControl?.clearValidators();
+            secondOperatorControl?.clearValidators();
+        }
+
+        conditionValueControl?.updateValueAndValidity();
+        clubStatusControl?.updateValueAndValidity();
+        orClubStatusControl?.updateValueAndValidity();
+        secondOperatorControl?.updateValueAndValidity();
     }
-  }
 
-  getIfOptionDisplayValue(): string {
-    const value = this.stepThreeForm?.get('ifOption')?.value;
-    switch (value) {
-      case 'if_option_100':
-        return '100';
-      case 'if_option_200':
-        return '200';
-      case 'if_option_300':
-        return '300';
-      case 'if_option_400':
-        return '400';
-      default:
-        return 'Select Number';
+    // Calculate the total amount (Basic Amount + Tax)
+    calculateTotal() {
+        const basicAmount =
+            parseFloat(this.stepThreeForm.get('basicAmount')?.value) || 0;
+        const taxPercentage =
+            parseFloat(this.stepThreeForm.get('taxPercentage')?.value) || 0;
+
+        // Calculate tax amount
+        const taxAmount = (basicAmount * taxPercentage) / 100;
+
+        // Calculate total (basic amount + tax amount)
+        this.totalAmount = basicAmount + taxAmount;
+
+        console.log('Calculated total:', this.totalAmount);
     }
-  }
 
-  getOperatorDisplayValue(): string {
-    const value = this.stepThreeForm?.get('operator')?.value;
-    switch (value) {
-      case 'operator_option_1':
-        return '>=';
-      case 'operator_option_2':
-        return '>';
-      case 'operator_option_3':
-        return '<';
-      case 'operator_option_4':
-        return '<=';
-      case 'operator_option_5':
-        return '=';
-      case 'operator_option_6':
-        return '<>';
-      default:
-        return 'Select Operator';
+    // Helper methods for display values in select controls
+    getCalculationMethodDisplayValue(): string {
+        const value = this.stepTwoForm?.get('calculationMethod')?.value;
+        switch (value) {
+            case 'fixed-value':
+                return 'Fixed Value – A static contribution amount';
+            case 'free-field-value':
+                return 'Free Field Value';
+            case 'variable-value':
+                return 'Variable Value';
+            default:
+                return 'Select Calculation Method';
+        }
     }
-  }
 
-  getClubStatusDisplayValue(): string {
-    const value = this.stepThreeForm?.get('clubStatus')?.value;
-    switch (value) {
-      case 'club_status_1':
-        return 'Club Status';
-      case 'club_status_2':
-        return 'Club Status 1';
-      case 'club_status_3':
-        return 'Club Status 2';
-      default:
-        return 'Club Status';
+    getConditionFunctionDisplayValue(): string {
+        const value = this.stepThreeForm?.get('conditionFunction')?.value;
+        switch (value) {
+            case 'if_condition_wenn':
+                return '"IF" Condition (WENN)';
+            case 'and_condition_wenn_und':
+                return '"AND" Condition (WENN UND)';
+            case 'or_condition_wenn_oder':
+                return '"OR" Condition (WENN ODER)';
+            default:
+                return 'Select Function';
+        }
     }
-  }
 
-  getOrClubStatusDisplayValue(): string {
-    const value = this.stepThreeForm?.get('orClubStatus')?.value;
-    switch (value) {
-      case 'or_club_status_1':
-        return 'Club Status';
-      case 'or_club_status_2':
-        return 'Club Status 1';
-      case 'or_club_status_3':
-        return 'Club Status 2';
-      default:
-        return 'Club Status';
+    getIfOptionDisplayValue(): string {
+        const value = this.stepThreeForm?.get('ifOption')?.value;
+        switch (value) {
+            case 'if_option_100':
+                return '100';
+            case 'if_option_200':
+                return '200';
+            case 'if_option_300':
+                return '300';
+            case 'if_option_400':
+                return '400';
+            default:
+                return 'Select Number';
+        }
     }
-  }
 
-  getSecondOperatorDisplayValue(): string {
-    const value = this.stepThreeForm?.get('secondOperator')?.value;
-    switch (value) {
-      case 'operator_active':
-        return 'Active';
-      case 'operator_passive':
-        return 'Passive';
-      case 'operator_none_zero':
-        return 'None zero';
-      case 'operator_zero':
-        return 'Zero';
-      default:
-        return 'Active';
+    getOperatorDisplayValue(): string {
+        const value = this.stepThreeForm?.get('operator')?.value;
+        switch (value) {
+            case 'operator_option_1':
+                return '>=';
+            case 'operator_option_2':
+                return '>';
+            case 'operator_option_3':
+                return '<';
+            case 'operator_option_4':
+                return '<=';
+            case 'operator_option_5':
+                return '=';
+            case 'operator_option_6':
+                return '<>';
+            default:
+                return 'Select Operator';
+        }
     }
-  }
 
-  getFormulaDisplayValue(): string {
-    const value = this.stepThreeForm?.get('formula')?.value;
-    switch (value) {
-      case 'formula_1_5':
-        return '[FF space size] 1.5';
-      case 'formula_2':
-        return '[FF space size] 2';
-      case 'formula_3_5':
-        return '[FF space size] 3.5';
-      default:
-        return 'Select Formula';
+    getClubStatusDisplayValue(): string {
+        const value = this.stepThreeForm?.get('clubStatus')?.value;
+        switch (value) {
+            case 'club_status_1':
+                return 'Club Status';
+            case 'club_status_2':
+                return 'Club Status 1';
+            case 'club_status_3':
+                return 'Club Status 2';
+            default:
+                return 'Club Status';
+        }
     }
-  }
 
-  getOtherFormulaDisplayValue(): string {
-    const value = this.stepThreeForm?.get('otherFormula')?.value;
-    switch (value) {
-      case 'other_formula_1_5':
-        return '[FF space size] 1.2';
-      case 'other_formula_2':
-        return '[FF space size] 1.2';
-      case 'other_formula_3_5':
-        return '[FF space size] 1.2';
-      default:
-        return 'Select Formula';
+    getOrClubStatusDisplayValue(): string {
+        const value = this.stepThreeForm?.get('orClubStatus')?.value;
+        switch (value) {
+            case 'or_club_status_1':
+                return 'Club Status';
+            case 'or_club_status_2':
+                return 'Club Status 1';
+            case 'or_club_status_3':
+                return 'Club Status 2';
+            default:
+                return 'Club Status';
+        }
     }
-  }
 
-  getTaxDisplayValue(): string {
-    const value = this.stepThreeForm?.get('tax')?.value;
-    switch (value) {
-      case 'tax_number_no':
-        return 'No';
-      case 'tax_number_yes':
-        return 'Yes';
-      default:
-        return 'Select Tax';
+    getSecondOperatorDisplayValue(): string {
+        const value = this.stepThreeForm?.get('secondOperator')?.value;
+        switch (value) {
+            case 'operator_active':
+                return 'Active';
+            case 'operator_passive':
+                return 'Passive';
+            case 'operator_none_zero':
+                return 'None zero';
+            case 'operator_zero':
+                return 'Zero';
+            default:
+                return 'Active';
+        }
     }
-  }
 
-  getRevenueAccountDisplayValue(): string {
-    const value = this.stepFourForm?.get('revenueAccount')?.value;
-    switch (value) {
-      case 'revenue_account_100':
-        return '100';
-      case 'revenue_account_200':
-        return '200';
-      case 'revenue_account_300':
-        return '300';
-      case 'revenue_account_500':
-        return '500';
-      default:
-        return 'Select Revenue';
+    getFormulaDisplayValue(): string {
+        const value = this.stepThreeForm?.get('formula')?.value;
+        switch (value) {
+            case 'formula_1_5':
+                return '[FF space size] 1.5';
+            case 'formula_2':
+                return '[FF space size] 2';
+            case 'formula_3_5':
+                return '[FF space size] 3.5';
+            default:
+                return 'Select Formula';
+        }
     }
-  }
 
-  getActivityAccountDisplayValue(): string {
-    const value = this.stepFourForm?.get('activityAccount')?.value;
-    switch (value) {
-      case 'activity_account_18000':
-        return '18000';
-      case 'activity_account_19000':
-        return '19000';
-      case 'activity_account_22000':
-        return '22000';
-      default:
-        return '1800';
+    getOtherFormulaDisplayValue(): string {
+        const value = this.stepThreeForm?.get('otherFormula')?.value;
+        switch (value) {
+            case 'other_formula_1_5':
+                return '[FF space size] 1.2';
+            case 'other_formula_2':
+                return '[FF space size] 1.2';
+            case 'other_formula_3_5':
+                return '[FF space size] 1.2';
+            default:
+                return 'Select Formula';
+        }
     }
-  }
 
-  getCostCenterDisplayValue(): string {
-    const value = this.stepFourForm?.get('costCenter')?.value;
-    switch (value) {
-      case 'cost_center_1000':
-        return '1000';
-      case 'cost_center_12000':
-        return '12000';
-      case 'cost_center_15000':
-        return '15000';
-      case 'cost_center_16000':
-        return '16000';
-      default:
-        return '1000';
+    getTaxDisplayValue(): string {
+        const value = this.stepThreeForm?.get('tax')?.value;
+        switch (value) {
+            case 'tax_number_no':
+                return 'No';
+            case 'tax_number_yes':
+                return 'Yes';
+            default:
+                return 'Select Tax';
+        }
     }
-  }
 
-  // Helper methods for conditional logic
-  isAndCondition(): boolean {
-    return (
-      this.stepThreeForm?.get('conditionFunction')?.value ===
-      'and_condition_wenn_und'
-    );
-  }
-
-  isOrCondition(): boolean {
-    return (
-      this.stepThreeForm?.get('conditionFunction')?.value ===
-      'or_condition_wenn_oder'
-    );
-  }
-
-  isAdvancedCondition(): boolean {
-    const value = this.stepThreeForm?.get('conditionFunction')?.value;
-    return (
-      value === 'and_condition_wenn_und' || value === 'or_condition_wenn_oder'
-    );
-  }
-
-  // Save form method
-  saveForm() {
-    if (
-      this.stepOneForm.valid &&
-      this.stepTwoForm.valid &&
-      this.stepThreeForm.valid &&
-      this.stepFourForm.valid
-    ) {
-      // Combine all form values into one object
-      const formData = {
-        ...this.stepOneForm.value,
-        ...this.stepTwoForm.value,
-        ...this.stepThreeForm.value,
-        ...this.stepFourForm.value,
-        calculatedTotal: this.totalAmount, // Include the calculated total
-      };
-
-      console.log('Form saved successfully:', formData);
-      // Here you would typically send the data to your backend
-
-      // Show success notification or redirect
-      alert('Configuration saved successfully!');
-    } else {
-      // Mark all form controls as touched to trigger validation messages
-      this.markFormGroupTouched(this.stepOneForm);
-      this.markFormGroupTouched(this.stepTwoForm);
-      this.markFormGroupTouched(this.stepThreeForm);
-      this.markFormGroupTouched(this.stepFourForm);
-
-      // Navigate to the first invalid step
-      if (!this.stepTwoForm.valid) {
-        this.stepper.selectedIndex = 1;
-      } else if (!this.stepThreeForm.valid) {
-        this.stepper.selectedIndex = 2;
-      } else if (!this.stepFourForm.valid) {
-        this.stepper.selectedIndex = 3;
-      }
-
-      console.error(
-        'Form has validation errors. Please check all required fields.'
-      );
+    getRevenueAccountDisplayValue(): string {
+        const value = this.stepFourForm?.get('revenueAccount')?.value;
+        switch (value) {
+            case 'revenue_account_100':
+                return '100';
+            case 'revenue_account_200':
+                return '200';
+            case 'revenue_account_300':
+                return '300';
+            case 'revenue_account_500':
+                return '500';
+            default:
+                return 'Select Revenue';
+        }
     }
-  }
 
-  // Helper method to mark all controls as touched
-  private markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach((control) => {
-      control.markAsTouched();
+    getActivityAccountDisplayValue(): string {
+        const value = this.stepFourForm?.get('activityAccount')?.value;
+        switch (value) {
+            case 'activity_account_18000':
+                return '18000';
+            case 'activity_account_19000':
+                return '19000';
+            case 'activity_account_22000':
+                return '22000';
+            default:
+                return '1800';
+        }
+    }
 
-      if ((control as any).controls) {
-        this.markFormGroupTouched(control as FormGroup);
-      }
-    });
-  }
+    getCostCenterDisplayValue(): string {
+        const value = this.stepFourForm?.get('costCenter')?.value;
+        switch (value) {
+            case 'cost_center_1000':
+                return '1000';
+            case 'cost_center_12000':
+                return '12000';
+            case 'cost_center_15000':
+                return '15000';
+            case 'cost_center_16000':
+                return '16000';
+            default:
+                return '1000';
+        }
+    }
+
+    // Helper methods for conditional logic
+    isAndCondition(): boolean {
+        return (
+            this.stepThreeForm?.get('conditionFunction')?.value ===
+            'and_condition_wenn_und'
+        );
+    }
+
+    isOrCondition(): boolean {
+        return (
+            this.stepThreeForm?.get('conditionFunction')?.value ===
+            'or_condition_wenn_oder'
+        );
+    }
+
+    isAdvancedCondition(): boolean {
+        const value = this.stepThreeForm?.get('conditionFunction')?.value;
+        return (
+            value === 'and_condition_wenn_und' ||
+            value === 'or_condition_wenn_oder'
+        );
+    }
+
+    // Save form method
+    saveForm() {
+        if (
+            this.stepOneForm.valid &&
+            this.stepTwoForm.valid &&
+            this.stepThreeForm.valid &&
+            this.stepFourForm.valid
+        ) {
+            // Combine all form values into one object
+            const formData = {
+                ...this.stepOneForm.value,
+                ...this.stepTwoForm.value,
+                ...this.stepThreeForm.value,
+                ...this.stepFourForm.value,
+                calculatedTotal: this.totalAmount, // Include the calculated total
+            };
+
+            console.log('Form saved successfully:', formData);
+            // Here you would typically send the data to your backend
+
+            // Show success notification or redirect
+            alert('Configuration saved successfully!');
+        } else {
+            // Mark all form controls as touched to trigger validation messages
+            this.markFormGroupTouched(this.stepOneForm);
+            this.markFormGroupTouched(this.stepTwoForm);
+            this.markFormGroupTouched(this.stepThreeForm);
+            this.markFormGroupTouched(this.stepFourForm);
+
+            // Navigate to the first invalid step
+            if (!this.stepTwoForm.valid) {
+                this.stepper.selectedIndex = 1;
+            } else if (!this.stepThreeForm.valid) {
+                this.stepper.selectedIndex = 2;
+            } else if (!this.stepFourForm.valid) {
+                this.stepper.selectedIndex = 3;
+            }
+
+            console.error(
+                'Form has validation errors. Please check all required fields.'
+            );
+        }
+    }
+
+    // Helper method to mark all controls as touched
+    private markFormGroupTouched(formGroup: FormGroup) {
+        Object.values(formGroup.controls).forEach((control) => {
+            control.markAsTouched();
+
+            if ((control as any).controls) {
+                this.markFormGroupTouched(control as FormGroup);
+            }
+        });
+    }
 }
