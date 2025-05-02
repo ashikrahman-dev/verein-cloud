@@ -633,14 +633,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                             class="font-rubik"
                                             formControlName="clubStatus"
                                         >
-                                            <mat-option value="club_status_1">
+                                            <mat-option value="and_club_status">
                                                 Club Status
                                             </mat-option>
-                                            <mat-option value="club_status_2">
-                                                Club Status 1</mat-option
+                                            <mat-option
+                                                value="or_member_number"
                                             >
-                                            <mat-option value="club_status_3">
-                                                Club Status 2
+                                                Member number
                                             </mat-option>
                                         </mat-select>
                                         <mat-error
@@ -680,30 +679,23 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                             formControlName="orClubStatus"
                                         >
                                             <mat-option
-                                                value="or_club_status_1"
+                                                value="or_member_number"
                                             >
-                                                Club Status
+                                                Member number
                                             </mat-option>
-                                            <mat-option
-                                                value="or_club_status_2"
-                                            >
-                                                Club Status 1</mat-option
-                                            >
-                                            <mat-option
-                                                value="or_club_status_3"
-                                            >
-                                                Club Status 2
+                                            <mat-option value="and_club_status">
+                                                Club Status
                                             </mat-option>
                                         </mat-select>
                                         <mat-error
                                             *ngIf="
                                                 stepThreeForm
-                                                    .get('orClubStatus')
+                                                    .get('andClubStatus')
                                                     ?.hasError('required') &&
-                                                isOrCondition()
+                                                isAndCondition()
                                             "
                                         >
-                                            Club status is required
+                                            Member number
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
@@ -1377,14 +1369,24 @@ export class CalculationConfigurationComponent implements OnInit {
     getOrClubStatusDisplayValue(): string {
         const value = this.stepThreeForm?.get('orClubStatus')?.value;
         switch (value) {
-            case 'or_club_status_1':
+            case 'and_club_status':
                 return 'Club Status';
-            case 'or_club_status_2':
-                return 'Club Status 1';
-            case 'or_club_status_3':
-                return 'Club Status 2';
+            case 'or_member_number':
+                return 'Member number';
             default:
                 return 'Club Status';
+        }
+    }
+
+    getAndClubStatusDisplayValue(): string {
+        const value = this.stepThreeForm?.get('andClubStatus')?.value;
+        switch (value) {
+            case 'or_member_number':
+                return 'Member number';
+            case 'and_club_status':
+                return 'Club Status';
+            default:
+                return 'Member number';
         }
     }
 
