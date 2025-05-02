@@ -787,7 +787,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                 </div>
 
                                 <!-- 8 Item -->
-                                <div class="w-100">
+                                <div
+                                    *ngIf="
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value === 'if_condition_wenn' ||
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value === null
+                                    "
+                                    class="w-100"
+                                >
                                     <p class="form-label fw-normal">
                                         Formula <span class="text-red">*</span>
                                     </p>
@@ -799,6 +807,43 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                             type="text"
                                             formControlName="formula"
                                             placeholder="[FF space size] 1.5"
+                                            value="[FF space size] 1.5"
+                                        />
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('formula')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Formula is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 8 Item -->
+                                <div
+                                    *ngIf="
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value ===
+                                            'and_condition_wenn_und' ||
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value === 'or_condition_wenn_oder'
+                                    "
+                                    class="w-100"
+                                >
+                                    <p class="form-label fw-normal">
+                                        Formula <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <input
+                                            matInput
+                                            type="text"
+                                            formControlName="formula"
+                                            placeholder="[FF space size] 2.0"
+                                            value="[FF space size] 2.0"
                                         />
                                         <mat-error
                                             *ngIf="
@@ -813,7 +858,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                 </div>
 
                                 <!-- 9 Item -->
-                                <div class="w-100">
+                                <div
+                                    *ngIf="
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value === 'if_condition_wenn' ||
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value === null
+                                    "
+                                    class="w-100"
+                                >
                                     <p class="form-label fw-normal">
                                         Other Formula
                                         <span class="text-red">*</span>
@@ -826,6 +879,44 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                             type="text"
                                             formControlName="otherFormula"
                                             placeholder="[FF space size] 1.2"
+                                            value="[FF space size] 1.2"
+                                        />
+                                        <mat-error
+                                            *ngIf="
+                                                stepThreeForm
+                                                    .get('otherFormula')
+                                                    ?.hasError('required')
+                                            "
+                                        >
+                                            Other formula is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <!-- 9 Item -->
+                                <div
+                                    *ngIf="
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value ===
+                                            'and_condition_wenn_und' ||
+                                        stepThreeForm.get('conditionFunction')
+                                            ?.value === 'or_condition_wenn_oder'
+                                    "
+                                    class="w-100"
+                                >
+                                    <p class="form-label fw-normal">
+                                        Other Formula
+                                        <span class="text-red">*</span>
+                                    </p>
+                                    <mat-form-field
+                                        class="w-100 bg-white font-rubik"
+                                    >
+                                        <input
+                                            matInput
+                                            type="text"
+                                            formControlName="otherFormula"
+                                            placeholder="[FF space size] 1.5"
+                                            value="[FF space size] 1.5"
                                         />
                                         <mat-error
                                             *ngIf="
