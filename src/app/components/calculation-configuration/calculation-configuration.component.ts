@@ -499,8 +499,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                             class="font-rubik"
                                             formControlName="ifOption"
                                         >
-                                            <mat-option value="if_option_100">
-                                                100
+                                            <mat-option value="if_department">
+                                                Department
                                             </mat-option>
                                             <mat-option value="if_option_200">
                                                 200
@@ -794,25 +794,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                     <mat-form-field
                                         class="w-100 bg-white font-rubik"
                                     >
-                                        <mat-label
-                                            class="font-rubik d-flex gap-2 align-items-center"
-                                        >
-                                            {{ getFormulaDisplayValue() }}
-                                        </mat-label>
-                                        <mat-select
-                                            class="font-rubik"
+                                        <input
+                                            matInput
+                                            type="text"
                                             formControlName="formula"
-                                        >
-                                            <mat-option value="formula_1_5">
-                                                [FF space size] 1.5
-                                            </mat-option>
-                                            <mat-option value="formula_2">
-                                                [FF space size] 2</mat-option
-                                            >
-                                            <mat-option value="formula_3_5">
-                                                [FF space size] 3.5
-                                            </mat-option>
-                                        </mat-select>
+                                            placeholder="[FF space size] 1.5"
+                                        />
                                         <mat-error
                                             *ngIf="
                                                 stepThreeForm
@@ -834,29 +821,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
                                     <mat-form-field
                                         class="w-100 bg-white font-rubik"
                                     >
-                                        <mat-label
-                                            class="font-rubik d-flex gap-2 align-items-center"
-                                        >
-                                            {{ getOtherFormulaDisplayValue() }}
-                                        </mat-label>
-                                        <mat-select
-                                            class="font-rubik"
+                                        <input
+                                            matInput
+                                            type="text"
                                             formControlName="otherFormula"
-                                        >
-                                            <mat-option
-                                                value="other_formula_1_5"
-                                            >
-                                                [FF space size] 1.2
-                                            </mat-option>
-                                            <mat-option value="other_formula_2">
-                                                [FF space size] 1.2</mat-option
-                                            >
-                                            <mat-option
-                                                value="other_formula_3_5"
-                                            >
-                                                [FF space size] 1.2
-                                            </mat-option>
-                                        </mat-select>
+                                            placeholder="[FF space size] 1.2"
+                                        />
                                         <mat-error
                                             *ngIf="
                                                 stepThreeForm
