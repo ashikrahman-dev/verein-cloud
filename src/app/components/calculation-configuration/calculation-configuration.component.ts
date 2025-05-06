@@ -990,7 +990,98 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
             <mat-step label="Step 4" [stepControl]="stepFourForm">
                 <form [formGroup]="stepFourForm">
                     <div class="basic-data-contribution">
-                        <h4 class="heading">Assigning Financial Accounts</h4>
+                        <h4
+                            class="heading pb-28 mb-0 d-flex gap-2 align-items-center"
+                        >
+                            Assigning Financial Accounts
+                            <img
+                                [src]="headingTooltipIcon"
+                                alt="Calendar Icon"
+                                class=""
+                            />
+                        </h4>
+                        <p class="form-label pt-0 mt-0 pb-4">
+                            Select Financial Accounts
+                        </p>
+                        <div class="basic-data-contribution-form">
+                            <!-- Revenue Account  -->
+                            <div>
+                                <p class="form-label">
+                                    Revenue Account
+                                    <span class="text-red">*</span>
+                                </p>
+                                <mat-form-field
+                                    class="w-100 bg-white font-rubik"
+                                >
+                                    <mat-label
+                                        class="font-rubik d-flex gap-2 align-items-center"
+                                    >
+                                        {{ '9669 3696 3695' }}
+                                    </mat-label>
+                                    <mat-select class="font-rubik">
+                                        <mat-option value="revenue-account-one">
+                                            9669 3696 3695
+                                        </mat-option>
+                                        <mat-option value="revenue-account-two">
+                                            9825 2357 4875
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- Activity Account  -->
+                            <div>
+                                <p class="form-label">
+                                    Activity Account
+                                    <span class="text-red">*</span>
+                                </p>
+                                <mat-form-field
+                                    class="w-100 bg-white font-rubik"
+                                >
+                                    <mat-label
+                                        class="font-rubik d-flex gap-2 align-items-center"
+                                    >
+                                        {{ '18000' }}
+                                    </mat-label>
+                                    <mat-select class="font-rubik">
+                                        <mat-option
+                                            value="activity-account-one"
+                                        >
+                                            18000
+                                        </mat-option>
+                                        <mat-option
+                                            value="activity-account-two"
+                                        >
+                                            25500
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- Cost Centers 1 -->
+                            <div>
+                                <p class="form-label">Cost Centers 1</p>
+                                <input
+                                    placeholder="1000"
+                                    class="form-input-field font-rubik remove-icon-cls"
+                                />
+                            </div>
+                            <!-- Cost Centers 2 -->
+                            <div>
+                                <p class="form-label">Cost Centers 2</p>
+                                <input
+                                    placeholder="1000"
+                                    class="form-input-field font-rubik remove-icon-cls"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Booking Text   -->
+                        <div class="w-100 mt-4 pt-1">
+                            <p class="form-label">Booking Text</p>
+                            <input
+                                placeholder="[Association]    [Last Name]    [First Name]    [Contribution]    [Period]"
+                                class="form-input-field font-rubik remove-icon-cls"
+                            />
+                        </div>
 
                         <!-- Button group -->
                         <div class="w-100 mt-4">
@@ -1053,6 +1144,7 @@ export class CalculationConfigurationComponent implements OnInit {
     calendarDateIcon = 'assets/images/calendar-edit.svg';
     textalignIcon = 'assets/images/textalign-justifycenter.svg';
     headingTooltipIcon = 'assets/images/heading-tooltip-icon.svg';
+    clockIcon = 'assets/images/clock-icon.svg';
 
     // Form groups for each step
     stepOneForm: FormGroup = this._formBuilder.group({
