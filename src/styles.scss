@@ -235,7 +235,7 @@ ul li {
 
 /* arrow-shape - start*/
 .step {
-    padding: 0px !important;
+    padding: 0 0 20px 0 !important;
 }
 .step .step-menu-wrap {
     list-style: none;
@@ -879,7 +879,7 @@ button.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base
     top: -6px;
 }
 .mat-horizontal-content-container {
-    padding: 0px !important;
+    padding: 0 0 20px 0 !important;
 }
 .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::after {
     display: none;
