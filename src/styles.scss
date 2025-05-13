@@ -484,6 +484,22 @@ div.mat-mdc-select-panel {
     }
 }
 
+.tab-checkbox-wrap.finalization-radio-group {
+    margin-bottom: 24px;
+    .check-box-item {
+        min-height: 72px;
+        max-height: 72px;
+        height: 100%;
+        padding-top: 20px;
+        .mdc-form-field {
+            width: 100%;
+        }
+    }
+    .mdc-form-field {
+        width: 100%;
+    }
+}
+
 .selected-date-wrap {
     color: #323232;
     font-family: "Rubik", sans-serif;

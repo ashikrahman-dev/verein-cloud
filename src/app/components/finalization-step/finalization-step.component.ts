@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
@@ -34,6 +35,7 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatInputModule,
         MatButtonModule,
         MatIconModule,
+        MatRadioModule,
     ],
     template: `
         <mat-stepper
@@ -134,6 +136,31 @@ import { MatStepperModule } from '@angular/material/stepper';
                                         payment is recorded
                                     </p>
                                 </div>
+                                <div>
+                                    <mat-radio-group
+                                        class="tab-checkbox-wrap d-flex gap-3 flex-row finalization-radio-group"
+                                        formControlName="calculationMethod"
+                                    >
+                                        <mat-radio-button
+                                            class="w-100 check-box-item font-rubik"
+                                            value="value-none"
+                                        >
+                                            <h6 class="">None</h6>
+                                        </mat-radio-button>
+                                        <mat-radio-button
+                                            class="w-100 check-box-item font-rubik"
+                                            value="value-invoice"
+                                        >
+                                            <h6>Invoice</h6>
+                                        </mat-radio-button>
+                                        <mat-radio-button
+                                            class="w-100 check-box-item font-rubik"
+                                            value="value-donation-receipt"
+                                        >
+                                            <h6>Donation receipt</h6>
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
                                 <div class="d-flex gap-4">
                                     <!-- Selection invoice -->
                                     <div class="w-100">
@@ -148,11 +175,6 @@ import { MatStepperModule } from '@angular/material/stepper';
                                             <mat-label
                                                 class="font-rubik d-flex gap-2 align-items-center"
                                             >
-                                                <img
-                                                    [src]="numberIcon"
-                                                    alt="Calendar Icon"
-                                                    class=""
-                                                />
                                                 Select Field
                                             </mat-label>
                                             <mat-select
@@ -160,14 +182,14 @@ import { MatStepperModule } from '@angular/material/stepper';
                                                 formControlName="calculationMethod"
                                             >
                                                 <mat-option
-                                                    value="working-hours"
+                                                    value="contribution-invoice"
                                                 >
-                                                    Working Hours
+                                                    Contribution invoice
                                                 </mat-option>
                                                 <mat-option
-                                                    value="electricity-usage"
+                                                    value="donation-receipt"
                                                 >
-                                                    Electricity Usage
+                                                    Donation receipt
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
