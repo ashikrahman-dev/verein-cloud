@@ -345,6 +345,183 @@ import { MatStepperModule } from '@angular/material/stepper';
                     </div>
                     <!-- Free field Value Content - end -->
 
+                    <!-- Variable Value Content - start -->
+                    <div
+                        class="when-free-field-value fixed-value-content-show"
+                        *ngIf="selectedCalculationMethod === 'variable-value'"
+                    >
+                        <h4 class="heading">
+                            Selecting the Applying Conditional Logic
+                            <img
+                                [src]="headingTooltipIcon"
+                                alt="Calendar Icon"
+                                class=""
+                            />
+                        </h4>
+                        <h5 class="form-label pt-2 mt-3 fw-medium">
+                            Select Calculation Method
+                        </h5>
+
+                        <div class="calculation-configuration-step">
+                            <!-- 1 Item -->
+                            <div class="w-100">
+                                <p class="form-label fw-normal">
+                                    Function <span class="text-red">*</span>
+                                </p>
+                                <mat-form-field
+                                    class="w-100 bg-white font-rubik"
+                                >
+                                    <mat-label
+                                        class="font-rubik d-flex gap-2 align-items-center"
+                                    >
+                                        Select Function
+                                    </mat-label>
+                                    <mat-select
+                                        class="font-rubik"
+                                        (selectionChange)="
+                                            onFunctionChange($event)
+                                        "
+                                    >
+                                        <mat-option value="if_condition_wenn">
+                                            "IF" Condition (WENN)
+                                        </mat-option>
+                                        <mat-option
+                                            value="and_condition_wenn_und"
+                                        >
+                                            "AND" Condition (WENN UND)
+                                        </mat-option>
+                                        <mat-option
+                                            value="or_condition_wenn_oder"
+                                        >
+                                            "OR" Condition (WENN ODER)
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <!--  2 Item -->
+                            <div class="w-100">
+                                <p class="form-label fw-normal">
+                                    If <span class="text-red">*</span>
+                                </p>
+                                <mat-form-field
+                                    class="w-100 bg-white font-rubik"
+                                >
+                                    <mat-label
+                                        class="font-rubik d-flex gap-2 align-items-center"
+                                    >
+                                        Select Field
+                                    </mat-label>
+                                    <mat-select class="font-rubik">
+                                        <mat-option value="if_department">
+                                            Department
+                                        </mat-option>
+                                        <mat-option value="if_option_200">
+                                            200
+                                        </mat-option>
+                                        <mat-option value="if_option_300">
+                                            300
+                                        </mat-option>
+                                        <mat-option value="if_option_400">
+                                            400
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- 3 Item -->
+                            <div class="w-100">
+                                <p class="form-label fw-normal">
+                                    Operator <span class="text-red">*</span>
+                                </p>
+                                <mat-form-field
+                                    class="w-100 bg-white font-rubik"
+                                >
+                                    <mat-label
+                                        class="font-rubik d-flex gap-2 align-items-center"
+                                    >
+                                        Select Operator
+                                    </mat-label>
+                                    <mat-select
+                                        class="font-rubik"
+                                        formControlName="operator"
+                                    >
+                                        <mat-option value="operator_option_1">
+                                            >=
+                                        </mat-option>
+                                        <mat-option value="operator_option_2">
+                                            >
+                                        </mat-option>
+                                        <mat-option value="operator_option_3">
+                                            <
+                                        </mat-option>
+                                        <mat-option value="operator_option_4">
+                                            <=
+                                        </mat-option>
+                                        <mat-option value="operator_option_5">
+                                            =
+                                        </mat-option>
+                                        <mat-option value="operator_option_6">
+                                            <>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- 5 Item -->
+                            <div
+                                class="w-100"
+                                *ngIf="selectedFunction === 'if_condition_wenn'"
+                            >
+                                <p class="form-label fw-normal">
+                                    And <span class="text-red">*</span>
+                                </p>
+                                <mat-form-field
+                                    class="w-100 bg-white font-rubik"
+                                >
+                                    <mat-label
+                                        class="font-rubik d-flex gap-2 align-items-center"
+                                    >
+                                        Select field
+                                    </mat-label>
+                                    <mat-select class="font-rubik">
+                                        <mat-option value="and_club_status">
+                                            Club Status
+                                        </mat-option>
+                                        <mat-option value="or_member_number">
+                                            Member number
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- 5 OR Item -->
+                            <div class="w-100">
+                                <p class="form-label fw-normal">
+                                    Or <span class="text-red">*</span>
+                                </p>
+                                <mat-form-field
+                                    class="w-100 bg-white font-rubik"
+                                >
+                                    <mat-label
+                                        class="font-rubik d-flex gap-2 align-items-center"
+                                    >
+                                        Select field
+                                    </mat-label>
+                                    <mat-select class="font-rubik">
+                                        <mat-option value="or_member_number">
+                                            Member number
+                                        </mat-option>
+                                        <mat-option value="and_club_status">
+                                            Club Status
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Variable Value Content - start -->
+
                     <!-- Button group -->
                     <div class="w-100 mt-4">
                         <div
@@ -542,5 +719,12 @@ export class CalculationConfigurationComponent implements OnInit {
 
         const taxAmount = (basicAmount * taxPercentage) / 100;
         this.calculatedResult = basicAmount + taxAmount;
+    }
+
+    // Track selected function in variable-value mode
+    selectedFunction: string = '';
+    // Handle function selection change in variable-value mode
+    onFunctionChange(event: any): void {
+        this.selectedFunction = event.value;
     }
 }
