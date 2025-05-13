@@ -68,7 +68,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-link">
                                             <div class="tab-title">
                                                 <p class="tab-title-pra">
-                                                    Create new
+                                                    Basic Data
                                                 </p>
                                                 <div class="check"></div>
                                             </div>
@@ -97,7 +97,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-link">
                                             <div class="tab-title">
                                                 <p class="tab-title-pra">
-                                                    Create new
+                                                    Interval and Due Date
                                                 </p>
                                                 <div class="check"></div>
                                             </div>
@@ -126,7 +126,8 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-link">
                                             <div class="tab-title">
                                                 <p class="tab-title-pra">
-                                                    Create new
+                                                    Payment Terms and
+                                                    Calculation
                                                 </p>
                                                 <div class="check"></div>
                                             </div>
@@ -184,7 +185,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-link">
                                             <div class="tab-title">
                                                 <p class="tab-title-pra">
-                                                    Create new
+                                                    Finalization Step
                                                 </p>
                                                 <div class="check"></div>
                                             </div>
@@ -268,6 +269,9 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
     styles: `
     .result {
       background-color: #f9f9f9;
+    }
+    .tab-title-pra {
+        text-align: left;
     }
   `,
 })
