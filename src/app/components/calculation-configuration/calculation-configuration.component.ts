@@ -230,16 +230,120 @@ import { MatStepperModule } from '@angular/material/stepper';
                     </div>
                     <!-- Fixed Value Content - end -->
 
-                    <!-- Show this content only when free-field-value is selected -->
+                    <!-- Free field Value Content - start -->
                     <div
                         class="when-free-field-value"
                         *ngIf="selectedCalculationMethod === 'free-field-value'"
                     >
-                        <h4 class="heading">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit.
-                        </h4>
+                        <div class="fixed-value-content-show">
+                            <h4 class="heading pb-3">
+                                New Contribution - Basic Amount, Tax, Accounts
+                                and Cost Center
+                                <img
+                                    [src]="headingTooltipIcon"
+                                    alt="Calendar Icon"
+                                    class=""
+                                />
+                            </h4>
+
+                            <div class="new-contribution-content-box">
+                                <h6>Basic Settings</h6>
+                                <p>
+                                    MB0001 - Membership Fee - Normal
+                                    Contribution - No Department
+                                </p>
+                            </div>
+
+                            <div class="new-contribution-content-box">
+                                <h6>Interval, billing period and due date</h6>
+                                <p>
+                                    Annual Interval - Due 5 days after the start
+                                    of the interval
+                                </p>
+                            </div>
+
+                            <div class="new-contribution-content-box">
+                                <h6>Payment Term and Calculation</h6>
+                                <p>
+                                    Payment Term 7 Days - No Pro-Rata
+                                    Calculation
+                                </p>
+                            </div>
+
+                            <div class="new-contribution-content-box">
+                                <h6>
+                                    Basic Amount, Tax, Accounts and Cost Center
+                                </h6>
+                                <p>
+                                    The basic amount determines the contribution
+                                    amount for the billing period. The tax rate
+                                    determines whether sales tax is levied on
+                                    the contribution. The contribution is posted
+                                    to the specified revenue account. The active
+                                    account determines from which bank account
+                                    the contribution is collected. Optionally, a
+                                    cost center can be assigned.
+                                </p>
+                            </div>
+
+                            <div class="new-contribution-content-form-wrap ">
+                                <div class="d-flex gap-4">
+                                    <!-- Free Field Name -->
+                                    <div class="w-100">
+                                        <p class="form-label fw-normal">
+                                            Free Field Name
+                                        </p>
+
+                                        <mat-form-field
+                                            class="w-100 bg-white font-rubik"
+                                        >
+                                            <mat-label
+                                                class="font-rubik d-flex gap-2 align-items-center"
+                                            >
+                                                <img
+                                                    [src]="numberIcon"
+                                                    alt="Calendar Icon"
+                                                    class=""
+                                                />
+                                                Select Field
+                                            </mat-label>
+                                            <mat-select
+                                                class="font-rubik"
+                                                formControlName="calculationMethod"
+                                            >
+                                                <mat-option
+                                                    value="working-hours"
+                                                >
+                                                    Working Hours
+                                                </mat-option>
+                                                <mat-option
+                                                    value="electricity-usage"
+                                                >
+                                                    Electricity Usage
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <!-- Duration -->
+                                    <div class="w-100">
+                                        <p class="form-label fw-normal">
+                                            Duration
+                                        </p>
+                                        <input
+                                            matInput
+                                            type="number"
+                                            class="form-input-field font-rubik remove-icon-cls"
+                                            placeholder="0"
+                                            value="8"
+                                        />
+                                    </div>
+                                </div>
+
+                                <!-- Result -->
+                            </div>
+                        </div>
                     </div>
+                    <!-- Free field Value Content - end -->
 
                     <!-- Button group -->
                     <div class="w-100 mt-4">
@@ -358,11 +462,7 @@ import { MatStepperModule } from '@angular/material/stepper';
                         <div
                             class="button-wrap d-flex justify-content-end align-items-end gap-3"
                         >
-                            <button
-                                type="button"
-                                class="step-button fill"
-                                
-                            >
+                            <button type="button" class="step-button fill">
                                 Save
                             </button>
                             <button
