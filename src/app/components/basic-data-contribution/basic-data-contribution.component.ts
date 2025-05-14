@@ -373,7 +373,7 @@ export class BasicDataContributionComponent {
     clockIcon = 'assets/images/clock-icon.svg';
     profileUser = 'assets/images/profile-2user.svg';
     intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
-    selectedValue: string = 'normal-contribution'; 
+    selectedValue: string = 'normal-contribution';
     headingTooltipIcon = 'assets/images/heading-tooltip-icon.svg';
 
     // Set linear mode (enforces form validation before proceeding to next step)
@@ -387,7 +387,7 @@ export class BasicDataContributionComponent {
 
     designationIdControl = new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9 _\-,.!?;":+()\\/']+$/),
+        Validators.pattern(/^[a-zA-Z0-9 _\-,.!?;":+()\\/'ß]+$/),
     ]);
 
     contributionTypeControl = new FormControl('normal-contribution', [
@@ -452,13 +452,13 @@ export class BasicDataContributionComponent {
 
         // Allow: digits, letters, spaces, underscores, hyphens, commas, periods,
         // exclamation marks, question marks, semicolons, quotation marks, colons,
-        // plus signs, parentheses, backslashes, forward slashes, and apostrophes
-        const regex = /^[a-zA-Z0-9 _\-,.!?;":+()\\/']*$/;
+        // plus signs, parentheses, backslashes, forward slashes, apostrophes, and ß
+        const regex = /^[a-zA-Z0-9 _\-,.!?;":+()\\/'ß]*$/;
 
         if (!regex.test(value)) {
             // If invalid characters are entered, remove them
             const sanitizedValue = value.replace(
-                /[^a-zA-Z0-9 _\-,.!?;":+()\\/']/g,
+                /[^a-zA-Z0-9 _\-,.!?;":+()\\/'ß]/g,
                 ''
             );
             input.value = sanitizedValue;

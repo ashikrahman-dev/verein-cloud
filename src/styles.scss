@@ -344,6 +344,12 @@ ul li {
     background-color: #5a5a5a !important;
 }
 
+.step-button[disabled],
+.step-button.fill[disabled]:hover {
+    background: #858585 !important;
+    cursor: not-allowed !important;
+}
+
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background: #f2f2f2 !important;
     border-radius: 150px;
