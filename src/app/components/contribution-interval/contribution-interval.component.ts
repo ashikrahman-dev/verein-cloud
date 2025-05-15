@@ -12,16 +12,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
-// import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';
 import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';
 import { FinalizationStepComponent } from '../finalization-step/finalization-step.component';
 import { IntervalDueDataStepOneComponent } from '../interval-due-data-step-one/interval-due-data-step-one.component';
 import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/payment-terms-calculation.component';
+import { TabService } from '../basic-data-contribution/tab.service';
+// import { TabService } from '../basic-data-contribution/tab.service';
 
 @Component({
     selector: 'app-contribution-interval',
     standalone: true,
-    providers: [provideNativeDateAdapter()],
+    providers: [provideNativeDateAdapter(), TabService], // Provide TabService at component level
     imports: [
         CommonModule,
         CdkStepperModule,
@@ -36,7 +37,6 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
         MatIconModule,
         BasicDataContributionComponent,
         PaymentTermsCalculationComponent,
-        // CalculationConfigurationComponent,
         FinalizationStepComponent,
         IntervalDueDataStepOneComponent,
         CalculationConfigurationComponent,
@@ -243,7 +243,6 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                             tabindex="0"
                         >
                             <app-calculation-configuration></app-calculation-configuration>
-                            <!-- <app-calculation-configuration></app-calculation-configuration> -->
                         </div>
                         <!-- 5th Tab Content -->
                         <div
@@ -274,6 +273,8 @@ export class ContributionIntervalComponent {
     calendarDateIcon = 'assets/images/calendar-edit.svg';
 
     private readonly _formBuilder = inject(FormBuilder);
+    
+    constructor(private tabService: TabService) {}
 
     // Initialize form controls
     readonly toppings = this._formBuilder.group({

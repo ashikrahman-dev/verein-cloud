@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, inject, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -11,6 +11,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { TabService } from './tab.service';
 
 @Component({
     selector: 'app-basic-data-contribution',
@@ -330,7 +331,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     secondStepContributionTypeControl.invalid ||
                                     intervalDueDateControl.invalid
                                 "
-                                (click)="saveForm()"
+                                (click)="saveSecondStepForm()"
                             >
                                 Save
                             </button>
@@ -410,6 +411,12 @@ export class BasicDataContributionComponent {
     ]);
 
     private _formBuilder = inject(FormBuilder);
+
+    // Inject our TabService
+    constructor(
+        private tabService: TabService,
+        @Inject(DOCUMENT) private document: Document
+    ) {}
 
     // Create form groups for the stepper
     firstFormGroup = this._formBuilder.group({
@@ -526,20 +533,28 @@ export class BasicDataContributionComponent {
         const formData = {
             contributionId: this.contributionIdControl.value,
             designationId: this.designationIdControl.value,
-            contributionType:
-                this.selectedValue === 'limited-in-time'
-                    ? this.contributionTypeControl.value
-                    : this.secondStepContributionTypeControl.value,
+            contributionType: this.contributionTypeControl.value,
             department: this.departmentControl.value,
             anzahl: this.anzahlControl.value,
             durationType: this.durationTypeControl.value,
-            intervalDueDate: this.intervalDueDateControl.value,
         };
 
         console.log('Form data saved:', formData);
-        // Here you would typically send the data to a service
 
-        // Optionally reset the form after saving
-        // this.stepper.reset();
+        // After form is saved, navigate to the second tab
+        this.tabService.switchToTab('pills-contact-tab');
+    }
+
+    saveSecondStepForm() {
+        // Gather all form data
+        const formData = {
+            contributionType: this.secondStepContributionTypeControl.value,
+            intervalDueDate: this.intervalDueDateControl.value,
+        };
+
+        console.log('Second step form data saved:', formData);
+
+        // After form is saved, navigate to the third tab
+        this.tabService.switchToTab('pills-disabled-tab');
     }
 }
