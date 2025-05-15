@@ -1,8 +1,9 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
+    Inject,
     inject,
     ViewChild,
 } from '@angular/core';
@@ -36,6 +37,7 @@ import { default as _rollupMoment } from 'moment';
 
 // Import the locale for Monday as first day of the week
 import 'moment/locale/en-gb';
+import { TabService } from '../basic-data-contribution/tab.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -380,7 +382,7 @@ export const MY_DATE_FORMATS = {
                                     <button
                                         type="button"
                                         class="step-button fill"
-                                        (click)="onCompleteForm()"
+                                        (click)="saveSecondStepForm()"
                                     >
                                         Save
                                     </button>
@@ -530,21 +532,21 @@ export class IntervalDueDataStepOneComponent {
         }
     }
 
-    onCompleteForm() {
-        if (this.stepFourForm.valid) {
-            // Form is complete, do something with the data
-            console.log('Form completed successfully!');
-            console.log('Step 2 data:', this.stepTwoForm.value);
-            console.log('Step 3 data:', this.stepThreeForm.value);
-            console.log('Step 4 data:', this.stepFourForm.value);
+    // onCompleteForm() {
+    //     if (this.stepFourForm.valid) {
+    //         // Form is complete, do something with the data
+    //         console.log('Form completed successfully!');
+    //         console.log('Step 2 data:', this.stepTwoForm.value);
+    //         console.log('Step 3 data:', this.stepThreeForm.value);
+    //         console.log('Step 4 data:', this.stepFourForm.value);
 
-            // You can emit an event here or call a service method
-            // this.formComplete.emit(this.getAllFormData());
-        } else {
-            // Mark all fields as touched to trigger validation messages
-            this.markFormGroupTouched(this.stepFourForm);
-        }
-    }
+    //         // You can emit an event here or call a service method
+    //         // this.formComplete.emit(this.getAllFormData());
+    //     } else {
+    //         // Mark all fields as touched to trigger validation messages
+    //         this.markFormGroupTouched(this.stepFourForm);
+    //     }
+    // }
 
     // Helper method to mark all controls in a form group as touched
     private markFormGroupTouched(formGroup: any) {
@@ -566,5 +568,38 @@ export class IntervalDueDataStepOneComponent {
         });
         this.stepThreeForm.reset();
         this.stepFourForm.reset();
+    }
+
+    // Inject our TabService
+    constructor(
+        private tabService: TabService,
+        @Inject(DOCUMENT) private document: Document
+    ) {}
+
+    saveSecondStepForm() {
+        if (this.stepFourForm.valid) {
+            // Form is complete, do something with the data
+            console.log('Form completed successfully!');
+            console.log('Step 2 data:', this.stepTwoForm.value);
+            console.log('Step 3 data:', this.stepThreeForm.value);
+            console.log('Step 4 data:', this.stepFourForm.value);
+
+            // You can emit an event here or call a service method
+            // this.formComplete.emit(this.getAllFormData());
+        } else {
+            // Mark all fields as touched to trigger validation messages
+            this.markFormGroupTouched(this.stepFourForm);
+        }
+
+        // Gather all form data
+        const formData = {
+            // contributionType: this.secondStepContributionTypeControl.value,
+            // intervalDueDate: this.intervalDueDateControl.value,
+        };
+
+        console.log('Second step form data saved:', formData);
+
+        // After form is saved, navigate to the third tab
+        this.tabService.switchToTab('pills-disabled-tab');
     }
 }
