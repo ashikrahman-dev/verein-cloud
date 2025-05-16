@@ -70,6 +70,7 @@ import { TabService } from './tab.service';
                                 class="form-input-field font-rubik"
                                 (input)="validateContributionId($event)"
                             />
+                            <p class="font-rubik">{{ contribution_id.toUpperCase() }}</p>
                             <div
                                 *ngIf="
                                     contributionIdControl.invalid &&

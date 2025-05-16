@@ -1,6 +1,11 @@
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    OnInit,
+} from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -12,12 +17,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
+import { TabService } from '../basic-data-contribution/tab.service';
 import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';
 import { FinalizationStepComponent } from '../finalization-step/finalization-step.component';
 import { IntervalDueDataStepOneComponent } from '../interval-due-data-step-one/interval-due-data-step-one.component';
 import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/payment-terms-calculation.component';
-import { TabService } from '../basic-data-contribution/tab.service';
-// import { TabService } from '../basic-data-contribution/tab.service';
 
 @Component({
     selector: 'app-contribution-interval',
@@ -62,6 +66,9 @@ import { TabService } from '../basic-data-contribution/tab.service';
                                 role="tab"
                                 aria-controls="pills-profile"
                                 aria-selected="false"
+                                (click)="
+                                    tabService.switchToTab('pills-profile-tab')
+                                "
                             >
                                 <div class="tab-a" data-id="tab2">
                                     <div class="tab-link">
@@ -71,10 +78,19 @@ import { TabService } from '../basic-data-contribution/tab.service';
                                             </p>
                                             <div class="check"></div>
                                         </div>
-                                        <p class="tab-pra mb-0">
-                                            Contribution 1
-                                        </p>
-                                        <p class="tab-pra mb-0">Basic data</p>
+                                        <div class="tab-pra-wrap mb-0">
+                                            <p class="tab-pra mb-0">
+                                                ID:
+                                                <!-- I want set here contribution_id value  -->
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                Designation:
+                                            </p>
+                                            <p class="tab-pra mb-0">Type:</p>
+                                            <p class="tab-pra mb-0">
+                                                Department:
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </button>
@@ -89,6 +105,9 @@ import { TabService } from '../basic-data-contribution/tab.service';
                                 role="tab"
                                 aria-controls="pills-contact"
                                 aria-selected="false"
+                                (click)="
+                                    tabService.switchToTab('pills-contact-tab')
+                                "
                             >
                                 <div class="tab-a" data-id="tab3">
                                     <div class="tab-link">
@@ -118,6 +137,9 @@ import { TabService } from '../basic-data-contribution/tab.service';
                                 role="tab"
                                 aria-controls="pills-disabled"
                                 aria-selected="false"
+                                (click)="
+                                    tabService.switchToTab('pills-disabled-tab')
+                                "
                             >
                                 <div class="tab-a" data-id="tab4">
                                     <div class="tab-link">
@@ -147,6 +169,11 @@ import { TabService } from '../basic-data-contribution/tab.service';
                                 role="tab"
                                 aria-controls="pills-contribution5"
                                 aria-selected="false"
+                                (click)="
+                                    tabService.switchToTab(
+                                        'pills-contribution5-tab'
+                                    )
+                                "
                             >
                                 <div class="tab-a h-100" data-id="tab5">
                                     <div class="tab-link">
@@ -176,6 +203,11 @@ import { TabService } from '../basic-data-contribution/tab.service';
                                 role="tab"
                                 aria-controls="pills-contribution6"
                                 aria-selected="false"
+                                (click)="
+                                    tabService.switchToTab(
+                                        'pills-contribution6-tab'
+                                    )
+                                "
                             >
                                 <div class="tab-a h-100" data-id="tab6">
                                     <div class="tab-link">
@@ -269,19 +301,86 @@ import { TabService } from '../basic-data-contribution/tab.service';
     }
   `,
 })
-export class ContributionIntervalComponent {
+export class ContributionIntervalComponent implements OnInit {
     calendarDateIcon = 'assets/images/calendar-edit.svg';
 
     private readonly _formBuilder = inject(FormBuilder);
-    
-    constructor(private tabService: TabService) {}
 
-    // Initialize form controls
-    readonly toppings = this._formBuilder.group({
-        pepperoni: false,
-        extracheese: false,
-        mushroom: false,
-    });
+    // Inject TabService and make it public to use in template
+    constructor(public tabService: TabService) {}
+
+    ngOnInit() {
+        // Subscribe to tab changes
+        this.tabService.activeTab$.subscribe((index) => {
+            this.activateTab(index);
+        });
+
+        // Add event listener for Bootstrap tab events if Bootstrap is loaded
+        this.setupBootstrapTabListeners();
+    }
+
+    // Setup listeners for Bootstrap tab events to sync with our TabService
+    setupBootstrapTabListeners() {
+        try {
+            const tabEl = document.getElementById('pills-tab');
+            if (tabEl) {
+                // If using Bootstrap 5
+                tabEl.addEventListener('shown.bs.tab', (event: any) => {
+                    // Get the tab ID that was just shown
+                    const tabId = event.target.getAttribute('id');
+
+                    // Update the service without triggering the subscription callback
+                    // The service will handle mapping the ID to the correct index
+                    this.tabService.switchToTab(tabId);
+                });
+            }
+        } catch (error) {
+            console.log('Bootstrap events not available or error:', error);
+        }
+    }
+
+    // Method to programmatically activate a tab
+    activateTab(index: number) {
+        // Get all tab buttons
+        const tabButtons = document.querySelectorAll('#pills-tab button');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        if (tabButtons[index]) {
+            try {
+                // Try using Bootstrap Tab API first (for Bootstrap 5)
+                // @ts-ignore - Bootstrap may not be typed
+                if (typeof bootstrap !== 'undefined' && bootstrap.Tab) {
+                    // @ts-ignore
+                    const tab = new bootstrap.Tab(tabButtons[index]);
+                    tab.show();
+                    return; // Exit early if Bootstrap handled it
+                }
+            } catch (error) {
+                console.log(
+                    'Bootstrap Tab API not available, using manual approach'
+                );
+            }
+
+            // Fallback to manual approach
+            // Remove active class from all buttons and panes
+            tabButtons.forEach((button) => {
+                button.classList.remove('active');
+                button.setAttribute('aria-selected', 'false');
+            });
+
+            tabPanes.forEach((pane) => {
+                pane.classList.remove('show', 'active');
+            });
+
+            // Add active class to selected button and pane
+            tabButtons[index].classList.add('active');
+            tabButtons[index].setAttribute('aria-selected', 'true');
+
+            if (tabPanes[index]) {
+                tabPanes[index].classList.add('show', 'active');
+            }
+        }
+    }
 
     // Create a FormControl for radio button group
     selectedIntervalControl = this._formBuilder.control('start');
@@ -289,6 +388,5 @@ export class ContributionIntervalComponent {
     // Method called when radio selection changes
     onIntervalChange() {
         // No additional code needed here as we're using the direct value in the template
-        // You could add additional logic here if needed
     }
 }
