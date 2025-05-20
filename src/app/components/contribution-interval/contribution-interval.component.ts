@@ -81,12 +81,12 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-pra-wrap mb-0">
                                             <p class="tab-pra mb-0">
                                                 ID:
-                                                {{ contributionIdInput || '' }}
+                                                {{ contributionIdInput }}
                                                 <!-- I want set here contribution_id value  -->
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Designation:
-                                                {{ designationInput || '' }}
+                                                {{ designationInput }}
                                             </p>
                                             <p class="tab-pra mb-0">Type:</p>
                                             <p class="tab-pra mb-0">
