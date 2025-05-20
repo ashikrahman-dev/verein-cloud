@@ -1,5 +1,12 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, inject, Inject, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    inject,
+    Inject,
+    Output,
+    ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -70,17 +77,27 @@ import { TabService } from './tab.service';
                                 class="form-input-field font-rubik"
                                 (input)="validateContributionId($event)"
                             />
-                            <p class="font-rubik">{{ contribution_id.toUpperCase() }}</p>
                             <div
                                 *ngIf="
                                     contributionIdControl.invalid &&
-                                    contributionIdControl.touched
+                                    contributionIdControl.touched &&
+                                    contributionIdControl.errors?.['pattern']
                                 "
                                 class="error-message font-rubik"
                             >
                                 Only alphanumeric characters, spaces,
                                 underscores, hyphens, and forward slashes are
                                 allowed
+                            </div>
+                            <div
+                                *ngIf="
+                                    contributionIdControl.invalid &&
+                                    contributionIdControl.touched &&
+                                    contributionIdControl.errors?.['maxlength']
+                                "
+                                class="error-message font-rubik"
+                            >
+                                Maximum length is 10 characters
                             </div>
                         </div>
                         <!-- Designation  -->
@@ -92,15 +109,27 @@ import { TabService } from './tab.service';
                                 [formControl]="designationIdControl"
                                 class="form-input-field font-rubik"
                                 (input)="validateDesignationId($event)"
+                                maxlength="50"
                             />
                             <div
                                 *ngIf="
                                     designationIdControl.invalid &&
-                                    designationIdControl.touched
+                                    designationIdControl.touched &&
+                                    designationIdControl.errors?.['pattern']
                                 "
                                 class="error-message font-rubik"
                             >
                                 Contains invalid characters
+                            </div>
+                            <div
+                                *ngIf="
+                                    designationIdControl.invalid &&
+                                    designationIdControl.touched &&
+                                    designationIdControl.errors?.['maxlength']
+                                "
+                                class="error-message font-rubik"
+                            >
+                                Maximum length is 50 characters
                             </div>
                         </div>
                         <!-- Type of contribution  -->
@@ -385,11 +414,13 @@ export class BasicDataContributionComponent {
     contributionIdControl = new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9 _\-\/]+$/),
+        Validators.maxLength(10),
     ]);
 
     designationIdControl = new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9 _\-,.!?;":+()\\/'ß]+$/),
+        Validators.maxLength(50), // Added maxLength validator for 50 characters
     ]);
 
     contributionTypeControl = new FormControl('normal-contribution', [
@@ -434,10 +465,15 @@ export class BasicDataContributionComponent {
         intervalDueDate: this.intervalDueDateControl,
     });
 
+    @Output() inputChanged = new EventEmitter<string>();
+
     // Method to validate Contribution ID input in real-time
     validateContributionId(event: Event) {
         const input = event.target as HTMLInputElement;
         const value = input.value;
+
+        const inputValue = (event.target as HTMLInputElement).value;
+        this.inputChanged.emit(inputValue);
 
         // Only allow digits, letters, spaces, underscores, hyphens, and forward slashes
         const regex = /^[a-zA-Z0-9 _\-\/]*$/;
@@ -451,12 +487,26 @@ export class BasicDataContributionComponent {
             this.contributionIdControl.setValue(sanitizedValue);
             this.contribution_id = sanitizedValue;
         }
+
+        // Enforce maximum length of 10 characters
+        if (value.length > 10) {
+            const truncatedValue = value.substring(0, 10);
+            input.value = truncatedValue;
+
+            // Update the form control value
+            this.contributionIdControl.setValue(truncatedValue);
+            this.contribution_id = truncatedValue;
+        }
     }
 
+    @Output() inputDesignationChanged = new EventEmitter<string>();
     // Method to validate Designation ID input in real-time
     validateDesignationId(event: Event) {
         const input = event.target as HTMLInputElement;
         const value = input.value;
+
+        const inputDesignationValue = (event.target as HTMLInputElement).value;
+        this.inputDesignationChanged.emit(inputDesignationValue);
 
         // Allow: digits, letters, spaces, underscores, hyphens, commas, periods,
         // exclamation marks, question marks, semicolons, quotation marks, colons,
@@ -474,6 +524,19 @@ export class BasicDataContributionComponent {
             // Update the form control value
             this.designationIdControl.setValue(sanitizedValue);
             this.designation_id = sanitizedValue;
+        }
+
+        // Enforce maximum length of 50 characters
+        if (value.length > 50) {
+            const truncatedValue = value.substring(0, 50);
+            input.value = truncatedValue;
+
+            // Update the form control value
+            this.designationIdControl.setValue(truncatedValue);
+            this.designation_id = truncatedValue;
+
+            // Mark as touched to trigger validation messages
+            this.designationIdControl.markAsTouched();
         }
     }
 

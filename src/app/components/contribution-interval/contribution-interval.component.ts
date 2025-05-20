@@ -81,10 +81,12 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-pra-wrap mb-0">
                                             <p class="tab-pra mb-0">
                                                 ID:
+                                                {{ contributionIdInput || '' }}
                                                 <!-- I want set here contribution_id value  -->
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Designation:
+                                                {{ designationInput || '' }}
                                             </p>
                                             <p class="tab-pra mb-0">Type:</p>
                                             <p class="tab-pra mb-0">
@@ -239,7 +241,12 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                             tabindex="0"
                         >
                             <div class="basic-data-contribution-step">
-                                <app-basic-data-contribution></app-basic-data-contribution>
+                                <app-basic-data-contribution
+                                    (inputChanged)="onInputChanged($event)"
+                                    (inputDesignationChanged)="
+                                        onInputDesignationChanged($event)
+                                    "
+                                ></app-basic-data-contribution>
                             </div>
                         </div>
                         <!-- 2nd Tab Content -->
@@ -386,7 +393,16 @@ export class ContributionIntervalComponent implements OnInit {
     selectedIntervalControl = this._formBuilder.control('start');
 
     // Method called when radio selection changes
-    onIntervalChange() {
-        // No additional code needed here as we're using the direct value in the template
+
+    contributionIdInput = '';
+
+    onInputChanged(value: string): void {
+        this.contributionIdInput = value;
+    }
+
+    designationInput = '';
+
+    onInputDesignationChanged(value: string): void {
+        this.designationInput = value;
     }
 }
