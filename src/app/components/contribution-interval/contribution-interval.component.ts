@@ -96,6 +96,9 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Department:
+                                                {{
+                                                    'The department will be located here.'
+                                                }}
                                             </p>
                                         </div>
                                     </div>
