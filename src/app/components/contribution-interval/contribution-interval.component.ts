@@ -2,8 +2,10 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     inject,
+    OnDestroy,
     OnInit,
 } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { Subscription } from 'rxjs';
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
 import { TabService } from '../basic-data-contribution/tab.service';
 import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';
@@ -26,7 +29,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
 @Component({
     selector: 'app-contribution-interval',
     standalone: true,
-    providers: [provideNativeDateAdapter(), TabService], // Provide TabService at component level
+    providers: [provideNativeDateAdapter()], // Provide TabService at component level
     imports: [
         CommonModule,
         CdkStepperModule,
@@ -81,28 +84,15 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-pra-wrap mb-0">
                                             <p class="tab-pra mb-0">
                                                 ID:
-                                                {{ contributionIdInput || '' }}
+                                                {{ contributionIdInput }}
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Designation:
-                                                {{ designationInput || '' }}
+                                                {{ designationInput }}
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Type:
-                                                <span
-                                                    *ngIf="
-                                                        contributionTypeInput
-                                                    "
-                                                    >{{
-                                                        contributionTypeInput
-                                                    }}</span
-                                                >
-                                                <span
-                                                    *ngIf="
-                                                        !contributionTypeInput
-                                                    "
-                                                    >Normal contribution</span
-                                                >
+                                                {{ contributionTypeInput }}
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Department:
@@ -134,12 +124,17 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                             </p>
                                             <div class="check"></div>
                                         </div>
-                                        <p class="tab-pra mb-0">
-                                            Contribution 2
-                                        </p>
-                                        <p class="tab-pra mb-0">
-                                            Interval and Due Date
-                                        </p>
+                                        <div class="tab-pra-wrap mb-0">
+                                            <p class="tab-pra mb-0">
+                                                Interval:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                Billing period:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                Due Date:
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </button>
@@ -166,12 +161,14 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                             </p>
                                             <div class="check"></div>
                                         </div>
-                                        <p class="tab-pra mb-0">
-                                            Contribution 3
-                                        </p>
-                                        <p class="tab-pra mb-0">
-                                            Payment Terms and Calculation
-                                        </p>
+                                        <div class="tab-pra-wrap mb-0">
+                                            <p class="tab-pra mb-0">
+                                                Payment term:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                Prorata calculation:
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </button>
@@ -200,12 +197,24 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                             </p>
                                             <div class="check"></div>
                                         </div>
-                                        <p class="tab-pra mb-0">
-                                            Contribution 4
-                                        </p>
-                                        <p class="tab-pra mb-0">
-                                            Calculation Configuration
-                                        </p>
+                                        <div class="tab-pra-wrap mb-0">
+                                            <p class="tab-pra mb-0">
+                                                Basic Amount:
+                                            </p>
+                                            <p class="tab-pra mb-0">Tax:</p>
+                                            <p class="tab-pra mb-0">
+                                                Revenue account:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                Active account:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                Cost Center 1:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                Booking Text:
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </button>
@@ -234,12 +243,9 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                             </p>
                                             <div class="check"></div>
                                         </div>
-                                        <p class="tab-pra mb-0">
-                                            Contribution 5
-                                        </p>
-                                        <p class="tab-pra mb-0">
-                                            Finalization step
-                                        </p>
+                                        <div class="tab-pra-wrap mb-0">
+                                            <p class="tab-pra mb-0">Invoice:</p>
+                                        </div>
                                     </div>
                                 </div>
                             </button>
@@ -257,13 +263,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                         >
                             <div class="basic-data-contribution-step">
                                 <app-basic-data-contribution
-                                    (inputChanged)="onInputChanged($event)"
-                                    (inputDesignationChanged)="
-                                        onInputDesignationChanged($event)
-                                    "
-                                    (contributionTypeChanged)="
-                                        onContributionTypeChanged($event)
-                                    "
+                                    (formSaved)="onFormSaved($event)"
                                 ></app-basic-data-contribution>
                             </div>
                         </div>
@@ -326,22 +326,78 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
     }
   `,
 })
-export class ContributionIntervalComponent implements OnInit {
+export class ContributionIntervalComponent implements OnInit, OnDestroy {
     calendarDateIcon = 'assets/images/calendar-edit.svg';
 
     private readonly _formBuilder = inject(FormBuilder);
+    private readonly _cdr = inject(ChangeDetectorRef);
+
+    // Subscriptions collection for cleanup
+    private subscriptions: Subscription[] = [];
+
+    // Properties to store input values
+    contributionIdInput = '';
+    designationInput = '';
+    contributionTypeInput = '';
+
+    // Create a FormControl for radio button group
+    selectedIntervalControl = this._formBuilder.control('start');
 
     // Inject TabService and make it public to use in template
-    constructor(public tabService: TabService) {}
+    constructor(public tabService: TabService) {
+        console.log('ContributionIntervalComponent: constructor');
+    }
 
     ngOnInit() {
+        console.log('ContributionIntervalComponent: ngOnInit');
+
         // Subscribe to tab changes
-        this.tabService.activeTab$.subscribe((index) => {
-            this.activateTab(index);
-        });
+        this.subscriptions.push(
+            this.tabService.activeTab$.subscribe((index) => {
+                console.log('Tab changed to index:', index);
+                this.activateTab(index);
+            })
+        );
+
+        // Subscribe to form data changes from the service
+        this.subscriptions.push(
+            this.tabService.contributionId$.subscribe((id) => {
+                console.log('Got new contribution ID:', id);
+                this.contributionIdInput = id;
+                this._cdr.markForCheck(); // Important for OnPush
+            })
+        );
+
+        this.subscriptions.push(
+            this.tabService.designation$.subscribe((designation) => {
+                console.log('Got new designation:', designation);
+                this.designationInput = designation;
+                this._cdr.markForCheck(); // Important for OnPush
+            })
+        );
+
+        this.subscriptions.push(
+            this.tabService.contributionType$.subscribe((type) => {
+                console.log('Got new contribution type:', type);
+                this.contributionTypeInput = type;
+                this._cdr.markForCheck(); // Important for OnPush
+            })
+        );
+
+        // Load any existing form data from the service
+        const currentData = this.tabService.getCurrentFormData();
+        if (currentData.id) this.contributionIdInput = currentData.id;
+        if (currentData.designation)
+            this.designationInput = currentData.designation;
+        if (currentData.type) this.contributionTypeInput = currentData.type;
 
         // Add event listener for Bootstrap tab events if Bootstrap is loaded
         this.setupBootstrapTabListeners();
+    }
+
+    ngOnDestroy() {
+        // Clean up subscriptions to prevent memory leaks
+        this.subscriptions.forEach((sub) => sub.unsubscribe());
     }
 
     // Setup listeners for Bootstrap tab events to sync with our TabService
@@ -407,26 +463,30 @@ export class ContributionIntervalComponent implements OnInit {
         }
     }
 
-    // Create a FormControl for radio button group
-    selectedIntervalControl = this._formBuilder.control('start');
+    // Method to handle the form saved event
+    onFormSaved(formData: {
+        id: string;
+        designation: string;
+        type: string;
+    }): void {
+        console.log('Form saved event received:', formData);
 
-    // Properties to store input values
-    contributionIdInput = '';
-    designationInput = '';
-    contributionTypeInput = ''; // New property for contribution type
+        // Update the local properties
+        this.contributionIdInput = formData.id;
+        this.designationInput = formData.designation;
+        this.contributionTypeInput = formData.type;
 
-    // Method to handle contribution ID input change
-    onInputChanged(value: string): void {
-        this.contributionIdInput = value;
-    }
+        // Update the service
+        this.tabService.updateFormData(formData);
 
-    // Method to handle designation input change
-    onInputDesignationChanged(value: string): void {
-        this.designationInput = value;
-    }
+        // Explicitly trigger change detection
+        this._cdr.markForCheck();
 
-    // New method to handle contribution type change
-    onContributionTypeChanged(value: string): void {
-        this.contributionTypeInput = value;
+        // Log the updated values to verify
+        console.log('Updated values in parent component:', {
+            id: this.contributionIdInput,
+            designation: this.designationInput,
+            type: this.contributionTypeInput,
+        });
     }
 }

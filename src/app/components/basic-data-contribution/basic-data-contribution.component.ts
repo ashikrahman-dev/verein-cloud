@@ -448,7 +448,9 @@ export class BasicDataContributionComponent {
     constructor(
         private tabService: TabService,
         @Inject(DOCUMENT) private document: Document
-    ) {}
+    ) {
+        console.log('BasicDataContributionComponent: constructor');
+    }
 
     // Create form groups for the stepper
     firstFormGroup = this._formBuilder.group({
@@ -465,18 +467,20 @@ export class BasicDataContributionComponent {
         intervalDueDate: this.intervalDueDateControl,
     });
 
+    // Changed the event emitters to include methods that will be called only when Save is clicked
     @Output() inputChanged = new EventEmitter<string>();
     @Output() inputDesignationChanged = new EventEmitter<string>();
-    // Add new event emitter for contribution type
     @Output() contributionTypeChanged = new EventEmitter<string>();
+    @Output() formSaved = new EventEmitter<{
+        id: string;
+        designation: string;
+        type: string;
+    }>();
 
     // Method to validate Contribution ID input in real-time
     validateContributionId(event: Event) {
         const input = event.target as HTMLInputElement;
         const value = input.value;
-
-        const inputValue = (event.target as HTMLInputElement).value;
-        this.inputChanged.emit(inputValue);
 
         // Only allow digits, letters, spaces, underscores, hyphens, and forward slashes
         const regex = /^[a-zA-Z0-9 _\-\/]*$/;
@@ -506,9 +510,6 @@ export class BasicDataContributionComponent {
     validateDesignationId(event: Event) {
         const input = event.target as HTMLInputElement;
         const value = input.value;
-
-        const inputDesignationValue = (event.target as HTMLInputElement).value;
-        this.inputDesignationChanged.emit(inputDesignationValue);
 
         // Allow: digits, letters, spaces, underscores, hyphens, commas, periods,
         // exclamation marks, question marks, semicolons, quotation marks, colons,
@@ -574,9 +575,6 @@ export class BasicDataContributionComponent {
     onSelectionChange() {
         console.log('Selected option:', this.selectedValue);
 
-        // Emit the selected contribution type to the parent component
-        this.contributionTypeChanged.emit(this.selectedValue);
-
         if (this.selectedValue === 'Limited In Time') {
             // Make anzahl required for Limited In Time type
             this.anzahlControl.setValidators([
@@ -610,6 +608,20 @@ export class BasicDataContributionComponent {
 
         console.log('Form data saved:', formData);
 
+        // First, update the TabService with the form data
+        this.tabService.updateFormData({
+            id: this.contribution_id,
+            designation: this.designation_id,
+            type: this.selectedValue,
+        });
+
+        // Then, emit the form data with all three values in one event
+        this.formSaved.emit({
+            id: this.contribution_id,
+            designation: this.designation_id,
+            type: this.selectedValue,
+        });
+
         // After form is saved, navigate to the second tab
         this.tabService.switchToTab('pills-contact-tab');
     }
@@ -622,6 +634,20 @@ export class BasicDataContributionComponent {
         };
 
         console.log('Second step form data saved:', formData);
+
+        // First, update the TabService with the form data
+        this.tabService.updateFormData({
+            id: this.contribution_id,
+            designation: this.designation_id,
+            type: this.selectedValue,
+        });
+
+        // Also emit the values when saving from step 2
+        this.formSaved.emit({
+            id: this.contribution_id,
+            designation: this.designation_id,
+            type: this.selectedValue,
+        });
 
         // After form is saved, navigate to the third tab
         this.tabService.switchToTab('pills-disabled-tab');
