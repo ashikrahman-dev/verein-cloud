@@ -53,7 +53,7 @@ import { TabService } from './tab.service';
             #stepper
             [ngClass]="{
                 'contribution-basic-data-step-wrap': true,
-                'limited-time-class': selectedValue === 'limited-in-time'
+                'limited-time-class': selectedValue === 'Limited In Time'
             }"
         >
             <mat-step [stepControl]="firstFormGroup" label="Step 1">
@@ -150,18 +150,18 @@ import { TabService } from './tab.service';
                                     [formControl]="contributionTypeControl"
                                     (selectionChange)="onSelectionChange()"
                                 >
-                                    <mat-option value="normal-contribution">
+                                    <mat-option value="Normal Contribution">
                                         Normal contribution
                                     </mat-option>
                                     <mat-option
-                                        value="age-dependent-contribution"
+                                        value="Age Dependent Contribution"
                                     >
                                         Age-dependent contribution
                                     </mat-option>
-                                    <mat-option value="family-contribution">
+                                    <mat-option value="Family Contribution">
                                         Family contribution
                                     </mat-option>
-                                    <mat-option value="limited-in-time">
+                                    <mat-option value="Limited In Time">
                                         Time-limited contribution
                                     </mat-option>
                                 </mat-select>
@@ -191,7 +191,7 @@ import { TabService } from './tab.service';
                         </div>
 
                         <!-- Anzahl -->
-                        <div *ngIf="selectedValue === 'limited-in-time'">
+                        <div *ngIf="selectedValue === 'Limited In Time'">
                             <p class="form-label">Anzahl</p>
                             <input
                                 [(ngModel)]="anzahl"
@@ -212,7 +212,7 @@ import { TabService } from './tab.service';
                         </div>
 
                         <!-- Duration type  -->
-                        <div *ngIf="selectedValue === 'limited-in-time'">
+                        <div *ngIf="selectedValue === 'Limited In Time'">
                             <p class="form-label">Duration Time</p>
                             <mat-form-field
                                 class="w-100 bg-white font-rubik"
@@ -257,11 +257,11 @@ import { TabService } from './tab.service';
                                 type="button"
                                 class="step-button fill"
                                 matStepperNext
-                                *ngIf="selectedValue === 'limited-in-time'"
+                                *ngIf="selectedValue === 'Limited In Time'"
                                 [disabled]="
                                     contributionIdControl.invalid ||
                                     designationIdControl.invalid ||
-                                    (selectedValue === 'limited-in-time' &&
+                                    (selectedValue === 'Limited In Time' &&
                                         anzahlControl.invalid)
                                 "
                             >
@@ -270,7 +270,7 @@ import { TabService } from './tab.service';
                             <button
                                 type="button"
                                 class="step-button fill"
-                                *ngIf="selectedValue !== 'limited-in-time'"
+                                *ngIf="selectedValue !== 'Limited In Time'"
                                 [disabled]="
                                     contributionIdControl.invalid ||
                                     designationIdControl.invalid
@@ -404,7 +404,7 @@ export class BasicDataContributionComponent {
     clockIcon = 'assets/images/clock-icon.svg';
     profileUser = 'assets/images/profile-2user.svg';
     intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
-    selectedValue: string = 'normal-contribution';
+    selectedValue: string = 'Normal Contribution';
     headingTooltipIcon = 'assets/images/heading-tooltip-icon.svg';
 
     // Set linear mode (enforces form validation before proceeding to next step)
@@ -423,7 +423,7 @@ export class BasicDataContributionComponent {
         Validators.maxLength(50), // Added maxLength validator for 50 characters
     ]);
 
-    contributionTypeControl = new FormControl('normal-contribution', [
+    contributionTypeControl = new FormControl('Normal Contribution', [
         Validators.required,
     ]);
 
@@ -434,7 +434,7 @@ export class BasicDataContributionComponent {
     durationTypeControl = new FormControl('duration-month-1');
 
     // Second step form controls
-    secondStepContributionTypeControl = new FormControl('family-contribution', [
+    secondStepContributionTypeControl = new FormControl('Family Contribution', [
         Validators.required,
     ]);
 
@@ -466,6 +466,9 @@ export class BasicDataContributionComponent {
     });
 
     @Output() inputChanged = new EventEmitter<string>();
+    @Output() inputDesignationChanged = new EventEmitter<string>();
+    // Add new event emitter for contribution type
+    @Output() contributionTypeChanged = new EventEmitter<string>();
 
     // Method to validate Contribution ID input in real-time
     validateContributionId(event: Event) {
@@ -499,7 +502,6 @@ export class BasicDataContributionComponent {
         }
     }
 
-    @Output() inputDesignationChanged = new EventEmitter<string>();
     // Method to validate Designation ID input in real-time
     validateDesignationId(event: Event) {
         const input = event.target as HTMLInputElement;
@@ -572,14 +574,17 @@ export class BasicDataContributionComponent {
     onSelectionChange() {
         console.log('Selected option:', this.selectedValue);
 
-        if (this.selectedValue === 'limited-in-time') {
-            // Make anzahl required for limited-in-time type
+        // Emit the selected contribution type to the parent component
+        this.contributionTypeChanged.emit(this.selectedValue);
+
+        if (this.selectedValue === 'Limited In Time') {
+            // Make anzahl required for Limited In Time type
             this.anzahlControl.setValidators([
                 Validators.required,
                 Validators.pattern(/^[0-9]{1,3}$/),
             ]);
         } else {
-            // Remove validators if not limited-in-time
+            // Remove validators if not Limited In Time
             this.anzahlControl.clearValidators();
             this.anzahlControl.setValidators([
                 Validators.pattern(/^[0-9]{1,3}$/),

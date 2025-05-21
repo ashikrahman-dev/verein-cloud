@@ -81,14 +81,29 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-pra-wrap mb-0">
                                             <p class="tab-pra mb-0">
                                                 ID:
-                                                {{ contributionIdInput }}
-                                                <!-- I want set here contribution_id value  -->
+                                                {{ contributionIdInput || '' }}
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Designation:
-                                                {{ designationInput }}
+                                                {{ designationInput || '' }}
                                             </p>
-                                            <p class="tab-pra mb-0">Type:</p>
+                                            <p class="tab-pra mb-0">
+                                                Type:
+                                                <span
+                                                    *ngIf="
+                                                        contributionTypeInput
+                                                    "
+                                                    >{{
+                                                        contributionTypeInput
+                                                    }}</span
+                                                >
+                                                <span
+                                                    *ngIf="
+                                                        !contributionTypeInput
+                                                    "
+                                                    >Normal contribution</span
+                                                >
+                                            </p>
                                             <p class="tab-pra mb-0">
                                                 Department:
                                             </p>
@@ -246,6 +261,9 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                     (inputDesignationChanged)="
                                         onInputDesignationChanged($event)
                                     "
+                                    (contributionTypeChanged)="
+                                        onContributionTypeChanged($event)
+                                    "
                                 ></app-basic-data-contribution>
                             </div>
                         </div>
@@ -392,17 +410,23 @@ export class ContributionIntervalComponent implements OnInit {
     // Create a FormControl for radio button group
     selectedIntervalControl = this._formBuilder.control('start');
 
-    // Method called when radio selection changes
-
+    // Properties to store input values
     contributionIdInput = '';
+    designationInput = '';
+    contributionTypeInput = ''; // New property for contribution type
 
+    // Method to handle contribution ID input change
     onInputChanged(value: string): void {
         this.contributionIdInput = value;
     }
 
-    designationInput = '';
-
+    // Method to handle designation input change
     onInputDesignationChanged(value: string): void {
         this.designationInput = value;
+    }
+
+    // New method to handle contribution type change
+    onContributionTypeChanged(value: string): void {
+        this.contributionTypeInput = value;
     }
 }
