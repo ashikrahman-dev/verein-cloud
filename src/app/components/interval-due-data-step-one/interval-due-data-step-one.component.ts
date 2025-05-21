@@ -465,7 +465,7 @@ export class IntervalDueDataStepOneComponent {
     });
 
     stepTwoForm = this._formBuilder.group({
-        selectedContributionType: ['', Validators.required], // Default value set to empty string
+        selectedContributionType: ['Annually', Validators.required], // Default value set to empty string
     });
 
     stepThreeForm = this._formBuilder.group({
