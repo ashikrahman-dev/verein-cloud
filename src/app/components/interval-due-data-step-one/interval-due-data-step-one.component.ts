@@ -165,16 +165,19 @@ export const MY_DATE_FORMATS = {
                                         formControlName="selectedContributionType"
                                         class="font-rubik"
                                     >
-                                        <mat-option value="monthly"
+                                        <mat-option value="One-time"
+                                            >One-time</mat-option
+                                        >
+                                        <mat-option value="Monthly"
                                             >Monthly</mat-option
                                         >
-                                        <mat-option value="quarterly"
+                                        <mat-option value="Quarterly"
                                             >Quarterly</mat-option
                                         >
-                                        <mat-option value="semi-annually"
+                                        <mat-option value="Semi-Annually"
                                             >Semi-Annually</mat-option
                                         >
-                                        <mat-option value="annually"
+                                        <mat-option value="Annually"
                                             >Annually</mat-option
                                         >
                                     </mat-select>
