@@ -136,8 +136,9 @@ ul li {
     font-size: 14px !important;
 }
 .step-tab-wrap {
-    display: flex !important;
+    display: grid !important;
     gap: 12px !important;
+    grid-template-columns: repeat(5, 1fr);
 }
 /* banner - END*/
 
