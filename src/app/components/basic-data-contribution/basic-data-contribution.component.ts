@@ -53,7 +53,8 @@ import { TabService } from './tab.service';
             #stepper
             [ngClass]="{
                 'contribution-basic-data-step-wrap': true,
-                'limited-time-class': selectedValue === 'Limited In Time'
+                'limited-time-class':
+                    selectedContributionType === 'Limited In Time'
             }"
         >
             <mat-step [stepControl]="firstFormGroup" label="Step 1">
@@ -146,7 +147,7 @@ import { TabService } from './tab.service';
                                 </mat-label>
                                 <mat-select
                                     class="font-rubik"
-                                    [(ngModel)]="selectedValue"
+                                    [(ngModel)]="selectedContributionType"
                                     [formControl]="contributionTypeControl"
                                     (selectionChange)="onSelectionChange()"
                                 >
@@ -181,17 +182,26 @@ import { TabService } from './tab.service';
                                 </mat-label>
                                 <mat-select
                                     [formControl]="departmentControl"
+                                    [(ngModel)]="selectedDepartmentType"
                                     class="font-rubik"
+                                    (selectionChange)="onDepartmentChange()"
                                 >
-                                    <mat-option value="department-none">
+                                    <mat-option value="Department none">
                                         None
+                                    </mat-option>
+                                    <mat-option value="Others value">
+                                        Others value
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
 
                         <!-- Anzahl -->
-                        <div *ngIf="selectedValue === 'Limited In Time'">
+                        <div
+                            *ngIf="
+                                selectedContributionType === 'Limited In Time'
+                            "
+                        >
                             <p class="form-label">Anzahl</p>
                             <input
                                 [(ngModel)]="anzahl"
@@ -212,7 +222,11 @@ import { TabService } from './tab.service';
                         </div>
 
                         <!-- Duration type  -->
-                        <div *ngIf="selectedValue === 'Limited In Time'">
+                        <div
+                            *ngIf="
+                                selectedContributionType === 'Limited In Time'
+                            "
+                        >
                             <p class="form-label">Duration Time</p>
                             <mat-form-field
                                 class="w-100 bg-white font-rubik"
@@ -257,11 +271,15 @@ import { TabService } from './tab.service';
                                 type="button"
                                 class="step-button fill"
                                 matStepperNext
-                                *ngIf="selectedValue === 'Limited In Time'"
+                                *ngIf="
+                                    selectedContributionType ===
+                                    'Limited In Time'
+                                "
                                 [disabled]="
                                     contributionIdControl.invalid ||
                                     designationIdControl.invalid ||
-                                    (selectedValue === 'Limited In Time' &&
+                                    (selectedContributionType ===
+                                        'Limited In Time' &&
                                         anzahlControl.invalid)
                                 "
                             >
@@ -270,7 +288,10 @@ import { TabService } from './tab.service';
                             <button
                                 type="button"
                                 class="step-button fill"
-                                *ngIf="selectedValue !== 'Limited In Time'"
+                                *ngIf="
+                                    selectedContributionType !==
+                                    'Limited In Time'
+                                "
                                 [disabled]="
                                     contributionIdControl.invalid ||
                                     designationIdControl.invalid
@@ -397,7 +418,11 @@ export class BasicDataContributionComponent {
     clockIcon = 'assets/images/clock-icon.svg';
     profileUser = 'assets/images/profile-2user.svg';
     intervalCalendarIcon = 'assets/images/interval-calendar-icon.svg';
-    selectedValue: string = 'Normal Contribution';
+
+    // Separate properties for contribution type and department type
+    selectedContributionType: string = 'Normal Contribution';
+    selectedDepartmentType: string = 'department-none';
+
     headingTooltipIcon = 'assets/images/heading-tooltip-icon.svg';
 
     // Set linear mode (enforces form validation before proceeding to next step)
@@ -464,10 +489,12 @@ export class BasicDataContributionComponent {
     @Output() inputChanged = new EventEmitter<string>();
     @Output() inputDesignationChanged = new EventEmitter<string>();
     @Output() contributionTypeChanged = new EventEmitter<string>();
+    @Output() departmentsTypeChanged = new EventEmitter<string>();
     @Output() formSaved = new EventEmitter<{
         id: string;
         designation: string;
         type: string;
+        departmentsType: string;
     }>();
 
     // Method to validate Contribution ID input in real-time
@@ -566,9 +593,12 @@ export class BasicDataContributionComponent {
     }
 
     onSelectionChange() {
-        console.log('Selected option:', this.selectedValue);
+        console.log(
+            'Selected contribution type:',
+            this.selectedContributionType
+        );
 
-        if (this.selectedValue === 'Limited In Time') {
+        if (this.selectedContributionType === 'Limited In Time') {
             // Make anzahl required for Limited In Time type
             this.anzahlControl.setValidators([
                 Validators.required,
@@ -588,6 +618,10 @@ export class BasicDataContributionComponent {
         this.anzahlControl.updateValueAndValidity();
     }
 
+    onDepartmentChange() {
+        console.log('Selected department type:', this.selectedDepartmentType);
+    }
+
     saveForm() {
         // Gather all form data
         const formData = {
@@ -605,14 +639,16 @@ export class BasicDataContributionComponent {
         this.tabService.updateFormData({
             id: this.contribution_id,
             designation: this.designation_id,
-            type: this.selectedValue,
+            type: this.selectedContributionType,
+            departmentsType: this.selectedDepartmentType,
         });
 
         // Then, emit the form data with all three values in one event
         this.formSaved.emit({
             id: this.contribution_id,
             designation: this.designation_id,
-            type: this.selectedValue,
+            type: this.selectedContributionType,
+            departmentsType: this.selectedDepartmentType,
         });
 
         // After form is saved, navigate to the second tab
@@ -632,14 +668,16 @@ export class BasicDataContributionComponent {
         this.tabService.updateFormData({
             id: this.contribution_id,
             designation: this.designation_id,
-            type: this.selectedValue,
+            type: this.selectedContributionType,
+            departmentsType: this.selectedDepartmentType,
         });
 
         // Also emit the values when saving from step 2
         this.formSaved.emit({
             id: this.contribution_id,
             designation: this.designation_id,
-            type: this.selectedValue,
+            type: this.selectedContributionType,
+            departmentsType: this.selectedDepartmentType,
         });
 
         // After form is saved, navigate to the third tab

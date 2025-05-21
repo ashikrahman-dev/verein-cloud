@@ -30,6 +30,9 @@ export class TabService {
     private contributionTypeSource = new BehaviorSubject<string>('');
     contributionType$ = this.contributionTypeSource.asObservable();
 
+    private departmentsTypeSource = new BehaviorSubject<string>('');
+    departmentsType$ = this.departmentsTypeSource.asObservable();
+
     constructor() {}
 
     // Set the active tab by index
@@ -112,16 +115,26 @@ export class TabService {
         this.contributionTypeSource.next(type);
     }
 
+    updateDepartmentsType(departmentsType: string) {
+        console.log(
+            'TabService: Updating contribution type to',
+            departmentsType
+        );
+        this.departmentsTypeSource.next(departmentsType);
+    }
+
     // Method to update all form data at once
     updateFormData(formData: {
         id: string;
         designation: string;
         type: string;
+        departmentsType: string;
     }) {
         console.log('TabService: Updating form data:', formData);
         this.contributionIdSource.next(formData.id);
         this.designationSource.next(formData.designation);
         this.contributionTypeSource.next(formData.type);
+        this.departmentsTypeSource.next(formData.departmentsType);
     }
 
     // Method to get current form data values
@@ -130,6 +143,7 @@ export class TabService {
             id: this.contributionIdSource.getValue(),
             designation: this.designationSource.getValue(),
             type: this.contributionTypeSource.getValue(),
+            departmentsType: this.departmentsTypeSource.getValue(),
         };
     }
 }

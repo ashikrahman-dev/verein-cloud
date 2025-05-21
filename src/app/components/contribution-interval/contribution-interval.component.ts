@@ -96,9 +96,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Department:
-                                                {{
-                                                    'The department will be located here.'
-                                                }}
+                                                {{ departmentTypeInput }}
                                             </p>
                                         </div>
                                     </div>
@@ -342,6 +340,7 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
     contributionIdInput = '';
     designationInput = '';
     contributionTypeInput = '';
+    departmentTypeInput = '';
 
     // Create a FormControl for radio button group
     selectedIntervalControl = this._formBuilder.control('start');
@@ -387,12 +386,20 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
             })
         );
 
+        this.subscriptions.push(
+            this.tabService.departmentsType$.subscribe((departmentsType) => {
+                console.log('Got new Department type:', departmentsType);
+                this.departmentTypeInput = departmentsType;
+                this._cdr.markForCheck(); // Important for OnPush
+            })
+        );
+
         // Load any existing form data from the service
         const currentData = this.tabService.getCurrentFormData();
         if (currentData.id) this.contributionIdInput = currentData.id;
-        if (currentData.designation)
-            this.designationInput = currentData.designation;
+        if (currentData.designation) this.designationInput = currentData.designation;
         if (currentData.type) this.contributionTypeInput = currentData.type;
+        if (currentData.departmentsType) this.departmentTypeInput = currentData.departmentsType;
 
         // Add event listener for Bootstrap tab events if Bootstrap is loaded
         this.setupBootstrapTabListeners();
@@ -471,6 +478,7 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
         id: string;
         designation: string;
         type: string;
+        departmentsType: string;
     }): void {
         console.log('Form saved event received:', formData);
 
@@ -478,6 +486,7 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
         this.contributionIdInput = formData.id;
         this.designationInput = formData.designation;
         this.contributionTypeInput = formData.type;
+        this.departmentTypeInput = formData.departmentsType;
 
         // Update the service
         this.tabService.updateFormData(formData);
@@ -490,6 +499,7 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
             id: this.contributionIdInput,
             designation: this.designationInput,
             type: this.contributionTypeInput,
+            departmentsType: this.departmentTypeInput,
         });
     }
 }
