@@ -469,7 +469,7 @@ export class IntervalDueDataStepOneComponent {
     });
 
     stepThreeForm = this._formBuilder.group({
-        selectedInterval: ['', Validators.required],
+        selectedInterval: ['interval', Validators.required],
         predefinedDate: [''],
     });
 
