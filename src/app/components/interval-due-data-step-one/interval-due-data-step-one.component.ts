@@ -133,8 +133,7 @@ export const MY_DATE_FORMATS = {
                     <div class="step">
                         <div class="tab-contents font-rubik">
                             <h3 class="fs-6 pb-3 mb-1">
-                                Proceeding to Contribution Interval and Due Date
-                                Settings
+                                Proceeding to Contribution Interval and Due Date Settings
                             </h3>
                             <h6 class="fs-14">
                                 Contribution Interval & Due Date
@@ -165,21 +164,11 @@ export const MY_DATE_FORMATS = {
                                         formControlName="selectedContributionType"
                                         class="font-rubik"
                                     >
-                                        <mat-option value="One-time"
-                                            >One-time</mat-option
-                                        >
-                                        <mat-option value="Monthly"
-                                            >Monthly</mat-option
-                                        >
-                                        <mat-option value="Quarterly"
-                                            >Quarterly</mat-option
-                                        >
-                                        <mat-option value="Semi-Annually"
-                                            >Semi-Annually</mat-option
-                                        >
-                                        <mat-option value="Annually"
-                                            >Annually</mat-option
-                                        >
+                                        <mat-option value="One-time">One-time</mat-option>
+                                        <mat-option value="Monthly">Monthly</mat-option>
+                                        <mat-option value="Quarterly">Quarterly</mat-option>
+                                        <mat-option value="Semi-Annually">Semi-Annually</mat-option>
+                                        <mat-option value="Annually">Annually</mat-option>
                                     </mat-select>
                                     <mat-error
                                         *ngIf="
@@ -331,7 +320,7 @@ export const MY_DATE_FORMATS = {
                                             )?.value === 'predefined'
                                         "
                                     >
-                                        Please select a date
+                                        Please select a date 
                                     </mat-error>
                                 </mat-form-field>
                             </div>

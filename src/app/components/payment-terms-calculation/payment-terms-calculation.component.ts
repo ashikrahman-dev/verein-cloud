@@ -1,6 +1,6 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import {
     FormBuilder,
     FormsModule,
@@ -101,13 +101,13 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                             <div>
                                 <p class="form-label pt-3">Payment Deadline</p>
                                 <input
-                                    placeholder="Enter day (1-31)"
+                                    placeholder="Enter day (1-999)"
                                     class="form-input-field font-rubik remove-icon-cls"
                                     formControlName="paymentDeadline"
                                     type="number"
                                     min="1"
-                                    max="31"
-                                    maxlength="2"
+                                    max="999"
+                                    maxlength="3"
                                     (input)="enforceMaxLength($event)"
                                 />
                                 <div
@@ -131,13 +131,13 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                                     <div
                                         *ngIf="paymentDeadlineControl.errors?.['max']"
                                     >
-                                        Payment deadline cannot exceed 31
+                                        Payment deadline cannot exceed 999
                                     </div>
                                     <div
                                         *ngIf="paymentDeadlineControl.errors?.['pattern']"
                                     >
                                         Please enter a valid number between 1
-                                        and 31
+                                        and 999
                                     </div>
                                 </div>
                             </div>
@@ -341,12 +341,12 @@ export class PaymentTermsCalculationComponent {
 
     step2FormGroup = this._formBuilder.group({
         paymentDeadline: [
-            '',
+            7, // Changed from '' to 7 to set default value
             [
                 Validators.required,
                 Validators.min(1),
-                Validators.max(31),
-                Validators.pattern('^[0-9]{1,2}$'),
+                Validators.max(999),
+                Validators.pattern('^[0-9]{1,3}$'), // Updated pattern to allow up to 3 digits
             ],
         ],
     });
@@ -362,17 +362,17 @@ export class PaymentTermsCalculationComponent {
 
     @ViewChild(MatStepper) stepper!: MatStepper;
 
-    // Method to enforce maxlength on number input (since HTML maxlength doesn't work with type="number")
+    // Method to enforce max-length on number input (since HTML max-length doesn't work with type="number")
     enforceMaxLength(event: Event) {
         const input = event.target as HTMLInputElement;
-        if (input.value.length > 2) {
-            input.value = input.value.slice(0, 2);
+        if (input.value.length > 3) {
+            input.value = input.value.slice(0, 3);
         }
 
-        // Also ensure the value is within range 1-31
+        // Also ensure the value is within range 1-999
         const numValue = parseInt(input.value, 10);
-        if (numValue > 31) {
-            input.value = '31';
+        if (numValue > 999) {
+            input.value = '999';
         }
     }
 
@@ -396,7 +396,7 @@ export class PaymentTermsCalculationComponent {
 
             // Show success message
             alert('Payment terms saved successfully!');
-            
+
             // Navigate to the next tab (calculation configuration tab)
             this.navigateToNextTab();
         } else {
@@ -411,18 +411,20 @@ export class PaymentTermsCalculationComponent {
     navigateToNextTab() {
         // Use TabService to change the active tab (index 3 - Calculation Configuration)
         this.tabService.setActiveTab(3);
-        
+
         // As a fallback, also try direct DOM manipulation if Bootstrap is being used
-        const nextTabElement = document.getElementById('pills-contribution5-tab');
+        const nextTabElement = document.getElementById(
+            'pills-contribution5-tab'
+        );
         if (nextTabElement) {
             // Create and dispatch click event
             const clickEvent = new MouseEvent('click', {
                 view: window,
                 bubbles: true,
-                cancelable: true
+                cancelable: true,
             });
             nextTabElement.dispatchEvent(clickEvent);
-            
+
             // For Bootstrap 5, we may need to use the Tab API
             try {
                 // @ts-ignore - Bootstrap may not be typed

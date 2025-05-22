@@ -116,7 +116,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                 (click)="
                                     tabService.switchToTab('pills-contact-tab')
                                 "
-                            >
+                            > 
                                 <div class="tab-a" data-id="tab3">
                                     <div class="tab-link">
                                         <div class="tab-title">

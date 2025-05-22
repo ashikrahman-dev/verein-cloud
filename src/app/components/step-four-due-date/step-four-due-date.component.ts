@@ -109,12 +109,10 @@ import { MatSelectModule } from '@angular/material/select';
                     </mat-form-field>
                 </div>
 
+                <!-- relative to start -->
                 <div
                     class="conditional-content w-100"
-                    *ngIf="
-                        selectedValue === 'relative-to-start' ||
-                        selectedValue === 'relative-to-end'
-                    "
+                    *ngIf="selectedValue === 'relative-to-start'"
                 >
                     <p class="form-label">Interval</p>
                     <mat-form-field class="w-100 bg-white font-rubik">
@@ -139,6 +137,41 @@ import { MatSelectModule } from '@angular/material/select';
                             >
                             <mat-option value="after-the-start-current-interval"
                                 >After the start of the current
+                                interval</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!-- relative to end -->
+                <div
+                    class="conditional-content w-100"
+                    *ngIf="selectedValue === 'relative-to-end'"
+                >
+                    <p class="form-label">Interval</p>
+                    <mat-form-field class="w-100 bg-white font-rubik">
+                        <mat-label
+                            class="font-rubik d-flex gap-2 align-items-center"
+                        >
+                            <img
+                                [src]="calendarIcon"
+                                alt="Calendar Icon"
+                                class=""
+                            />
+                            Choose an option</mat-label
+                        >
+                        <mat-select
+                            [(ngModel)]="selectedInterval"
+                            (selectionChange)="onSelectionChange()"
+                        >
+                            <mat-option
+                                value="Before the end of the current interval"
+                                >Before the end of the current
+                                interval</mat-option
+                            >
+                            <mat-option
+                                value="After the end of the current interval"
+                                >After the end of the current
                                 interval</mat-option
                             >
                         </mat-select>
