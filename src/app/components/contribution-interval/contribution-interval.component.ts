@@ -165,9 +165,11 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-pra-wrap mb-0">
                                             <p class="tab-pra mb-0">
                                                 Payment term:
+                                                {{ paymentTermInput }}
                                             </p>
                                             <p class="tab-pra mb-0">
                                                 Prorata calculation:
+                                                {{ prorataCalculationInput }}
                                             </p>
                                         </div>
                                     </div>
@@ -336,11 +338,15 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
     // Subscriptions collection for cleanup
     private subscriptions: Subscription[] = [];
 
-    // Properties to store input values
+    // Properties to store input values (existing)
     contributionIdInput = '';
     designationInput = '';
     contributionTypeInput = '';
     departmentTypeInput = '';
+
+    // NEW: Properties to store payment terms values
+    paymentTermInput = '';
+    prorataCalculationInput = '';
 
     // Create a FormControl for radio button group
     selectedIntervalControl = this._formBuilder.control('start');
@@ -361,7 +367,7 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
             })
         );
 
-        // Subscribe to form data changes from the service
+        // Subscribe to form data changes from the service (existing)
         this.subscriptions.push(
             this.tabService.contributionId$.subscribe((id) => {
                 console.log('Got new contribution ID:', id);
@@ -394,12 +400,34 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
             })
         );
 
-        // Load any existing form data from the service
+        // NEW: Subscribe to payment terms data changes
+        this.subscriptions.push(
+            this.tabService.paymentTerm$.subscribe((paymentTerm) => {
+                console.log('Got new payment term:', paymentTerm);
+                this.paymentTermInput = paymentTerm;
+                this._cdr.markForCheck(); // Important for OnPush
+            })
+        );
+
+        this.subscriptions.push(
+            this.tabService.prorataCalculation$.subscribe((prorataCalculation) => {
+                console.log('Got new prorata calculation:', prorataCalculation);
+                this.prorataCalculationInput = prorataCalculation;
+                this._cdr.markForCheck(); // Important for OnPush
+            })
+        );
+
+        // Load any existing form data from the service (existing)
         const currentData = this.tabService.getCurrentFormData();
         if (currentData.id) this.contributionIdInput = currentData.id;
         if (currentData.designation) this.designationInput = currentData.designation;
         if (currentData.type) this.contributionTypeInput = currentData.type;
         if (currentData.departmentsType) this.departmentTypeInput = currentData.departmentsType;
+
+        // NEW: Load any existing payment terms data from the service
+        const currentPaymentTermsData = this.tabService.getCurrentPaymentTermsData();
+        if (currentPaymentTermsData.paymentTerm) this.paymentTermInput = currentPaymentTermsData.paymentTerm;
+        if (currentPaymentTermsData.prorataCalculation) this.prorataCalculationInput = currentPaymentTermsData.prorataCalculation;
 
         // Add event listener for Bootstrap tab events if Bootstrap is loaded
         this.setupBootstrapTabListeners();
@@ -473,7 +501,7 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
         }
     }
 
-    // Method to handle the form saved event
+    // Method to handle the form saved event (existing)
     onFormSaved(formData: {
         id: string;
         designation: string;

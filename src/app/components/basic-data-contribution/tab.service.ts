@@ -33,6 +33,13 @@ export class TabService {
     private departmentsTypeSource = new BehaviorSubject<string>('');
     departmentsType$ = this.departmentsTypeSource.asObservable();
 
+    // NEW: Adding payment terms data behavior subjects
+    private paymentTermSource = new BehaviorSubject<string>('');
+    paymentTerm$ = this.paymentTermSource.asObservable();
+
+    private prorataCalculationSource = new BehaviorSubject<string>('');
+    prorataCalculation$ = this.prorataCalculationSource.asObservable();
+
     constructor() {}
 
     // Set the active tab by index
@@ -99,7 +106,7 @@ export class TabService {
         }
     }
 
-    // Methods to update form data (new methods)
+    // Methods to update form data (existing methods)
     updateContributionId(id: string) {
         console.log('TabService: Updating contribution ID to', id);
         this.contributionIdSource.next(id);
@@ -123,7 +130,18 @@ export class TabService {
         this.departmentsTypeSource.next(departmentsType);
     }
 
-    // Method to update all form data at once
+    // NEW: Methods to update payment terms data
+    updatePaymentTerm(paymentTerm: string) {
+        console.log('TabService: Updating payment term to', paymentTerm);
+        this.paymentTermSource.next(paymentTerm);
+    }
+
+    updateProrataCalculation(prorataCalculation: string) {
+        console.log('TabService: Updating prorata calculation to', prorataCalculation);
+        this.prorataCalculationSource.next(prorataCalculation);
+    }
+
+    // Method to update all form data at once (updated)
     updateFormData(formData: {
         id: string;
         designation: string;
@@ -137,13 +155,31 @@ export class TabService {
         this.departmentsTypeSource.next(formData.departmentsType);
     }
 
-    // Method to get current form data values
+    // NEW: Method to update payment terms data
+    updatePaymentTermsData(paymentTermsData: {
+        paymentTerm: string;
+        prorataCalculation: string;
+    }) {
+        console.log('TabService: Updating payment terms data:', paymentTermsData);
+        this.paymentTermSource.next(paymentTermsData.paymentTerm);
+        this.prorataCalculationSource.next(paymentTermsData.prorataCalculation);
+    }
+
+    // Method to get current form data values (updated)
     getCurrentFormData() {
         return {
             id: this.contributionIdSource.getValue(),
             designation: this.designationSource.getValue(),
             type: this.contributionTypeSource.getValue(),
             departmentsType: this.departmentsTypeSource.getValue(),
+        };
+    }
+
+    // NEW: Method to get current payment terms data values
+    getCurrentPaymentTermsData() {
+        return {
+            paymentTerm: this.paymentTermSource.getValue(),
+            prorataCalculation: this.prorataCalculationSource.getValue(),
         };
     }
 }

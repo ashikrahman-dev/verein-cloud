@@ -382,9 +382,41 @@ export class PaymentTermsCalculationComponent {
         return this.paymentDeadlineControl.valid;
     }
 
+    // Helper method to format calculation method for display
+    formatCalculationMethod(value: string): string {
+        switch (value) {
+            case 'no-prorated-calculation':
+                return 'No Prorated Calculation';
+            case 'monthly-prorated-calculation':
+                return 'Monthly Prorated Calculation';
+            case 'daily-prorated-calculation':
+                return 'Daily Prorated Calculation';
+            default:
+                return value;
+        }
+    }
+
     saveForm() {
         if (this.step2FormGroup.valid && this.step3FormGroup.valid) {
-            // Combine all form data
+            // Get form values
+            const paymentDeadline =
+                this.step2FormGroup.get('paymentDeadline')?.value;
+            const calculationMethod =
+                this.step3FormGroup.get('calculationMethod')?.value;
+
+            // Format the values for display in the parent component
+            const paymentTermDisplay = `${paymentDeadline} days`;
+            const prorataCalculationDisplay = this.formatCalculationMethod(
+                calculationMethod || ''
+            );
+
+            // Update the TabService with the payment terms data
+            this.tabService.updatePaymentTermsData({
+                paymentTerm: paymentTermDisplay,
+                prorataCalculation: prorataCalculationDisplay,
+            });
+
+            // Combine all form data for logging/API calls
             const formData = {
                 ...this.step1FormGroup.value,
                 ...this.step2FormGroup.value,
@@ -392,10 +424,15 @@ export class PaymentTermsCalculationComponent {
             };
 
             console.log('Form submitted successfully:', formData);
+            console.log('Payment terms data sent to service:', {
+                paymentTerm: paymentTermDisplay,
+                prorataCalculation: prorataCalculationDisplay,
+            });
+
             // Add your API call or other logic here
 
             // Show success message
-            alert('Payment terms saved successfully!');
+            // alert('Payment terms saved successfully!');
 
             // Navigate to the next tab (calculation configuration tab)
             this.navigateToNextTab();
