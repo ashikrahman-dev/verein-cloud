@@ -65,7 +65,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                                         />
                                     </svg>
                                 </span>
-                                Settings
+                                Settings 
                             </button>
                             <!-- Notification Button -->
                             <!-- Notification Button -->
