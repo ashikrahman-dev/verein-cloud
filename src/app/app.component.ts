@@ -49,7 +49,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                         <div
                             class="w-100 d-flex align-items-center justify-content-end gap-2"
                         >
-                            <!-- Notification Button -->
+                            <!-- Settings Button -->
                             <button class="font-rubik border-0 header-btn">
                                 <span class="header-btn-icon">
                                     <svg
@@ -67,7 +67,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                                 </span>
                                 Settings 
                             </button>
-                            <!-- Notification Button -->
+                            <!-- Settings Button -->
                             <!-- Notification Button -->
                             <button class="font-rubik border-0 header-btn">
                                 <span class="header-btn-icon">
