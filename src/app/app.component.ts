@@ -32,9 +32,6 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
 
             <mat-sidenav-content class="content font-rubik">
                 <mat-toolbar class="top-bar-area">
-                    <!-- <button mat-icon-button>
-            <mat-icon>menu</mat-icon>
-          </button> -->
                     <div
                         class="top-bar-wrapper-area w-100 d-flex justify-space-between"
                     >
@@ -49,6 +46,18 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                         <div
                             class="w-100 d-flex align-items-center justify-content-end gap-2"
                         >
+                            <!-- Language switch btn -->
+                            <select
+                                class="form-select languageSelect"
+                                aria-label="Default select example"
+                            >
+                                <option selected value="en">en-US</option>
+                                <option value="de">de-DE</option>
+                                <option value="fr">fr-FR</option>
+                                <option value="it">it-IT</option>
+                                <option value="tr">tr-TR</option>
+                            </select>
+                            <!-- Language switch btn -->
                             <!-- Settings Button -->
                             <button class="font-rubik border-0 header-btn">
                                 <span class="header-btn-icon">
@@ -65,7 +74,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                                         />
                                     </svg>
                                 </span>
-                                Settings 
+                                Settings
                             </button>
                             <!-- Settings Button -->
                             <!-- Notification Button -->
@@ -174,6 +183,12 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                 font-weight: 700;
                 line-height: 1.41;
                 color: #000;
+            }
+
+            .languageSelect {
+                max-width: 92px;
+                padding-right: 2px !important;
+                --bs-form-select-bg-img: none !important;
             }
         `,
     ],
