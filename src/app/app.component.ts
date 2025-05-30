@@ -138,13 +138,18 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
     styles: [
         `
             .languageSelect {
-                background: #f2f2f2;
+                background: url('data:image/svg+xml,<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.6199 5.2207L7.81655 9.02404C7.36738 9.4732 6.63238 9.4732 6.18322 9.02404L2.37988 5.2207" stroke="%23292D32" stroke-width="0.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>'),
+                    #f2f2f2;
+                background-repeat: no-repeat;
+                background-position: right 12px center;
                 border-radius: 999px;
                 color: #5a5a5a;
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 156%; /* 21.84px */
                 font-family: 'Rubik', sans-serif;
+                position: relative;
+
                 &:focus {
                     outline: none;
                     box-shadow: none;
