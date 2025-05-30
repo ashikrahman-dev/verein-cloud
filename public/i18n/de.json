@@ -1,0 +1,19 @@
+{
+    "basic_data": {
+        "title": "Grunddaten"
+    },
+    "interval_due_date": {
+        "title": "Intervall und Fälligkeitsdatum"
+    },
+    "payment_terms_calculation": {
+        "title": "Zahlungsbedingungen und Berechnung"
+    },
+    "calculation": {
+        "title": "Grundbetrag, Steuer, Konten und Kostenstellen"
+    },
+    "finalization_step": {
+        "title": "Finalisierungsschritt"
+    },
+    "main_title": "Willkommen bei der Anwendung",
+    "description": "Dies ist eine Beispielanwendung zur Demonstration der Internationalisierung."
+}

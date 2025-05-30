@@ -1,14 +1,25 @@
 import { CdkStepperModule } from '@angular/cdk/stepper';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
+import {
+    TranslateModule,
+    TranslatePipe,
+    TranslateService,
+} from '@ngx-translate/core';
+import TranslateDE from '../../public/i18n/de.json';
+import TranslateEN from '../../public/i18n/en.json';
 import { CustomSidenavComponent } from './components/custom-sidenav/custom-sidenav.component';
+
+// <--- standalone only
 
 @Component({
     selector: 'app-root',
+    standalone: true,
     imports: [
         RouterOutlet,
         MatToolbarModule,
@@ -17,6 +28,10 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
         MatSidenavModule,
         CustomSidenavComponent,
         CdkStepperModule,
+        TranslateModule,
+
+        MatMenuModule,
+        TranslatePipe,
     ],
     template: `
         <!-- Sidebar -->
@@ -36,7 +51,10 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                         class="top-bar-wrapper-area w-100 d-flex justify-space-between"
                     >
                         <div class="top-bar-left w-100">
-                            <h3 class="font-rubik">Contributions</h3>
+                            <h3 class="font-rubik">
+                                {{ 'main_title' | translate }}
+                            </h3>
+
                             <input
                                 type="search"
                                 placeholder="Search anything here"
@@ -50,13 +68,19 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                             <select
                                 class="form-select languageSelect"
                                 aria-label="Default select example"
+                                (change)="SwitchLang($event)"
                             >
-                                <option selected value="en">en-US</option>
-                                <option value="de">de-DE</option>
-                                <option value="fr">fr-FR</option>
-                                <option value="it">it-IT</option>
-                                <option value="tr">tr-TR</option>
+                                <option [selected]="lang === 'en'" value="en">
+                                    en-US
+                                </option>
+                                <option [selected]="lang === 'de'" value="de">
+                                    de-DE
+                                </option>
+                                <option [selected]="lang === 'fr'" value="fr">
+                                    fr-FR
+                                </option>
                             </select>
+
                             <!-- Language switch btn -->
                             <!-- Settings Button -->
                             <button class="font-rubik border-0 header-btn">
@@ -193,8 +217,52 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
         `,
     ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+    lang: string = '';
     title = 'verein cloud';
 
     userImage = 'assets/images/user-image.png';
+
+    ngOnInit(): void {
+        // Get saved language from localStorage, default to 'en'
+        this.lang = localStorage.getItem('lang') || 'en';
+
+        // Apply the saved language to the translate service
+        this.translate.use(this.lang);
+        this.currentLang = this.lang;
+    }
+
+    // Replace your current SwitchLang method with this:
+    SwitchLang(event: any) {
+        const selectedLanguage = event.target.value;
+
+        // Save to localStorage
+        localStorage.setItem('lang', selectedLanguage);
+
+        // Actually change the language using translate service
+        this.translate.use(selectedLanguage);
+        this.currentLang = selectedLanguage;
+
+        // Update the lang property to reflect current selection
+        this.lang = selectedLanguage;
+    }
+
+    // constructor(private translate: TranslateService) {
+    //     this.translate.addLangs(['de', 'en']);
+    //     this.translate.setDefaultLang('en');
+    //     this.translate.use('en');
+    // }
+
+    public currentLang = 'en';
+
+    constructor(private translate: TranslateService) {
+        this.translate.setTranslation('en', TranslateEN);
+        this.translate.setTranslation('de', TranslateDE);
+        this.translate.setDefaultLang('de');
+    }
+
+    // public changeLang(lang: string): void {
+    //     this.translate.use(lang);
+    //     this.currentLang = lang === 'en' ? 'en' : 'de';
+    // }
 }

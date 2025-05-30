@@ -19,6 +19,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Subscription } from 'rxjs';
+// Add only the necessary translation imports
+import {
+    TranslateModule,
+    TranslatePipe,
+    TranslateService,
+} from '@ngx-translate/core';
+import TranslateDE from '../../../../public/i18n/de.json';
+import TranslateEN from '../../../../public/i18n/en.json';
+
 import { BasicDataContributionComponent } from '../basic-data-contribution/basic-data-contribution.component';
 import { TabService } from '../basic-data-contribution/tab.service';
 import { CalculationConfigurationComponent } from '../calculation-configuration/calculation-configuration.component';
@@ -42,6 +51,9 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
         MatInputModule,
         MatDatepickerModule,
         MatIconModule,
+        // Add translation imports
+        TranslateModule,
+        TranslatePipe,
         BasicDataContributionComponent,
         PaymentTermsCalculationComponent,
         FinalizationStepComponent,
@@ -77,7 +89,10 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                     <div class="tab-link">
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
-                                                Basic Data
+                                                {{
+                                                    'basic_data.title'
+                                                        | translate
+                                                }}
                                             </p>
                                             <div class="check"></div>
                                         </div>
@@ -116,12 +131,15 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                 (click)="
                                     tabService.switchToTab('pills-contact-tab')
                                 "
-                            > 
+                            >
                                 <div class="tab-a" data-id="tab3">
                                     <div class="tab-link">
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
-                                                Interval and Due Date
+                                                {{
+                                                    'interval_due_date.title'
+                                                        | translate
+                                                }}
                                             </p>
                                             <div class="check"></div>
                                         </div>
@@ -158,7 +176,10 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                     <div class="tab-link">
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
-                                                Payment Terms and Calculation
+                                                {{
+                                                    'payment_terms_calculation.title'
+                                                        | translate
+                                                }}
                                             </p>
                                             <div class="check"></div>
                                         </div>
@@ -196,7 +217,10 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                     <div class="tab-link">
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
-                                                Create new
+                                                {{
+                                                    'calculation.title'
+                                                        | translate
+                                                }}
                                             </p>
                                             <div class="check"></div>
                                         </div>
@@ -242,7 +266,10 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                     <div class="tab-link">
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
-                                                Finalization Step
+                                                {{
+                                                    'finalization_step.title'
+                                                        | translate
+                                                }}
                                             </p>
                                             <div class="check"></div>
                                         </div>
@@ -351,9 +378,21 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
     // Create a FormControl for radio button group
     selectedIntervalControl = this._formBuilder.control('start');
 
-    // Inject TabService and make it public to use in template
-    constructor(public tabService: TabService) {
+    // Inject TabService and TranslateService
+    constructor(
+        public tabService: TabService,
+        private translate: TranslateService
+    ) {
         console.log('ContributionIntervalComponent: constructor');
+
+        // Set up translations the same way as AppComponent
+        this.translate.setTranslation('en', TranslateEN);
+        this.translate.setTranslation('de', TranslateDE);
+        this.translate.setDefaultLang('de');
+
+        // Get the current language from localStorage (if available) or use default
+        const savedLang = localStorage.getItem('lang') || 'en';
+        this.translate.use(savedLang);
     }
 
     ngOnInit() {
@@ -410,24 +449,35 @@ export class ContributionIntervalComponent implements OnInit, OnDestroy {
         );
 
         this.subscriptions.push(
-            this.tabService.prorataCalculation$.subscribe((prorataCalculation) => {
-                console.log('Got new prorata calculation:', prorataCalculation);
-                this.prorataCalculationInput = prorataCalculation;
-                this._cdr.markForCheck(); // Important for OnPush
-            })
+            this.tabService.prorataCalculation$.subscribe(
+                (prorataCalculation) => {
+                    console.log(
+                        'Got new prorata calculation:',
+                        prorataCalculation
+                    );
+                    this.prorataCalculationInput = prorataCalculation;
+                    this._cdr.markForCheck(); // Important for OnPush
+                }
+            )
         );
 
         // Load any existing form data from the service (existing)
         const currentData = this.tabService.getCurrentFormData();
         if (currentData.id) this.contributionIdInput = currentData.id;
-        if (currentData.designation) this.designationInput = currentData.designation;
+        if (currentData.designation)
+            this.designationInput = currentData.designation;
         if (currentData.type) this.contributionTypeInput = currentData.type;
-        if (currentData.departmentsType) this.departmentTypeInput = currentData.departmentsType;
+        if (currentData.departmentsType)
+            this.departmentTypeInput = currentData.departmentsType;
 
         // NEW: Load any existing payment terms data from the service
-        const currentPaymentTermsData = this.tabService.getCurrentPaymentTermsData();
-        if (currentPaymentTermsData.paymentTerm) this.paymentTermInput = currentPaymentTermsData.paymentTerm;
-        if (currentPaymentTermsData.prorataCalculation) this.prorataCalculationInput = currentPaymentTermsData.prorataCalculation;
+        const currentPaymentTermsData =
+            this.tabService.getCurrentPaymentTermsData();
+        if (currentPaymentTermsData.paymentTerm)
+            this.paymentTermInput = currentPaymentTermsData.paymentTerm;
+        if (currentPaymentTermsData.prorataCalculation)
+            this.prorataCalculationInput =
+                currentPaymentTermsData.prorataCalculation;
 
         // Add event listener for Bootstrap tab events if Bootstrap is loaded
         this.setupBootstrapTabListeners();

@@ -1,0 +1,19 @@
+{
+    "basic_data": {
+        "title": "Basic Data"
+    },
+    "interval_due_date": {
+        "title": "Interval Due Date"
+    },
+    "payment_terms_calculation": {
+        "title": "Payment terms and calculation"
+    },
+    "calculation": {
+        "title": "Calculation"
+    },
+    "finalization_step": {
+        "title": "Finalization Step"
+    },
+    "main_title": "Welcome to the Application",
+    "description": "This is a sample application to demonstrate internationalization."
+}
