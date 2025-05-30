@@ -68,13 +68,10 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                                 (change)="SwitchLang($event)"
                             >
                                 <option [selected]="lang === 'en'" value="en">
-                                    en-US
+                                    EN
                                 </option>
                                 <option [selected]="lang === 'de'" value="de">
-                                    de-DE
-                                </option>
-                                <option [selected]="lang === 'fr'" value="fr">
-                                    fr-FR
+                                    DE
                                 </option>
                             </select>
 
@@ -140,6 +137,24 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
     `,
     styles: [
         `
+            .languageSelect {
+                background: #f2f2f2;
+                border-radius: 999px;
+                color: #5a5a5a;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 156%; /* 21.84px */
+                font-family: 'Rubik', sans-serif;
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                    border: none;
+                }
+                &:focus-within {
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
             .header-btn {
                 color: var(--Dark-Colors-Dark-2, #5a5a5a);
                 font-size: 14px;
