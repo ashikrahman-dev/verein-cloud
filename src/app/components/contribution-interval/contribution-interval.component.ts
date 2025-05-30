@@ -90,7 +90,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
                                                 {{
-                                                    'basic_data.title'
+                                                    'basic_data.tab_title'
                                                         | translate
                                                 }}
                                             </p>
@@ -137,7 +137,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
                                                 {{
-                                                    'interval_due_date.title'
+                                                    'interval_due_date.tab_title'
                                                         | translate
                                                 }}
                                             </p>
@@ -177,7 +177,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
                                                 {{
-                                                    'payment_terms_calculation.title'
+                                                    'payment_terms_calculation.tab_title'
                                                         | translate
                                                 }}
                                             </p>
@@ -218,7 +218,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
                                                 {{
-                                                    'calculation.title'
+                                                    'calculation.tab_title'
                                                         | translate
                                                 }}
                                             </p>
@@ -267,7 +267,7 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         <div class="tab-title">
                                             <p class="tab-title-pra">
                                                 {{
-                                                    'finalization_step.title'
+                                                    'finalization_step.tab_title'
                                                         | translate
                                                 }}
                                             </p>

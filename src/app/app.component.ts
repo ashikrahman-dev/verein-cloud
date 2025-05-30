@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import {
     TranslateModule,
-    TranslatePipe,
+    // TranslatePipe,
     TranslateService,
 } from '@ngx-translate/core';
 import TranslateDE from '../../public/i18n/de.json';
@@ -31,7 +31,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
         TranslateModule,
 
         MatMenuModule,
-        TranslatePipe,
+        // TranslatePipe,
     ],
     template: `
         <!-- Sidebar -->
@@ -51,10 +51,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                         class="top-bar-wrapper-area w-100 d-flex justify-space-between"
                     >
                         <div class="top-bar-left w-100">
-                            <h3 class="font-rubik">
-                                {{ 'main_title' | translate }}
-                            </h3>
-
+                            <h3 class="font-rubik">Create new posts</h3>
                             <input
                                 type="search"
                                 placeholder="Search anything here"

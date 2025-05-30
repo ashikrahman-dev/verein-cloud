@@ -1,18 +1,45 @@
 {
+    "table": {
+        "designation": "Designation",
+        "contribution_type": "Contribution Type",
+        "basic_amount": "Basic Amount",
+        "vat": "VAT",
+        "booking_account": "Booking Account",
+        "cost_center": "Cost Center",
+        "departments": "Departments",
+        "members": "Members",
+        "add_new": "Add New"
+    },
     "basic_data": {
-        "title": "Basic Data"
+        "tab_title": "Basic Data",
+        "title": "Create new post",
+        "contribution_id": "Contribution ID",
+        "designation": "Designation",
+        "type_of_contribution": "Type of contribution",
+        "departments": "Departments",
+        "normal_contribution": "Normal contribution",
+        "age_dependent_contribution": "Age-dependent contribution",
+        "family_contribution": "Family contribution",
+        "time_limited_contribution": "Time-limited contribution",
+        "duration_time": "Duration Time",
+        "days": "Days",
+        "weeks": "Weeks",
+        "months": "Months",
+        "years": "Years",
+        "save_button": "Save",
+        "back_button": "Back"
     },
     "interval_due_date": {
-        "title": "Interval Due Date"
+        "tab_title": "Interval Due Date"
     },
     "payment_terms_calculation": {
-        "title": "Payment terms and calculation"
+        "tab_title": "Payment terms and calculation"
     },
     "calculation": {
-        "title": "Calculation"
+        "tab_title": "Calculation"
     },
     "finalization_step": {
-        "title": "Finalization Step"
+        "tab_title": "Finalization Step"
     },
     "main_title": "Welcome to the Application",
     "description": "This is a sample application to demonstrate internationalization."

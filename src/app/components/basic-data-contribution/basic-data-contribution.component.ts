@@ -55,6 +55,9 @@ import { TabService } from './tab.service';
         MatInputModule,
         MatButtonModule,
         MatIconModule,
+        // Add translation imports
+        TranslateModule,
+        TranslatePipe,
     ],
     template: `
         <mat-stepper
@@ -69,7 +72,7 @@ import { TabService } from './tab.service';
             <mat-step [stepControl]="firstFormGroup" label="Step 1">
                 <div class="basic-data-contribution">
                     <h4 class="heading pb-28 d-flex gap-2 align-items-center">
-                        Create new posts
+                        {{ 'basic_data.title' | translate }}
                         <img
                             [src]="headingTooltipIcon"
                             alt="Calendar Icon"
@@ -79,7 +82,9 @@ import { TabService } from './tab.service';
                     <div class="basic-data-contribution-form">
                         <!-- Contribution ID -->
                         <div>
-                            <p class="form-label">Contribution ID</p>
+                            <p class="form-label">
+                                {{ 'basic_data.contribution_id' | translate }}
+                            </p>
                             <input
                                 [(ngModel)]="contribution_id"
                                 placeholder="MB0001"
@@ -112,10 +117,14 @@ import { TabService } from './tab.service';
                         </div>
                         <!-- Designation  -->
                         <div>
-                            <p class="form-label">Designation</p>
+                            <p class="form-label">
+                                {{ 'basic_data.designation' | translate }}
+                            </p>
                             <input
                                 [(ngModel)]="designation_id"
-                                placeholder="Designation"
+                                placeholder="{{
+                                    'basic_data.designation' | translate
+                                }}"
                                 [formControl]="designationIdControl"
                                 class="form-input-field font-rubik"
                                 (input)="validateDesignationId($event)"
@@ -144,7 +153,12 @@ import { TabService } from './tab.service';
                         </div>
                         <!-- Type of contribution  -->
                         <div>
-                            <p class="form-label">Type of contribution</p>
+                            <p class="form-label">
+                                {{
+                                    'basic_data.type_of_contribution'
+                                        | translate
+                                }}
+                            </p>
                             <mat-form-field
                                 class="w-100 bg-white font-rubik"
                                 hideRequiredMarker
@@ -161,25 +175,39 @@ import { TabService } from './tab.service';
                                     (selectionChange)="onSelectionChange()"
                                 >
                                     <mat-option value="Normal Contribution">
-                                        Normal contribution
+                                        {{
+                                            'basic_data.normal_contribution'
+                                                | translate
+                                        }}
                                     </mat-option>
                                     <mat-option
                                         value="Age Dependent Contribution"
                                     >
-                                        Age-dependent contribution
+                                        {{
+                                            'basic_data.age_dependent_contribution'
+                                                | translate
+                                        }}
                                     </mat-option>
                                     <mat-option value="Family Contribution">
-                                        Family contribution
+                                        {{
+                                            'basic_data.family_contribution'
+                                                | translate
+                                        }}
                                     </mat-option>
                                     <mat-option value="Limited In Time">
-                                        Time-limited contribution
+                                        {{
+                                            'basic_data.time_limited_contribution'
+                                                | translate
+                                        }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <!-- Departments  -->
                         <div>
-                            <p class="form-label">Departments</p>
+                            <p class="form-label">
+                                {{ 'basic_data.departments' | translate }}
+                            </p>
                             <mat-form-field
                                 class="w-100 bg-white font-rubik"
                                 hideRequiredMarker
@@ -236,7 +264,9 @@ import { TabService } from './tab.service';
                                 selectedContributionType === 'Limited In Time'
                             "
                         >
-                            <p class="form-label">Duration Time</p>
+                            <p class="form-label">
+                                {{ 'basic_data.duration_time' | translate }}
+                            </p>
                             <mat-form-field
                                 class="w-100 bg-white font-rubik"
                                 hideRequiredMarker
@@ -256,16 +286,16 @@ import { TabService } from './tab.service';
                                     class="font-rubik"
                                 >
                                     <mat-option value="duration-month-1">
-                                        Days
+                                        {{ 'basic_data.days' | translate }}
                                     </mat-option>
                                     <mat-option value="duration-month-2">
-                                        Weeks
+                                        {{ 'basic_data.weeks' | translate }}
                                     </mat-option>
                                     <mat-option value="duration-month-3">
-                                        Months
+                                        {{ 'basic_data.months' | translate }}
                                     </mat-option>
                                     <mat-option value="duration-month-4">
-                                        Years
+                                        {{ 'basic_data.years' | translate }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -307,14 +337,14 @@ import { TabService } from './tab.service';
                                 "
                                 (click)="saveForm()"
                             >
-                                Save
+                                {{ 'basic_data.save_button' | translate }}
                             </button>
                             <button
                                 type="button"
                                 class="step-button"
                                 matStepperPrevious
                             >
-                                Back
+                                {{ 'basic_data.back_button' | translate }}
                             </button>
                         </div>
                     </div>
@@ -471,12 +501,22 @@ export class BasicDataContributionComponent {
 
     private _formBuilder = inject(FormBuilder);
 
-    // Inject our TabService
+    // Inject our TabService and TranslateService
     constructor(
         private tabService: TabService,
+        private translate: TranslateService,
         @Inject(DOCUMENT) private document: Document
     ) {
         console.log('BasicDataContributionComponent: constructor');
+
+        // Set up translations the same way as ContributionIntervalComponent
+        this.translate.setTranslation('en', TranslateEN);
+        this.translate.setTranslation('de', TranslateDE);
+        this.translate.setDefaultLang('de');
+
+        // Get the current language from localStorage (if available) or use default
+        const savedLang = localStorage.getItem('lang') || 'en';
+        this.translate.use(savedLang);
     }
 
     // Create form groups for the stepper

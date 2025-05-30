@@ -1,18 +1,45 @@
 {
+    "table": {
+        "designation": "Name",
+        "contribution_type": "Beitragsart",
+        "basic_amount": "Betrag",
+        "vat": "Steuern",
+        "booking_account": "Buchungskonto",
+        "cost_center": "Kostenstelle",
+        "departments": "Abteilung",
+        "members": "Mitglieder",
+        "add_new": "Hinzufügen"
+    },
     "basic_data": {
-        "title": "Grunddaten"
+        "tab_title": "Grunddaten",
+        "title": "Neuen Beitrag erstellen",
+        "contribution_id": "Beitrags ID",
+        "designation": "Name",
+        "type_of_contribution": "Beitragsart",
+        "departments": "Abteilung",
+        "normal_contribution": "Normaler Beitrag",
+        "age_dependent_contribution": "Altersabhängiger Beitrag",
+        "family_contribution": "Familien Beitrag",
+        "time_limited_contribution": "Zeitlich begrenzter Beitrag",
+        "duration_time": "Dauer in",
+        "days": "Tag(e)",
+        "weeks": "Woche(n)",
+        "months": "Monat(e)",
+        "years": "Jahr(e)",
+        "save_button": "Speichern",
+        "back_button": "Zurück"
     },
     "interval_due_date": {
-        "title": "Intervall und Fälligkeitsdatum"
+        "tab_title": "Intervall und Fälligkeitsdatum"
     },
     "payment_terms_calculation": {
-        "title": "Zahlungsbedingungen und Berechnung"
+        "tab_title": "Zahlungsbedingungen und Berechnung"
     },
     "calculation": {
-        "title": "Grundbetrag, Steuer, Konten und Kostenstellen"
+        "tab_title": "Grundbetrag, Steuer, Konten und Kostenstellen"
     },
     "finalization_step": {
-        "title": "Finalisierungsschritt"
+        "tab_title": "Finalisierungsschritt"
     },
     "main_title": "Willkommen bei der Anwendung",
     "description": "Dies ist eine Beispielanwendung zur Demonstration der Internationalisierung."
