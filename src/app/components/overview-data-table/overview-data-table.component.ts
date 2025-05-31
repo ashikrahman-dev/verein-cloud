@@ -434,7 +434,7 @@ export class OverviewDataTableComponent {
         this.translate.setDefaultLang('de');
 
         // Get the current language from localStorage (if available) or use default
-        const savedLang = localStorage.getItem('lang') || 'en';
+        const savedLang = localStorage.getItem('lang') || 'de';
         this.translate.use(savedLang);
     }
 
