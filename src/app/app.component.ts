@@ -270,7 +270,7 @@ export class AppComponent implements OnInit {
     //     this.translate.use('en');
     // }
 
-    public currentLang = 'en';
+    public currentLang = 'de';
 
     constructor(private translate: TranslateService) {
         this.translate.setTranslation('en', TranslateEN);
