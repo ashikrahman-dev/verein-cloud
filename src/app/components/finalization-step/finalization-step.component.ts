@@ -172,11 +172,11 @@ import { MatStepperModule } from '@angular/material/stepper';
                                         <mat-form-field
                                             class="w-100 bg-white font-rubik"
                                         >
-                                            <mat-label
+                                            <!-- <mat-label
                                                 class="font-rubik d-flex gap-2 align-items-center"
                                             >
                                                 Select Field
-                                            </mat-label>
+                                            </mat-label> -->
                                             <mat-select
                                                 class="font-rubik"
                                                 formControlName="calculationMethod"
