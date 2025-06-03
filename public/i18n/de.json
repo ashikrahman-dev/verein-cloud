@@ -30,16 +30,73 @@
         "back_button": "Zurück"
     },
     "interval_due_date": {
-        "tab_title": "Intervall und Fälligkeitsdatum"
+        "tab_title": "Intervall und Fälligkeitsdatum",
+        "contribution_interval": "Beitrags Intervall",
+        "one_time": "Einmalig",
+        "monthly": "Monatlich",
+        "quarterly": "Quartalsweise",
+        "semi_annually": "Halbjährlich",
+        "annually": "Jährlich",
+        "interval": "Intervall",
+        "predefined_date": "Vordefiniertes Datum",
+        "select_date": "Datum",
+        "due_date": "Fälligkeitsdatum",
+        "no_due_date": "Kein Fälligkeitsdatum – Fällig am ersten Tag des Intervalls",
+        "relative_to_start": "Relativ zum Start – Beispiel: „5 Tage vor oder nach dem Intervallbeginn“",
+        "relative_to_end": "Relativ zum Ende – Beispiel: „5 Tage vor oder nach dem Ende des Intervalls“",
+        "fixed_date": "Festes Datum – Wählen Sie ein bestimmtes Datum",
+        "choose_an_option": "Bitte wählen",
+        "days": "Tag(e)",
+        "weeks": "Woche(n)",
+        "months": "Monat(e)",
+        "quarters": "Quartal(e)",
+        "half_years": "Halbjahr(e)",
+        "years": "Jahr(e)",
+        "before_the_end": "Vor dem Ende des aktuellen Intervalls",
+        "after_the_end": "Nach dem Ende des aktuellen Intervalls",
+        "january": "Januar",
+        "february": "Februar",
+        "march": "März",
+        "april": "April",
+        "may": "Mai",
+        "june": "Juni",
+        "july": "Juli",
+        "august": "August",
+        "september": "September",
+        "october": "Oktober",
+        "november": "November",
+        "december": "Dezember"
     },
     "payment_terms_calculation": {
-        "tab_title": "Zahlungsbedingungen und Berechnung"
+        "tab_title": "Zahlungsbedingungen und Berechnung",
+        "defining_the_payment_deadline": "Zahlungsfrist festlegen",
+        "payment_deadline": "Zahlungsfrist",
+        "prorated_calculation": "Auswählen der anteiligen Berechnungsmethode",
+        "no_prorated_calculation": "Keine anteilige Berechnung",
+        "monthly_prorated_calculation": "Monatliche anteilige Berechnung",
+        "daily_prorated_calculation": "Tägliche anteilige Berechnung"
     },
     "calculation": {
-        "tab_title": "Grundbetrag, Steuer, Konten und Kostenstellen"
+        "tab_title": "Grundbetrag, Steuer, Konten und Kostenstellen",
+        "select_calculation_method": "Berechnungsmethode auswählen",
+        "fixed_value": "Fester Wert – Ein statischer Beitrag",
+        "free_field_value": "Freifeldwert – Der Beitrag wird anhand von Freifeldvariablen (z. B. Arbeitszeit, Nutzung, Mitgliedsstatus) bestimmt.",
+        "variable_value": "Variabler Wert – verwenden Sie Formeln, um Beiträge dynamisch zu berechnen",
+        "basic_amount": "Grundbetrag",
+        "tax": "Steuern ",
+        "result": "Ergebnis",
+        "free_field_name": "Freifeld",
+        "duration": "Anzahl",
+        "applying_conditional_logic": "Beitragslogik"
     },
     "finalization_step": {
         "tab_title": "Finalisierungsschritt"
+    },
+    "buttons": {
+        "save": "Save",
+        "back": "Zurück",
+        "procced": "Weiter",
+        "next": "Weiter"
     },
     "main_title": "Willkommen bei der Anwendung",
     "description": "Dies ist eine Beispielanwendung zur Demonstration der Internationalisierung."

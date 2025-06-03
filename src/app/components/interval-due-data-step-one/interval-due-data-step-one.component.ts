@@ -24,6 +24,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { StepFourDueDateComponent } from '../step-four-due-date/step-four-due-date.component';
 
+// Add only the necessary translation imports
+import {
+    TranslateModule,
+    TranslatePipe,
+    TranslateService,
+} from '@ngx-translate/core';
+import TranslateDE from '../../../../public/i18n/de.json';
+import TranslateEN from '../../../../public/i18n/en.json';
+
 import { FormControl } from '@angular/forms';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -90,6 +99,9 @@ export const MY_DATE_FORMATS = {
         MatDatepickerModule,
         MatCheckboxModule,
         StepFourDueDateComponent,
+
+        TranslateModule,
+        TranslatePipe,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
@@ -119,7 +131,7 @@ export const MY_DATE_FORMATS = {
                                     class="step-button fill"
                                     matStepperNext
                                 >
-                                    Procced
+                                    {{ 'buttons.procced' | translate }}
                                 </button>
                             </div>
                         </div>
@@ -133,7 +145,8 @@ export const MY_DATE_FORMATS = {
                     <div class="step">
                         <div class="tab-contents font-rubik">
                             <h3 class="fs-6 pb-3 mb-1">
-                                Proceeding to Contribution Interval and Due Date Settings
+                                Proceeding to Contribution Interval and Due Date
+                                Settings
                             </h3>
                             <h6 class="fs-14">
                                 Contribution Interval & Due Date
@@ -144,7 +157,10 @@ export const MY_DATE_FORMATS = {
                                 cycle.
                             </p>
                             <p class="fs-14">
-                                Selecting the Contribution Interval
+                                {{
+                                    'interval_due_date.contribution_interval'
+                                        | translate
+                                }}
                             </p>
                             <div>
                                 <mat-form-field
@@ -164,11 +180,36 @@ export const MY_DATE_FORMATS = {
                                         formControlName="selectedContributionType"
                                         class="font-rubik"
                                     >
-                                        <mat-option value="One-time">One-time</mat-option>
-                                        <mat-option value="Monthly">Monthly</mat-option>
-                                        <mat-option value="Quarterly">Quarterly</mat-option>
-                                        <mat-option value="Semi-Annually">Semi-Annually</mat-option>
-                                        <mat-option value="Annually">Annually</mat-option>
+                                        <mat-option value="One-time">
+                                            {{
+                                                'interval_due_date.one_time'
+                                                    | translate
+                                            }}
+                                        </mat-option>
+                                        <mat-option value="Monthly">
+                                            {{
+                                                'interval_due_date.monthly'
+                                                    | translate
+                                            }}
+                                        </mat-option>
+                                        <mat-option value="Quarterly">
+                                            {{
+                                                'interval_due_date.quarterly'
+                                                    | translate
+                                            }}
+                                        </mat-option>
+                                        <mat-option value="Semi-Annually">
+                                            {{
+                                                'interval_due_date.semi_annually'
+                                                    | translate
+                                            }}
+                                        </mat-option>
+                                        <mat-option value="Annually">
+                                            {{
+                                                'interval_due_date.annually'
+                                                    | translate
+                                            }}
+                                        </mat-option>
                                     </mat-select>
                                     <mat-error
                                         *ngIf="
@@ -191,14 +232,14 @@ export const MY_DATE_FORMATS = {
                                         class="step-button fill"
                                         matStepperNext
                                     >
-                                        Next
+                                        {{ 'buttons.next' | translate }}
                                     </button>
                                     <button
                                         type="button"
                                         class="step-button"
                                         matStepperPrevious
                                     >
-                                        Back
+                                        {{ 'buttons.back' | translate }}
                                     </button>
                                 </div>
                             </div>
@@ -239,7 +280,12 @@ export const MY_DATE_FORMATS = {
                                         class="w-100 check-box-item font-rubik"
                                         value="interval"
                                     >
-                                        <h6>Interval</h6>
+                                        <h6>
+                                            {{
+                                                'interval_due_date.interval'
+                                                    | translate
+                                            }}
+                                        </h6>
                                         <p>
                                             The period begins as soon as the
                                             member's contribution is activated
@@ -250,7 +296,12 @@ export const MY_DATE_FORMATS = {
                                         class="w-100 check-box-item font-rubik"
                                         value="predefined"
                                     >
-                                        <h6>Predefined Date</h6>
+                                        <h6>
+                                            {{
+                                                'interval_due_date.predefined_date'
+                                                    | translate
+                                            }}
+                                        </h6>
                                         <p>
                                             The period begins as soon as the
                                             member's contribution is activated
@@ -279,7 +330,12 @@ export const MY_DATE_FORMATS = {
                                 "
                                 class="selected-date-wrap interval-date-dropdown"
                             >
-                                <h6 class="fs-14 selected-date">Select Date</h6>
+                                <h6 class="fs-14 selected-date">
+                                    {{
+                                        'interval_due_date.select_date'
+                                            | translate
+                                    }}
+                                </h6>
                                 <mat-form-field
                                     class="example-full-width w-100 font-rubik"
                                     appearance="fill"
@@ -320,7 +376,7 @@ export const MY_DATE_FORMATS = {
                                             )?.value === 'predefined'
                                         "
                                     >
-                                        Please select a date 
+                                        Please select a date
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -334,14 +390,14 @@ export const MY_DATE_FORMATS = {
                                         class="step-button fill"
                                         matStepperNext
                                     >
-                                        Next
+                                        {{ 'buttons.next' | translate }}
                                     </button>
                                     <button
                                         type="button"
                                         class="step-button"
                                         matStepperPrevious
                                     >
-                                        Back
+                                        {{ 'buttons.back' | translate }}
                                     </button>
                                 </div>
                             </div>
@@ -376,14 +432,14 @@ export const MY_DATE_FORMATS = {
                                         class="step-button fill"
                                         (click)="saveSecondStepForm()"
                                     >
-                                        Save
+                                        {{ 'buttons.save' | translate }}
                                     </button>
                                     <button
                                         type="button"
                                         class="step-button"
                                         matStepperPrevious
                                     >
-                                        Back
+                                        {{ 'buttons.back' | translate }}
                                     </button>
                                 </div>
                             </div>
@@ -565,8 +621,18 @@ export class IntervalDueDataStepOneComponent {
     // Inject our TabService
     constructor(
         private tabService: TabService,
+        private translate: TranslateService,
         @Inject(DOCUMENT) private document: Document
-    ) {}
+    ) {
+        // Set up translations the same way as ContributionIntervalComponent
+        this.translate.setTranslation('en', TranslateEN);
+        this.translate.setTranslation('de', TranslateDE);
+        this.translate.setDefaultLang('de');
+
+        // Get the current language from localStorage (if available) or use default
+        const savedLang = localStorage.getItem('lang') || 'de';
+        this.translate.use(savedLang);
+    }
 
     saveSecondStepForm() {
         if (this.stepFourForm.valid) {

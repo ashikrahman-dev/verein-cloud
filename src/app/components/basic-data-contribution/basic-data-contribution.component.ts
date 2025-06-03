@@ -163,11 +163,11 @@ import { TabService } from './tab.service';
                                 class="w-100 bg-white font-rubik"
                                 hideRequiredMarker
                             >
-                                <mat-label
+                                <!-- <mat-label
                                     class="font-rubik d-flex gap-2 align-items-center"
                                 >
                                     {{ 'Normal contribution' }}
-                                </mat-label>
+                                </mat-label> -->
                                 <mat-select
                                     class="font-rubik"
                                     [(ngModel)]="selectedContributionType"
@@ -212,20 +212,18 @@ import { TabService } from './tab.service';
                                 class="w-100 bg-white font-rubik"
                                 hideRequiredMarker
                             >
-                                <mat-label
+                                <!-- <mat-label
                                     class="font-rubik d-flex gap-2 align-items-center"
                                 >
                                     {{ 'None' }}
-                                </mat-label>
+                                </mat-label> -->
                                 <mat-select
                                     [formControl]="departmentControl"
                                     [(ngModel)]="selectedDepartmentType"
                                     class="font-rubik"
                                     (selectionChange)="onDepartmentChange()"
                                 >
-                                    <mat-option value="Department none">
-                                        None
-                                    </mat-option>
+                                    <mat-option value="none"> None </mat-option>
                                     <mat-option value="Others value">
                                         Others value
                                     </mat-option>
@@ -322,7 +320,7 @@ import { TabService } from './tab.service';
                                         anzahlControl.invalid)
                                 "
                             >
-                                Next
+                                {{ 'buttons.next' | translate }}
                             </button>
                             <button
                                 type="button"
@@ -460,7 +458,7 @@ export class BasicDataContributionComponent {
 
     // Separate properties for contribution type and department type
     selectedContributionType: string = 'Normal Contribution';
-    selectedDepartmentType: string = 'department-none';
+    selectedDepartmentType: string = 'none';
 
     headingTooltipIcon = 'assets/images/heading-tooltip-icon.svg';
 
@@ -484,7 +482,7 @@ export class BasicDataContributionComponent {
         Validators.required,
     ]);
 
-    departmentControl = new FormControl('department-none');
+    departmentControl = new FormControl('none');
 
     anzahlControl = new FormControl('', [Validators.pattern(/^[0-9]{1,3}$/)]);
 
@@ -507,7 +505,7 @@ export class BasicDataContributionComponent {
         private translate: TranslateService,
         @Inject(DOCUMENT) private document: Document
     ) {
-        console.log('BasicDataContributionComponent: constructor');
+        // console.log('BasicDataContributionComponent: constructor');
 
         // Set up translations the same way as ContributionIntervalComponent
         this.translate.setTranslation('en', TranslateEN);

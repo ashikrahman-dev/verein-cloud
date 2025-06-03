@@ -16,6 +16,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { TabService } from '../basic-data-contribution/tab.service'; // Import TabService
 
+// Add only the necessary translation imports
+import {
+    TranslateModule,
+    TranslatePipe,
+    TranslateService,
+} from '@ngx-translate/core';
+import TranslateDE from '../../../../public/i18n/de.json';
+import TranslateEN from '../../../../public/i18n/en.json';
+
 @Component({
     selector: 'app-payment-terms-calculation',
     standalone: true,
@@ -36,6 +45,9 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
         MatButtonModule,
         MatIconModule,
         MatRadioModule,
+
+        TranslateModule,
+        TranslatePipe,
     ],
     template: `
         <mat-stepper
@@ -53,6 +65,7 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                             >
                                 Proceeding to Contribution Interval and Due Date
                                 Settings
+
                                 <img
                                     [src]="headingTooltipIcon"
                                     alt="Calendar Icon"
@@ -73,7 +86,7 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                                     class="step-button fill"
                                     matStepperNext
                                 >
-                                    Proceed
+                                    {{ 'buttons.procced' | translate }}
                                 </button>
                             </div>
                         </div>
@@ -86,7 +99,10 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                 <form [formGroup]="step2FormGroup">
                     <div class="basic-data-contribution">
                         <h4 class="heading">
-                            Defining the Payment Deadline
+                            {{
+                                'payment_terms_calculation.defining_the_payment_deadline'
+                                    | translate
+                            }}
                             <span class="basic-setting">
                                 ( Basic setting )</span
                             >
@@ -99,7 +115,12 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                         <div class="">
                             <!-- Payment Deadline -->
                             <div>
-                                <p class="form-label pt-3">Payment Deadline</p>
+                                <p class="form-label pt-3">
+                                    {{
+                                        'payment_terms_calculation.payment_deadline'
+                                            | translate
+                                    }}
+                                </p>
                                 <input
                                     placeholder="Enter day (1-999)"
                                     class="form-input-field font-rubik remove-icon-cls"
@@ -153,14 +174,14 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                                     matStepperNext
                                     [disabled]="!isStep2Valid()"
                                 >
-                                    Next
+                                    {{ 'buttons.next' | translate }}
                                 </button>
                                 <button
                                     type="button"
                                     class="step-button"
                                     matStepperPrevious
                                 >
-                                    Back
+                                    {{ 'buttons.back' | translate }}
                                 </button>
                             </div>
                         </div>
@@ -175,7 +196,10 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                         <h4
                             class="heading pb-4 d-flex gap-2 align-items-center"
                         >
-                            Selecting the Prorated Calculation Method
+                            {{
+                                'payment_terms_calculation.prorated_calculation'
+                                    | translate
+                            }}
                             <img
                                 [src]="headingTooltipIcon"
                                 alt="Calendar Icon"
@@ -185,7 +209,11 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
 
                         <div class="tab-contents">
                             <h6 class="fs-14 pb-3 font-rubik font-normal">
-                                Select Prorated Calculation Method
+                                <!-- Select Prorated Calculation Method -->
+                                {{
+                                    'payment_terms_calculation.prorated_calculation'
+                                        | translate
+                                }}
                             </h6>
                             <div class="tab-checkbox-wrap d-flex">
                                 <mat-radio-group
@@ -197,7 +225,10 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                                         value="no-prorated-calculation"
                                     >
                                         <h6 class="">
-                                            No Prorated Calculation
+                                            {{
+                                                'payment_terms_calculation.no_prorated_calculation'
+                                                    | translate
+                                            }}
                                         </h6>
                                         <p>
                                             The full contribution is charged for
@@ -211,7 +242,12 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                                         class="w-100 check-box-item font-rubik"
                                         value="monthly-prorated-calculation"
                                     >
-                                        <h6>Monthly Prorated Calculation</h6>
+                                        <h6>
+                                            {{
+                                                'payment_terms_calculation.monthly_prorated_calculation'
+                                                    | translate
+                                            }}
+                                        </h6>
                                         <p>
                                             The contribution is adjusted based
                                             on the remaining months in the
@@ -224,7 +260,12 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                                         class="w-100 check-box-item font-rubik"
                                         value="daily-prorated-calculation"
                                     >
-                                        <h6>Daily Prorated Calculation</h6>
+                                        <h6>
+                                            {{
+                                                'payment_terms_calculation.daily_prorated_calculation'
+                                                    | translate
+                                            }}
+                                        </h6>
                                         <p>
                                             The contribution is calculated
                                             precisely based on the number of
@@ -247,14 +288,14 @@ import { TabService } from '../basic-data-contribution/tab.service'; // Import T
                                     class="step-button fill"
                                     (click)="saveForm()"
                                 >
-                                    Save
+                                    {{ 'buttons.save' | translate }}
                                 </button>
                                 <button
                                     type="button"
                                     class="step-button"
                                     matStepperPrevious
                                 >
-                                    Back
+                                    {{ 'buttons.back' | translate }}
                                 </button>
                             </div>
                         </div>
@@ -331,7 +372,19 @@ export class PaymentTermsCalculationComponent {
     private _formBuilder = inject(FormBuilder);
 
     // Inject TabService
-    constructor(private tabService: TabService) {}
+    constructor(
+        private tabService: TabService,
+        private translate: TranslateService
+    ) {
+        // Set up translations the same way as ContributionIntervalComponent
+        this.translate.setTranslation('en', TranslateEN);
+        this.translate.setTranslation('de', TranslateDE);
+        this.translate.setDefaultLang('de');
+
+        // Get the current language from localStorage (if available) or use default
+        const savedLang = localStorage.getItem('lang') || 'de';
+        this.translate.use(savedLang);
+    }
 
     // Form controls for each step
     step1FormGroup = this._formBuilder.group({

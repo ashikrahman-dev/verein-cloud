@@ -10,6 +10,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 
+// Add only the necessary translation imports
+import {
+    TranslateModule,
+    TranslatePipe,
+    TranslateService,
+} from '@ngx-translate/core';
+import TranslateDE from '../../../../public/i18n/de.json';
+import TranslateEN from '../../../../public/i18n/en.json';
+
 @Component({
     selector: 'app-calculation-configuration',
     standalone: true,
@@ -19,6 +28,9 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
         MatInputModule,
         ReactiveFormsModule,
         CommonModule,
+
+        TranslateModule,
+        TranslatePipe,
     ],
     template: `
         <mat-stepper
@@ -41,6 +53,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                             >
                                 Proceeding to the Calculation Configuration
                             </h3>
+
                             <p class="fs-14 font-normal cc-first-step-content">
                                 Configures how contributions are calculated,
                                 allowing flexibility based on dynamic rules and
@@ -57,7 +70,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     matStepperNext
                                     [disabled]="!stepOneForm.valid"
                                 >
-                                    Proceed
+                                    {{ 'buttons.procced' | translate }}
                                 </button>
                             </div>
                         </div>
@@ -82,7 +95,10 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                             />
                         </h4>
                         <p class="form-label pt-2 mt-3">
-                            Select Calculation Method
+                            {{
+                                'calculation.select_calculation_method'
+                                    | translate
+                            }}
                         </p>
                         <mat-form-field class="w-100 bg-white font-rubik">
                             <mat-label
@@ -103,16 +119,18 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                 "
                             >
                                 <mat-option value="fixed-value">
-                                    Fixed Value – A static contribution amount
+                                    {{ 'calculation.fixed_value' | translate }}
                                 </mat-option>
                                 <mat-option value="free-field-value">
-                                    Free Field Value - Contribution is
-                                    determined based on free field variables
-                                    (e.g. work hours, usage, member status)
+                                    {{
+                                        'calculation.free_field_value'
+                                            | translate
+                                    }}
                                 </mat-option>
                                 <mat-option value="variable-value">
-                                    Variable Value - Use formulas to calculate
-                                    contributions dynamically
+                                    {{
+                                        'calculation.variable_value' | translate
+                                    }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -127,14 +145,14 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     matStepperNext
                                     [disabled]="!stepTwoForm.valid"
                                 >
-                                    Next
+                                    {{ 'buttons.next' | translate }}
                                 </button>
                                 <button
                                     type="button"
                                     class="step-button"
                                     matStepperPrevious
                                 >
-                                    Back
+                                    {{ 'buttons.back' | translate }}
                                 </button>
                             </div>
                         </div>
@@ -216,7 +234,11 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                         <!-- Basic Amount -->
                                         <div class="w-100">
                                             <p class="form-label fw-normal">
-                                                Basic Amount (€)
+                                                {{
+                                                    'calculation.basic_amount'
+                                                        | translate
+                                                }}
+                                                (€)
                                             </p>
                                             <input
                                                 matInput
@@ -230,7 +252,11 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                         <!-- Tax -->
                                         <div class="w-100">
                                             <p class="form-label fw-normal">
-                                                Tax (%)
+                                                {{
+                                                    'calculation.tax'
+                                                        | translate
+                                                }}
+                                                (%)
                                             </p>
                                             <input
                                                 matInput
@@ -248,7 +274,13 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                         <div
                                             class="new-contribution-result w-100"
                                         >
-                                            <h4>Result :</h4>
+                                            <h4>
+                                                {{
+                                                    'calculation.result'
+                                                        | translate
+                                                }}
+                                                :
+                                            </h4>
                                             <p>
                                                 <span>€</span>
                                                 {{
@@ -333,7 +365,10 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                         <!-- Free Field Name -->
                                         <div class="w-100">
                                             <p class="form-label fw-normal">
-                                                Free Field Name
+                                                {{
+                                                    'calculation.free_field_name'
+                                                        | translate
+                                                }}Free Field Name
                                             </p>
 
                                             <mat-form-field
@@ -369,7 +404,10 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                         <!-- Duration -->
                                         <div class="w-100">
                                             <p class="form-label fw-normal">
-                                                Duration
+                                                {{
+                                                    'calculation.duration'
+                                                        | translate
+                                                }}
                                             </p>
                                             <input
                                                 matInput
@@ -396,7 +434,10 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                             "
                         >
                             <h4 class="heading">
-                                Selecting the Applying Conditional Logic
+                                {{
+                                    'calculation.applying_conditional_logic'
+                                        | translate
+                                }}
                                 <img
                                     [src]="headingTooltipIcon"
                                     alt="Calendar Icon"
@@ -404,7 +445,10 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                 />
                             </h4>
                             <h5 class="form-label pt-2 mt-3 fw-medium">
-                                Select Calculation Method
+                                {{
+                                    'calculation.select_calculation_method'
+                                        | translate
+                                }}
                             </h5>
 
                             <div class="calculation-configuration-step">
@@ -488,11 +532,11 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     <mat-form-field
                                         class="w-100 bg-white font-rubik"
                                     >
-                                        <mat-label
+                                        <!-- <mat-label
                                             class="font-rubik d-flex gap-2 align-items-center"
                                         >
                                             Select Operator
-                                        </mat-label>
+                                        </mat-label> -->
                                         <mat-select
                                             class="font-rubik"
                                             formControlName="operator"
@@ -559,11 +603,11 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     <mat-form-field
                                         class="w-100 bg-white font-rubik"
                                     >
-                                        <mat-label
+                                        <!-- <mat-label
                                             class="font-rubik d-flex gap-2 align-items-center"
                                         >
                                             Select field
-                                        </mat-label>
+                                        </mat-label> -->
                                         <mat-select class="font-rubik">
                                             <mat-option value="and_club_status">
                                                 Club Status
@@ -591,11 +635,11 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     <mat-form-field
                                         class="w-100 bg-white font-rubik"
                                     >
-                                        <mat-label
+                                        <!-- <mat-label
                                             class="font-rubik d-flex gap-2 align-items-center"
                                         >
                                             Select field
-                                        </mat-label>
+                                        </mat-label> -->
                                         <mat-select class="font-rubik">
                                             <mat-option
                                                 value="or_member_number"
@@ -617,11 +661,11 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     <mat-form-field
                                         class="w-100 bg-white font-rubik"
                                     >
-                                        <mat-label
+                                        <!-- <mat-label
                                             class="font-rubik d-flex gap-2 align-items-center"
                                         >
                                             Select Operator
-                                        </mat-label>
+                                        </mat-label> -->
                                         <mat-select class="font-rubik">
                                             <mat-option value="operator_active">
                                                 Active
@@ -754,11 +798,11 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     <mat-form-field
                                         class="w-100 bg-white font-rubik"
                                     >
-                                        <mat-label
+                                        <!-- <mat-label
                                             class="font-rubik d-flex gap-2 align-items-center"
                                         >
                                             Select Tax
-                                        </mat-label>
+                                        </mat-label> -->
                                         <mat-select class="font-rubik">
                                             <mat-option value="tax_number_no">
                                                 No
@@ -784,14 +828,14 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     matStepperNext
                                     [disabled]="!stepThreeForm.valid"
                                 >
-                                    Next
+                                    {{ 'buttons.next' | translate }}
                                 </button>
                                 <button
                                     type="button"
                                     class="step-button"
                                     matStepperPrevious
                                 >
-                                    Back
+                                    {{ 'buttons.back' | translate }}
                                 </button>
                             </div>
                         </div>
@@ -920,14 +964,14 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
                                     [disabled]="!stepFourForm.valid"
                                     (click)="saveConfiguration()"
                                 >
-                                    Save
+                                    {{ 'buttons.save' | translate }}
                                 </button>
                                 <button
                                     type="button"
                                     class="step-button"
                                     matStepperPrevious
                                 >
-                                    Back
+                                    {{ 'buttons.back' | translate }}
                                 </button>
                             </div>
                         </div>
@@ -1056,7 +1100,10 @@ export class CalculationConfigurationComponent implements OnInit {
     // Track selected function in variable-value mode
     selectedFunction: string = '';
 
-    constructor(private _formBuilder: FormBuilder) {
+    constructor(
+        private _formBuilder: FormBuilder,
+        private translate: TranslateService
+    ) {
         // Initialize form groups with validation
         this.stepOneForm = this._formBuilder.group({
             // Step 1 doesn't need controls as it's just informational
@@ -1095,6 +1142,15 @@ export class CalculationConfigurationComponent implements OnInit {
                 '[Association] [Last Name] [First Name] [Contribution] [Period]',
             ],
         });
+
+        // Set up translations the same way as ContributionIntervalComponent
+        this.translate.setTranslation('en', TranslateEN);
+        this.translate.setTranslation('de', TranslateDE);
+        this.translate.setDefaultLang('de');
+
+        // Get the current language from localStorage (if available) or use default
+        const savedLang = localStorage.getItem('lang') || 'de';
+        this.translate.use(savedLang);
     }
 
     ngOnInit(): void {

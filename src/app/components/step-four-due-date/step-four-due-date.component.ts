@@ -6,6 +6,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+// Add translation imports
+import {
+    TranslateModule,
+    TranslatePipe,
+    TranslateService,
+} from '@ngx-translate/core';
+import TranslateDE from '../../../../public/i18n/de.json';
+import TranslateEN from '../../../../public/i18n/en.json';
 
 @Component({
     selector: 'app-step-four-due-date',
@@ -18,43 +26,47 @@ import { MatSelectModule } from '@angular/material/select';
         MatInputModule,
         MatDatepickerModule,
         MatIconModule,
+        // Add translation imports
+        TranslateModule,
+        TranslatePipe,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <div>
-            <h6 class="due-date">Due Date</h6>
+            <h6 class="due-date">
+                {{ 'interval_due_date.due_date' | translate }}
+            </h6>
+
             <mat-form-field
                 class="w-100 bg-white font-rubik due-date-select-field"
             >
-                <mat-label class="font-rubik d-flex gap-2 align-items-center">
+                <!-- <mat-label class="font-rubik d-flex gap-2 align-items-center">
                     <img [src]="numberIcon" alt="Calendar Icon" class="" />
                     {{ selectedValue || 'None' }}
-                </mat-label>
+                </mat-label> -->
                 <mat-select
                     class="font-rubik"
                     [(ngModel)]="selectedValue"
                     (selectionChange)="onSelectionChange()"
                 >
                     <mat-option value="no-due-date">
-                        No due date – Due on the first day of the interval
+                        {{ 'interval_due_date.no_due_date' | translate }}
                     </mat-option>
                     <mat-option value="relative-to-start">
-                        Relative to start - Example: "5 days before or after the
-                        interval starts"
+                        {{ 'interval_due_date.relative_to_start' | translate }}
                     </mat-option>
                     <mat-option value="relative-to-end">
-                        Relative to end - Example: "5 days before or after the
-                        interval ends"
+                        {{ 'interval_due_date.relative_to_end' | translate }}
                     </mat-option>
                     <mat-option value="fixed-date">
-                        Fixed date – Choose a specific date
+                        {{ 'interval_due_date.fixed_date' | translate }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
 
             <!-- Conditional show hide content -->
             <!-- Condition for  relative to start & end -->
-            <div class="d-flex gap-3">
+            <div class="d-flex gap-3 pt-3">
                 <div
                     class="conditional-content w-100"
                     *ngIf="
@@ -83,7 +95,7 @@ import { MatSelectModule } from '@angular/material/select';
                 >
                     <p class="form-label">Anzahl</p>
                     <mat-form-field class="w-100 bg-white font-rubik">
-                        <mat-label
+                        <!-- <mat-label
                             class="font-rubik d-flex gap-2 align-items-center"
                         >
                             <img
@@ -91,20 +103,32 @@ import { MatSelectModule } from '@angular/material/select';
                                 alt="Calendar Icon"
                                 class=""
                             />
-                            Choose an option</mat-label
-                        >
+                            {{
+                                'interval_due_date.choose_an_option' | translate
+                            }}
+                        </mat-label> -->
                         <mat-select
                             [(ngModel)]="selectedAnzahlInterval"
                             (selectionChange)="onSelectionChange()"
                         >
-                            <mat-option value="days">Days</mat-option>
-                            <mat-option value="weeks">Weeks</mat-option>
-                            <mat-option value="months">Months</mat-option>
-                            <mat-option value="quarters">Quarters</mat-option>
-                            <mat-option value="halfYears"
-                                >Half-years</mat-option
-                            >
-                            <mat-option value="years">Years</mat-option>
+                            <mat-option value="days">{{
+                                'interval_due_date.days' | translate
+                            }}</mat-option>
+                            <mat-option value="weeks">{{
+                                'interval_due_date.weeks' | translate
+                            }}</mat-option>
+                            <mat-option value="months">{{
+                                'interval_due_date.months' | translate
+                            }}</mat-option>
+                            <mat-option value="quarters">{{
+                                'interval_due_date.quarters' | translate
+                            }}</mat-option>
+                            <mat-option value="halfYears">{{
+                                'interval_due_date.half_years' | translate
+                            }}</mat-option>
+                            <mat-option value="years">{{
+                                'interval_due_date.years' | translate
+                            }}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -114,9 +138,11 @@ import { MatSelectModule } from '@angular/material/select';
                     class="conditional-content w-100"
                     *ngIf="selectedValue === 'relative-to-start'"
                 >
-                    <p class="form-label">Interval</p>
+                    <p class="form-label">
+                        {{ 'interval_due_date.interval' | translate }}
+                    </p>
                     <mat-form-field class="w-100 bg-white font-rubik">
-                        <mat-label
+                        <!-- <mat-label
                             class="font-rubik d-flex gap-2 align-items-center"
                         >
                             <img
@@ -124,20 +150,27 @@ import { MatSelectModule } from '@angular/material/select';
                                 alt="Calendar Icon"
                                 class=""
                             />
-                            Choose an option</mat-label
-                        >
+                            {{
+                                'interval_due_date.interval' | translate
+                            }}</mat-label
+                        > -->
                         <mat-select
                             [(ngModel)]="selectedInterval"
                             (selectionChange)="onSelectionChange()"
                         >
                             <mat-option
                                 value="before-the-start-current-interval"
-                                >Before the start of the current
-                                interval</mat-option
+                                >{{
+                                    'interval_due_date.before_the_end'
+                                        | translate
+                                }}</mat-option
                             >
-                            <mat-option value="after-the-start-current-interval"
-                                >After the start of the current
-                                interval</mat-option
+                            <mat-option
+                                value="after-the-start-current-interval"
+                                >{{
+                                    'interval_due_date.after_the_end'
+                                        | translate
+                                }}</mat-option
                             >
                         </mat-select>
                     </mat-form-field>
@@ -148,9 +181,11 @@ import { MatSelectModule } from '@angular/material/select';
                     class="conditional-content w-100"
                     *ngIf="selectedValue === 'relative-to-end'"
                 >
-                    <p class="form-label">Interval</p>
+                    <p class="form-label">
+                        {{ 'interval_due_date.interval' | translate }}
+                    </p>
                     <mat-form-field class="w-100 bg-white font-rubik">
-                        <mat-label
+                        <!-- <mat-label
                             class="font-rubik d-flex gap-2 align-items-center"
                         >
                             <img
@@ -158,21 +193,27 @@ import { MatSelectModule } from '@angular/material/select';
                                 alt="Calendar Icon"
                                 class=""
                             />
-                            Choose an option</mat-label
-                        >
+                            {{
+                                'interval_due_date.choose_an_option' | translate
+                            }}</mat-label
+                        > -->
                         <mat-select
                             [(ngModel)]="selectedInterval"
                             (selectionChange)="onSelectionChange()"
                         >
                             <mat-option
                                 value="Before the end of the current interval"
-                                >Before the end of the current
-                                interval</mat-option
+                                >{{
+                                    'interval_due_date.before_the_end'
+                                        | translate
+                                }}</mat-option
                             >
                             <mat-option
                                 value="After the end of the current interval"
-                                >After the end of the current
-                                interval</mat-option
+                                >{{
+                                    'interval_due_date.after_the_end'
+                                        | translate
+                                }}</mat-option
                             >
                         </mat-select>
                     </mat-form-field>
@@ -253,7 +294,7 @@ import { MatSelectModule } from '@angular/material/select';
                         <mat-label class="font-rubik">Select</mat-label>
                         <mat-select [(ngModel)]="quarterStartMonth">
                             <mat-option value="firstMonthToSixthMonth"
-                                >"of 1st month” up to “of 6th month”</mat-option
+                                >"of 1st month" up to "of 6th month"</mat-option
                             >
                         </mat-select>
                     </mat-form-field>
@@ -272,8 +313,8 @@ import { MatSelectModule } from '@angular/material/select';
                         <mat-label class="font-rubik">Select</mat-label>
                         <mat-select [(ngModel)]="quarterStartMonth">
                             <mat-option value="firstMonthToTwelveMonth"
-                                >“of 1st month” up to “of 12th
-                                month”</mat-option
+                                >"of 1st month" up to "of 12th
+                                month"</mat-option
                             >
                         </mat-select>
                     </mat-form-field>
@@ -298,8 +339,8 @@ export class StepFourDueDateComponent {
     calendarDateIcon = 'assets/images/calendar-edit.svg';
     calendarIcon = 'assets/images/calendar-edit.svg';
 
-    selectedValue: string | null = null;
-    selectedAnzahlInterval: string | null = null;
+    selectedValue: string | null = 'no-due-date'; // Changed from null to 'no-due-date'
+    selectedAnzahlInterval: string | null = 'quarters'; // Changed from null to 'quarters'
     selectedInterval: string | null = null;
     dueDateAnzahl: string = '';
     dueDateTage: string = '';
@@ -308,8 +349,22 @@ export class StepFourDueDateComponent {
     quarterStartMonth: string = 'january';
     proRateFirstQuarter: boolean = false;
 
+    // Inject TranslateService
+    constructor(private translate: TranslateService) {
+        // console.log('StepFourDueDateComponent: constructor');
+
+        // Set up translations the same way as ContributionIntervalComponent
+        this.translate.setTranslation('en', TranslateEN);
+        this.translate.setTranslation('de', TranslateDE);
+        this.translate.setDefaultLang('de');
+
+        // Get the current language from localStorage (if available) or use default
+        const savedLang = localStorage.getItem('lang') || 'de';
+        this.translate.use(savedLang);
+    }
+
     onSelectionChange() {
-        console.log('Selected option:', this.selectedValue);
+        // console.log('Selected option:', this.selectedValue);
     }
 
     validateDueDateAnzahl(event: KeyboardEvent) {
