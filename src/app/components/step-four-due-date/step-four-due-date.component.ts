@@ -76,7 +76,7 @@ import TranslateEN from '../../../../public/i18n/en.json';
                 >
                     <!-- Due Date Anzahl -->
                     <div>
-                        <p class="form-label">Anzahl</p>
+                        <p class="form-label">Billing</p>
                         <input
                             [(ngModel)]="dueDateAnzahl"
                             placeholder="123"
