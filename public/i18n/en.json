@@ -32,6 +32,7 @@
     "interval_due_date": {
         "tab_title": "Interval Due Date",
         "contribution_interval": "Contribution Interval",
+        "one_off": "One-off",
         "one_time": "One-time",
         "monthly": "Monthly",
         "quarterly": "Quarterly",

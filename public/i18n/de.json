@@ -32,6 +32,7 @@
     "interval_due_date": {
         "tab_title": "Intervall und Fälligkeitsdatum",
         "contribution_interval": "Beitrags Intervall",
+        "one_off": "One-off",
         "one_time": "Einmalig",
         "monthly": "Monatlich",
         "quarterly": "Quartalsweise",

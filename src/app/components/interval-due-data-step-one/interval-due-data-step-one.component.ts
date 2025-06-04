@@ -212,9 +212,9 @@ export const MY_DATE_FORMATS = {
                                     >
                                         <mat-option value="One-off">
                                             {{
-                                                'interval_due_date.one_time'
+                                                'interval_due_date.one_off'
                                                     | translate
-                                            }}One-off
+                                            }}
                                         </mat-option>
                                         <mat-option value="One-time">
                                             {{
@@ -349,6 +349,22 @@ export const MY_DATE_FORMATS = {
                                             extended by [one month; three
                                             months; six months; one year] in
                                             each case
+                                        </p>
+                                    </mat-radio-button>
+                                    <mat-radio-button
+                                        class="w-100 check-box-item font-rubik"
+                                        value="special_case_for_one_off:"
+                                        *ngIf="
+                                            stepTwoForm.get(
+                                                'selectedContributionType'
+                                            )?.value === 'One-off'
+                                        "
+                                    >
+                                        <h6>Special case for one-off</h6>
+                                        <p>
+                                            "The billing period begins when the
+                                            contribution is activated and does
+                                            not renew."
                                         </p>
                                     </mat-radio-button>
                                 </mat-radio-group>
@@ -621,6 +637,11 @@ export class IntervalDueDataStepOneComponent {
         if (intervalValue === 'predefined') {
             this.stepThreeForm.get('predefinedDate')?.markAsTouched();
         }
+    }
+
+    onContributionTypeChange() {
+        // Clear the interval selection when contribution type changes
+        this.stepThreeForm.get('selectedInterval')?.setValue('');
     }
 
     // onCompleteForm() {
