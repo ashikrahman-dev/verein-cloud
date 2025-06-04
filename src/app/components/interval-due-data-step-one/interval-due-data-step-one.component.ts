@@ -161,7 +161,7 @@ export const MY_DATE_FORMATS = {
                                     class="step-button fill"
                                     matStepperNext
                                 >
-                                    {{ 'buttons.procced' | translate }}
+                                    {{ 'buttons.proceed' | translate }}
                                 </button>
                             </div>
                         </div>

@@ -98,13 +98,14 @@
     },
     "finalization_step": {
         "tab_title": "Finalization Step",
-        "invoice": "Invoice"
+        "invoice": "Invoice",
+        "donation_receipt": "Donation receipt"
     },
     "buttons": {
         "save": "Save",
         "back": "Back",
         "delete": "Delete",
-        "procced": "Procced",
+        "proceed": "Proceed",
         "next": "Next"
     },
     "main_title": "Welcome to the Application",

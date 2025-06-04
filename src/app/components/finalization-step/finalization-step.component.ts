@@ -12,6 +12,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 
+// Add only the necessary translation imports
+import {
+    TranslateModule,
+    TranslatePipe,
+    TranslateService,
+} from '@ngx-translate/core';
+import TranslateDE from '../../../../public/i18n/de.json';
+import TranslateEN from '../../../../public/i18n/en.json';
+
 @Component({
     selector: 'app-finalization-step',
     standalone: true, // ✅ Mark as standalone
@@ -36,6 +45,9 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatButtonModule,
         MatIconModule,
         MatRadioModule,
+
+        TranslateModule,
+        TranslatePipe,
     ],
     template: `
         <mat-stepper
@@ -69,7 +81,7 @@ import { MatStepperModule } from '@angular/material/stepper';
                                 class="step-button fill"
                                 matStepperNext
                             >
-                                Procced
+                                {{ 'buttons.proceed' | translate }}
                             </button>
                         </div>
                     </div>
@@ -151,13 +163,21 @@ import { MatStepperModule } from '@angular/material/stepper';
                                             class="w-100 check-box-item font-rubik"
                                             value="value-invoice"
                                         >
-                                            <h6>Invoice</h6>
+                                            <h6>
+                                                {{
+                                                    'finalization_step.invoice'
+                                                        | translate
+                                                }}
+                                            </h6>
                                         </mat-radio-button>
                                         <mat-radio-button
                                             class="w-100 check-box-item font-rubik"
                                             value="value-donation-receipt"
                                         >
-                                            <h6>Donation receipt</h6>
+                                            <h6>{{
+                                                    'finalization_step.donation_receipt'
+                                                        | translate
+                                                }}</h6>
                                         </mat-radio-button>
                                     </mat-radio-group>
                                 </div>
@@ -205,14 +225,14 @@ import { MatStepperModule } from '@angular/material/stepper';
                             class="button-wrap d-flex justify-content-end align-items-end gap-3"
                         >
                             <button type="button" class="step-button fill">
-                                Save
+                                {{ 'buttons.save' | translate }}
                             </button>
                             <button
                                 type="button"
                                 class="step-button"
                                 matStepperPrevious
                             >
-                                Back
+                                {{ 'buttons.back' | translate }}
                             </button>
                         </div>
                     </div>
@@ -289,4 +309,18 @@ export class FinalizationStepComponent {
     secondFormGroup = this._formBuilder.group({
         secondCtrl: ['', Validators.required],
     });
+
+    // Inject TabService and TranslateService
+    constructor(private translate: TranslateService) {
+        console.log('ContributionIntervalComponent: constructor');
+
+        // Set up translations the same way as AppComponent
+        this.translate.setTranslation('en', TranslateEN);
+        this.translate.setTranslation('de', TranslateDE);
+        this.translate.setDefaultLang('de');
+
+        // Get the current language from localStorage (if available) or use default
+        const savedLang = localStorage.getItem('lang') || 'de';
+        this.translate.use(savedLang);
+    }
 }

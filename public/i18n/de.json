@@ -97,12 +97,13 @@
     },
     "finalization_step": {
         "tab_title": "Finalisierungsschritt",
-        "invoice": "Rechnung"
+        "invoice": "Rechnung",
+        "donation_receipt": "Spendenbescheinigung"
     },
     "buttons": {
         "save": "Save",
         "back": "Zurück",
-        "procced": "Weiter",
+        "proceed": "Weiter",
         "next": "Weiter"
     },
     "main_title": "Willkommen bei der Anwendung",

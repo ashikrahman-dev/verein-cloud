@@ -86,7 +86,7 @@ import TranslateEN from '../../../../public/i18n/en.json';
                                     class="step-button fill"
                                     matStepperNext
                                 >
-                                    {{ 'buttons.procced' | translate }}
+                                    {{ 'buttons.proceed' | translate }}
                                 </button>
                             </div>
                         </div>

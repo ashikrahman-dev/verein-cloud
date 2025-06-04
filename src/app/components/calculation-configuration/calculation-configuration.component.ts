@@ -70,7 +70,7 @@ import TranslateEN from '../../../../public/i18n/en.json';
                                     matStepperNext
                                     [disabled]="!stepOneForm.valid"
                                 >
-                                    {{ 'buttons.procced' | translate }}
+                                    {{ 'buttons.proceed' | translate }}
                                 </button>
                             </div>
                         </div>
