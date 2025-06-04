@@ -102,15 +102,24 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                                 {{ contributionIdInput }}
                                             </p>
                                             <p class="tab-pra mb-0">
-                                                Designation:
+                                                {{
+                                                    'table.designation'
+                                                        | translate
+                                                }}
                                                 {{ designationInput }}
                                             </p>
                                             <p class="tab-pra mb-0">
-                                                Type:
+                                                {{
+                                                    'table.contribution_type'
+                                                        | translate
+                                                }}:
                                                 {{ contributionTypeInput }}
                                             </p>
                                             <p class="tab-pra mb-0">
-                                                Department:
+                                                {{
+                                                    'table.departments'
+                                                        | translate
+                                                }}:
                                                 {{ departmentTypeInput }}
                                             </p>
                                         </div>
@@ -145,13 +154,22 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         </div>
                                         <div class="tab-pra-wrap mb-0">
                                             <p class="tab-pra mb-0">
-                                                Interval:
+                                                {{
+                                                    'interval_due_date.interval'
+                                                        | translate
+                                                }}:
                                             </p>
                                             <p class="tab-pra mb-0">
-                                                Billing period:
+                                                {{
+                                                    'interval_due_date.billing_period'
+                                                        | translate
+                                                }}:
                                             </p>
                                             <p class="tab-pra mb-0">
-                                                Due Date:
+                                                {{
+                                                    'interval_due_date.due_date'
+                                                        | translate
+                                                }}:
                                             </p>
                                         </div>
                                     </div>
@@ -185,11 +203,17 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         </div>
                                         <div class="tab-pra-wrap mb-0">
                                             <p class="tab-pra mb-0">
-                                                Payment term:
+                                                {{
+                                                    'payment_terms_calculation.payment_term'
+                                                        | translate
+                                                }}:
                                                 {{ paymentTermInput }}
                                             </p>
                                             <p class="tab-pra mb-0">
-                                                Prorata calculation:
+                                                {{
+                                                    'payment_terms_calculation.prorated_calculation_text'
+                                                        | translate
+                                                }}:
                                                 {{ prorataCalculationInput }}
                                             </p>
                                         </div>
@@ -226,20 +250,40 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                         </div>
                                         <div class="tab-pra-wrap mb-0">
                                             <p class="tab-pra mb-0">
-                                                Basic Amount:
-                                            </p>
-                                            <p class="tab-pra mb-0">Tax:</p>
-                                            <p class="tab-pra mb-0">
-                                                Revenue account:
-                                            </p>
-                                            <p class="tab-pra mb-0">
-                                                Active account:
+                                                {{
+                                                    'table.basic_amount'
+                                                        | translate
+                                                }}:
                                             </p>
                                             <p class="tab-pra mb-0">
-                                                Cost Center 1:
+                                                {{
+                                                    'calculation.tax'
+                                                        | translate
+                                                }}:
                                             </p>
                                             <p class="tab-pra mb-0">
-                                                Booking Text:
+                                                {{
+                                                    'calculation.revenue_account'
+                                                        | translate
+                                                }}:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                {{
+                                                    'calculation.active_account'
+                                                        | translate
+                                                }}:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                {{
+                                                    'table.cost_center'
+                                                        | translate
+                                                }}:
+                                            </p>
+                                            <p class="tab-pra mb-0">
+                                                {{
+                                                    'calculation.booking_text'
+                                                        | translate
+                                                }}:
                                             </p>
                                         </div>
                                     </div>
@@ -274,7 +318,12 @@ import { PaymentTermsCalculationComponent } from '../payment-terms-calculation/p
                                             <div class="check"></div>
                                         </div>
                                         <div class="tab-pra-wrap mb-0">
-                                            <p class="tab-pra mb-0">Invoice:</p>
+                                            <p class="tab-pra mb-0">
+                                                {{
+                                                    'finalization_step.invoice'
+                                                        | translate
+                                                }}:
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

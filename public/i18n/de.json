@@ -54,6 +54,7 @@
         "years": "Jahr(e)",
         "before_the_end": "Vor dem Ende des aktuellen Intervalls",
         "after_the_end": "Nach dem Ende des aktuellen Intervalls",
+        "billing_period": "Abrechnungszeitraum",
         "january": "Januar",
         "february": "Februar",
         "march": "März",
@@ -69,6 +70,8 @@
     },
     "payment_terms_calculation": {
         "tab_title": "Zahlungsbedingungen und Berechnung",
+        "payment_term": "Zahlungsziel",
+        "prorated_calculation_text": "Anteiligen Berechnung",
         "defining_the_payment_deadline": "Zahlungsfrist festlegen",
         "payment_deadline": "Zahlungsfrist",
         "prorated_calculation": "Auswählen der anteiligen Berechnungsmethode",
@@ -78,6 +81,7 @@
     },
     "calculation": {
         "tab_title": "Grundbetrag, Steuer, Konten und Kostenstellen",
+        "revenue_account": "Einnahmekonto",
         "select_calculation_method": "Berechnungsmethode auswählen",
         "fixed_value": "Fester Wert – Ein statischer Beitrag",
         "free_field_value": "Freifeldwert – Der Beitrag wird anhand von Freifeldvariablen (z. B. Arbeitszeit, Nutzung, Mitgliedsstatus) bestimmt.",
@@ -87,10 +91,13 @@
         "result": "Ergebnis",
         "free_field_name": "Freifeld",
         "duration": "Anzahl",
-        "applying_conditional_logic": "Beitragslogik"
+        "applying_conditional_logic": "Beitragslogik",
+        "active_account": "Aktives Konto",
+        "booking_text": "Buchungstext"
     },
     "finalization_step": {
-        "tab_title": "Finalisierungsschritt"
+        "tab_title": "Finalisierungsschritt",
+        "invoice": "Rechnung"
     },
     "buttons": {
         "save": "Save",

@@ -54,6 +54,7 @@
         "years": "Years",
         "before_the_end": "Before the end of the current interval",
         "after_the_end": "After the end of the current interval",
+        "billing_period": "Billing period",
         "january": "January",
         "february": "February",
         "march": "March",
@@ -69,6 +70,8 @@
     },
     "payment_terms_calculation": {
         "tab_title": "Payment terms and calculation",
+        "payment_term": "Payment term",
+        "prorated_calculation_text": "Prorated calculation",
         "defining_the_payment_deadline": "Defining the Payment Deadline",
         "payment_deadline": "Payment deadline",
         "prorated_calculation": "Selecting the prorated calculation method",
@@ -78,6 +81,7 @@
     },
     "calculation": {
         "tab_title": "Calculation",
+        "revenue_account": "Revenue account",
         "select_calculation_method": "Select calculation method",
         "fixed_value": "Fixed Value – A static contribution amount",
         "free_field_value": "Free field value – Contribution is determined based on free field variables (e.g. work hours, usage, member status)",
@@ -87,11 +91,14 @@
         "result": "Result",
         "free_field_name": "Free Field Name",
         "duration": "Duration",
-        "applying_conditional_logic": "Selecting the Applying Conditional Logic"
+        "applying_conditional_logic": "Selecting the Applying Conditional Logic",
+        "active_account": "Active account",
+        "booking_text": "Booking Text"
         
     },
     "finalization_step": {
-        "tab_title": "Finalization Step"
+        "tab_title": "Finalization Step",
+        "invoice": "Invoice"
     },
     "buttons": {
         "save": "Save",
