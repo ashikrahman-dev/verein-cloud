@@ -210,6 +210,12 @@ export const MY_DATE_FORMATS = {
                                         formControlName="selectedContributionType"
                                         class="font-rubik"
                                     >
+                                        <mat-option value="One-off">
+                                            {{
+                                                'interval_due_date.one_time'
+                                                    | translate
+                                            }}One-off
+                                        </mat-option>
                                         <mat-option value="One-time">
                                             {{
                                                 'interval_due_date.one_time'
@@ -301,9 +307,10 @@ export const MY_DATE_FORMATS = {
                                     >
                                         <h6>Start</h6>
                                         <p>
-                                            The period begins as soon as the
-                                            member's contribution is activated
-                                            and is then extended by one year.
+                                            The period begins when the
+                                            contribution is activated and is
+                                            then extended by [one month; three
+                                            months; six months; one year]
                                         </p>
                                     </mat-radio-button>
                                     <mat-radio-button
@@ -317,9 +324,12 @@ export const MY_DATE_FORMATS = {
                                             }}
                                         </h6>
                                         <p>
-                                            The period begins as soon as the
-                                            member's contribution is activated
-                                            and is then extended by one year.
+                                            The period begins at the start of
+                                            the financial year, ends on the last
+                                            day of the financial year and is
+                                            then extended by [one month; three
+                                            months; six months; one year] in
+                                            each case
                                         </p>
                                     </mat-radio-button>
                                     <mat-radio-button
@@ -333,9 +343,12 @@ export const MY_DATE_FORMATS = {
                                             }}
                                         </h6>
                                         <p>
-                                            The period begins as soon as the
-                                            member's contribution is activated
-                                            and is then extended by one year.
+                                            The period starts on a fixed date,
+                                            ends after [one month; three months;
+                                            six months; one year], and is then
+                                            extended by [one month; three
+                                            months; six months; one year] in
+                                            each case
                                         </p>
                                     </mat-radio-button>
                                 </mat-radio-group>
