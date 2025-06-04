@@ -149,6 +149,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
                 line-height: 156%; /* 21.84px */
                 font-family: 'Rubik', sans-serif;
                 position: relative;
+                border: none;
 
                 &:focus {
                     outline: none;

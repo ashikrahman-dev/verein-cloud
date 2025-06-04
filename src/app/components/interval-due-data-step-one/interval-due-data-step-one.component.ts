@@ -54,6 +54,36 @@ const moment = _rollupMoment || _moment;
 moment.updateLocale('en-gb', {
     weekdaysMin: ['S', 'M', 'D', 'M', 'D', 'F', 'S'], // Customize short day names
     // You could also customize weekdaysShort or weekdays if needed
+
+    // Customize month names
+    months: [
+        'Januar', // January
+        'Februar', // February
+        'März', // March
+        'April', // April
+        'Mai', // May
+        'Juni', // June
+        'Juli', // July
+        'August', // August
+        'September', // September
+        'Oktober', // October
+        'November', // November
+        'Dezember', // December
+    ],
+    monthsShort: [
+        'Jan', // Jan
+        'Feb', // Feb
+        'Mär', // Mar
+        'Apr', // Apr
+        'Mai', // May
+        'Jun', // Jun
+        'Jul', // Jul
+        'Aug', // Aug
+        'Sep', // Sep
+        'Okt', // Oct
+        'Nov', // Nov
+        'Dez', // Dec
+    ],
 });
 
 // Custom date formats
@@ -166,7 +196,7 @@ export const MY_DATE_FORMATS = {
                                 <mat-form-field
                                     class="w-100 bg-white font-rubik selectedContributionTypeCls"
                                 >
-                                    <mat-label
+                                    <!-- <mat-label
                                         class="font-rubik d-flex gap-2 align-items-center"
                                     >
                                         <img
@@ -175,7 +205,7 @@ export const MY_DATE_FORMATS = {
                                             class=""
                                         />
                                         Choose an option</mat-label
-                                    >
+                                    > -->
                                     <mat-select
                                         formControlName="selectedContributionType"
                                         class="font-rubik"
